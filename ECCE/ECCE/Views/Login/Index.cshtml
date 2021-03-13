@@ -1,0 +1,73 @@
+﻿
+@{
+    @model LoginAcesso;
+    ViewData["Title"] = "Login";
+    Layout = "_LayoutLogin";
+}
+
+<style>
+    .card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+        margin-top: 30px;
+    }
+
+    @@media (max-width: 575.98px) {
+
+        .imgLogo {
+            height: 150px !important;
+            width: 150px !important;
+        }
+
+        .border-success {
+            border-color: #ffffff !important;
+        }
+    }
+
+    body {
+        color: #678912;
+    }
+
+    .border-success {
+        border-color: #678912 !important;
+    }
+</style>
+<div class="text-center">
+    <h6>Faça o login</h6>
+    <form asp-action="Logar">
+        <div class="card border-success col-md-6">
+            <div class="card-body">
+
+                <div class="form-group col-md-12" style="margin-top:10px;">
+                    <label asp-for="Email" class="control-label"><i class="fas fa-user"></i> Usuario</label>
+                    <input type="email" inputmode="email" asp-for="Email" class="form-control" />
+                </div>
+                <div class="col-md-12" style="margin-top:10px;">
+                    <label asp-for="Senha" class="control-label"><i class="fas fa-lock"></i> Senha</label>
+                    <input type="password" asp-for="Senha" class="form-control" />
+                </div>
+                <hr />
+                <div class="col-md-12 text-center" style="margin-top:15px;">
+                    <button id="btentrar" type="submit" class="btn btn-success" style="width:80%;background:#678912"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+                </div>
+                <div id="loadin"></div>
+                <div class="col-md-12 text-center clsErro" style="margin-top:15px;color:red;">
+                    @ViewData["erro"]
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <script>
+        $(() => {
+            $("#btentrar").click(function () {
+                $(this).hide();
+                $(".clsReg").hide();
+                $(".clsErro").hide();
+                $("#loadin").html("<div class='alert alert-light text-center' role='alert'><img src='./img/loading.gif' /> Aguarde...</div>");
+            });
+        });
+    </script>
+}

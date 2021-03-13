@@ -1,0 +1,41 @@
+﻿
+@{
+    @model tb_endereco;
+    ViewData["Title"] = "Categorias";
+
+}
+
+<h4>Dados Pessoais</h4>
+
+<form asp-action="SalvarEndereco" asp-controller="Usuario">
+    <div class="form-group">
+        <label asp-for="Descricao"></label>
+        <input type="text" class="form-control" asp-for="Descricao">
+        <label asp-for="Cep"></label>
+        <input type="text" class="form-control" asp-for="Cep">
+        <label asp-for="Endereco"></label>
+        <input type="text" class="form-control" asp-for="Endereco">
+        <label asp-for="Numero"></label>
+        <input type="text" class="form-control" asp-for="Numero">
+        <label asp-for="Complemento"></label>
+        <input type="text" class="form-control" asp-for="Complemento">
+        <label asp-for="Bairro"></label>
+        <input type="text" class="form-control" asp-for="Bairro">
+        <label asp-for="Cidade"></label>
+        <input type="text" class="form-control" asp-for="Cidade">
+        <label asp-for="UF"></label>
+        <input type="text" class="form-control" asp-for="UF">
+
+
+        <input type="hidden" asp-for="CodigoLogin">
+
+
+        <hr />
+
+
+        @Html.Raw(ViewData["Valida"])
+
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </div>
+</form>
+

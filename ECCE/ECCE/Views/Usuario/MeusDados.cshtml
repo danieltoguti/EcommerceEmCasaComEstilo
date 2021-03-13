@@ -1,0 +1,58 @@
+﻿@{
+    @model List<tb_login>;
+    ViewData["Title"] = "Home Page";
+
+    Layout = "_Layout_dashboard";
+
+}
+
+<div >
+    <table class="table">
+        <tr>
+            <th><h4>Meus dados</h4></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
+    @if (Model.Count > 0)
+    {
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.CodigoLogin</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Email</td>
+                    <td>@item.Telefone</td>
+                    <td>@item.CPF_CNPJ</td>
+                    <td>@item.Senha</td>
+                    <td><button type="button" class="btn btn-warning" onclick="window.location.href='/usuario/editar?CodigoLogin=@item.CodigoLogin'">Editar</button></td>
+                    <td><button type="button" class="btn btn-warning" onclick="window.location.href='/endereco/cadastroendereco?CodigoLogin=@item.CodigoLogin'">Inserir Endereço</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-primary" role="alert">
+            Sem Registros!
+        </div>
+    }
+
+</div>
+
+
+
+

@@ -1,0 +1,56 @@
+﻿@{
+    @model List<tb_funcionario_funcao>;
+    ViewData["Title"] = "Função";
+
+    Layout = "_Layout_dashboard";
+
+}
+
+<div >
+    <table class="table">
+        <tr>
+            <th><h4>Funções</h4></th>
+            <th></th>
+            <th></th>
+            <th class="text-sm-right"><button class="btn btn-primary" type="button" onclick="window.location.href ='/funcao/cadastrofuncao'">Nova Função</button>
+            <th>
+        </tr>
+    </table>
+    @if (Model.Count > 0)
+    {
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CodigoFuncao</td>
+                        <td>@item.Descricao</td>
+                        <td><button type="button" class="btn btn-warning" onclick="window.location.href='/funcao/editar?CodigoFuncao=@item.CodigoFuncao&Descricao=@item.Descricao'">Editar</button></td>
+                        <td><button type="button" class="btn btn-danger" onclick="window.location.href='/funcao/excluir?CodigoFuncao=@item.CodigoFuncao'">Excluir</button></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-primary" role="alert">
+            Sem Registros!
+        </div>
+    }
+
+</div>
+
+
+
+

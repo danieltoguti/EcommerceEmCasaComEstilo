@@ -1,0 +1,378 @@
+﻿
+@model ProdutoModel
+@{ ViewData["Title"] = "CadastroProduto";
+    var LTCategorias = (List<SelectListItem>)(@ViewData["LTCategorias"]);
+    var LTCor = (List<SelectListItem>)(@ViewData["LTCor"]);
+    var LTGenero = (List<SelectListItem>)(@ViewData["LTGenero"]);
+    var LTTam = (List<SelectListItem>)(@ViewData["LTTam"]);
+
+    Layout = "_Layout_dashboard";
+
+}
+
+<script src="~/js/compress.js"></script>
+<style>
+    .image-upload > input {
+        display: none;
+    }
+
+    .image-upload {
+        padding-top: 5px;
+        border: dashed 1px;
+        margin-bottom: 10px;
+    }
+
+    .img_icon {
+        font-size: 32px;
+    }
+</style>
+
+<h1>Cadastro de Produto</h1>
+
+<form id="FormProduto" asp-action="Salvar" asp-controller="Produto">
+    <div class="form-group">
+        <label asp-for="tb_produto.Nome"></label>
+        <input type="text" class="form-control" asp-for="tb_produto.Nome">
+
+        <label asp-for="tb_produto.Descricao"></label>
+        <input type="text" class="form-control" asp-for="tb_produto.Descricao">
+
+        <label asp-for="tb_produto.Valor"></label>
+        <input type="text" class="form-control" asp-for="tb_produto.Valor">
+
+        <label asp-for="tb_produto.Peso"></label>
+        <input type="text" class="form-control" asp-for="tb_produto.Peso">
+
+        <!--E a Data Cadastro?-->
+
+        <input type="hidden" asp-for="tb_produto.CodigoProduto">
+
+        <input type="hidden" asp-for="JsonLTCategoria">
+        <input type="hidden" asp-for="JsonLTCor">
+        <input type="hidden" asp-for="JsonLTGenero">
+        <input type="hidden" asp-for="JsonLTTamanho">
+        <input type="hidden" asp-for="JsonLTFoto">
+    </div>
+
+
+    <hr />
+    <h5><b>Foto</b></h5>
+    <hr />
+    <div class="row">
+        <div class="form-group col-md-4">
+            <div class="image-upload text-center">
+                <label for="f_Foto1" class="F1"><i class="fas fa-camera img_icon"></i><div>Selecione a Imagem</div></label>
+                <input id="f_Foto1" type="file" accept="image/*" name="f_Foto1" />
+                <input id="txt_foto" type="hidden" />
+            </div>
+            <button type="button" class="btn btn-success" style="margin-top:25px;" onclick="AddIMG();">Adicionar Imagem</button>
+        </div>
+        <div class="form-group col-md-4"></div>
+        <div>
+            <table id="tb_Foto" class="table">
+                <thead>
+                    <tr>
+                        <th>Foto Selecionada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <hr />
+
+    <h5><b>Cor</b></h5>
+    <hr />
+    <div class="row">
+        <div class="form-group col-md-4">
+            <select id="txt_Cor" asp-items="LTCor" class="form-control"></select>
+        </div>
+        <div class="form-group col-md-4">
+            <button type="button" class="btn btn-success" onclick="Add('CO', 'txt_Cor');">Adicionar Cor</button>
+        </div>
+        <div>
+            <table id="tb_cor" class="table">
+                <thead>
+                    <tr>
+                        <th>Cor Selecionada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h5><b>Genero</b></h5>
+    <hr />
+
+    <div class="row">
+        <div class="form-group col-md-4">
+            <select id="txt_Genero" asp-items="LTGenero" class="form-control"></select>
+        </div>
+        <div class="form-group col-md-4">
+            <button type="button" class="btn btn-success" onclick="Add('G','txt_Genero');">Adicionar Gênero</button>
+        </div>
+        <div>
+            <table id="tb_genero" class="table">
+                <thead>
+                    <tr>
+                        <th>Genero Selecionado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h5><b>Tamanho</b></h5>
+    <hr />
+    <div class="row">
+        <div class="form-group col-md-4">
+            <select id="txt_Tamanho" asp-items="LTTam" class="form-control"></select>
+        </div>
+        <div class="form-group col-md-4">
+            <button type="button" class="btn btn-success" onclick="Add('T','txt_Tamanho');">Adicionar Tamanho</button>
+        </div>
+        <div>
+            <table id="tb_tamanho" class="table">
+                <thead>
+                    <tr>
+                        <th>Tamanho Selecionado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h5><b>Categoria</b></h5>
+    <hr />
+    <div class="row">
+        <div class="form-group col-md-4">
+            <select asp-items="LTCategorias" class="form-control" id="txt_cat_descricao"></select>
+        </div>
+        <div class="form-group col-md-4">
+            <button type="button" class="btn btn-success" onclick="Add('C','txt_cat_descricao');">Adicionar Categoria</button>
+        </div>
+        <div>
+            <table id="tb_cat" class="table">
+                <thead>
+                    <tr>
+                        <th>Categoria Selecionada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @Html.Raw(ViewData["Valida"])
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+
+</form>
+<br />
+
+<button type="button" class="btn btn-info btn-sm" onclick="window.location.href='/Produto'">Voltar</button>
+
+
+
+<script>
+    var MtzCategoria;
+    var MtzCor;
+    var MtzFoto;
+    var MtzGenero;
+    var MtzTamanho;
+
+
+
+    $(document).ready(function () {
+
+        SetSubmit();
+
+        MtzCor = StartMTZ(MtzCor, "JsonLTCor");
+        MtzCategoria = StartMTZ(MtzCategoria, "JsonLTCategoria");
+        MtzGenero = StartMTZ(MtzGenero, "JsonLTGenero");
+        MtzTamanho = StartMTZ(MtzTamanho, "JsonLTTamanho");
+        MtzFoto = StartMTZ(MtzFoto, "JsonLTFoto");
+
+        Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", "CO");
+        Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", "C");
+        Get_Mtzs("JsonLTGenero", MtzGenero, "tb_genero", "G");
+        Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", "T");
+        Get_Mtzs("JsonLTFoto", MtzFoto, "tb_Foto", "F");
+
+        AjustarIMG('f_Foto1', 'F1', 'txt_foto');
+
+    });
+
+
+    function StartMTZ(Mtz, IdJson) {
+        if ($("#" + IdJson).val() != "") {
+            Mtz = JSON.parse($("#" + IdJson).val());
+        }
+        else {
+            Mtz = [];
+        }
+        return Mtz;
+    }
+
+    function Add(Tipo, obj) {
+        var Descricao = $("#" + obj + " option:selected").text();
+        var Codigo = $("#" + obj + " option:selected").val();
+
+        switch (Tipo) {
+            case "CO":
+                AddMTZ(MtzCor, Codigo, Descricao, "JsonLTCor", "tb_cor", Tipo);
+                break;
+            case "C":
+                AddMTZ(MtzCategoria, Codigo, Descricao, "JsonLTCategoria", "tb_cat", Tipo);
+                break;
+            case "G":
+                AddMTZ(MtzGenero, Codigo, Descricao, "JsonLTGenero", "tb_genero", Tipo);
+                break;
+            case "T":
+                AddMTZ(MtzTamanho, Codigo, Descricao, "JsonLTTamanho", "tb_tamanho", Tipo);
+                break;
+
+
+        }
+    }
+
+
+    function AddIMG() {
+        var img = $("#txt_foto").val();
+        AddMTZ(MtzFoto, 0, img, "JsonLTFoto", "tb_Foto", "F");
+        $(".F1").html("<i class='fas fa-camera img_icon'></i><div>Selecione a Imagem</div>");
+    }
+
+    function AddMTZ(Mtz, _Codigo, _Descricao, idJson, TB, Tipo) {
+
+        Mtz.push(
+            {
+                'Codigo': _Codigo,
+                'Descricao': _Descricao,
+            }
+        );
+
+        Get_Mtzs(idJson, Mtz, TB, Tipo);
+    }
+
+    function Get_Mtzs(idJson, Mtz, TB, Tipo) {
+        $("#" + idJson).val(JSON.stringify(Mtz));
+        $("#" + TB + " > tbody ").html("");
+        var sHtml = "";
+        for (var x = 0; x <= Mtz.length - 1; x++) {
+            sHtml = "<tr>";
+            if (Tipo == "F") {
+                sHtml += "<td><img src='" + Mtz[x].Descricao + "'  width=60 height=40></td>";
+            }
+            else {
+                sHtml += "<td>" + Mtz[x].Descricao + "</td>";
+            }
+            sHtml += "<td><a href='##' onclick='ExcluirItem(\"" + Tipo + "\",this," + x + ")'>Excluir</a></td>";
+            sHtml += "</tr>";
+            $("#" + TB + " > tbody ").append(sHtml);
+        }
+    }
+
+    function ExcluirItem(Tipo, obj, index) {
+        $(obj).closest('tr').remove();
+
+        switch (Tipo) {
+            case "CO":
+                delete MtzCor[index];
+                MtzCor.splice(index, 1);
+                Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", Tipo);
+                break;
+
+            case "C":
+                delete MtzCategoria[index];
+                MtzCategoria.splice(index, 1);
+                Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", Tipo);
+                break;
+
+            case "G":
+                delete MtzGenero[index];
+                MtzGenero.splice(index, 1);
+                Get_Mtzs("JsonLTGenero", MtzGenero, "tb_genero", Tipo);
+                break;
+
+            case "T":
+                delete MtzTamanho[index];
+                MtzTamanho.splice(index, 1);
+                Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", Tipo);
+                break;
+
+            case "F":
+                delete MtzFoto[index];
+                MtzFoto.splice(index, 1);
+                Get_Mtzs("JsonLTFoto", MtzFoto, "tb_Foto", Tipo);
+                break;
+        }
+    }
+
+
+    function AjustarIMG(_upload, _preview, IdReturn) {
+
+        const compress = new Compress()
+        const preview = document.getElementById(_preview);
+        const upload = document.getElementById(_upload);
+
+        upload.addEventListener('change', (evt) => {
+            $("." + _preview).html("<div class='text-center' role='alert' style='max-width:100%;height:128px;padding-top:55px;'><img src='/img/loading.gif' /> Carregando</div>");
+            const files = [...evt.target.files]
+            compress.compress(files, {
+                size: 1, // the max size in MB, defaults to 2MB
+                quality: 0.75, // the quality of the image, max is 1,
+                maxWidth: 1920, // the max width of the output image, defaults to 1920px
+                maxHeight: 1920, // the max height of the output image, defaults to 1920px
+                resize: true // defaults to true, set false if you do not want to resize the image width and height
+            }).then((images) => {
+
+
+                const img = images[0]
+
+                $("." + _preview).html("<img class='img-thumbnail' src='" + `${img.prefix}${img.data}` + "' style='max-width:100%;height:128px;' />");
+                $("#" + IdReturn).val(img.prefix + img.data);
+
+            })
+        }, false)
+    }
+
+
+    function SetSubmit() {
+        $('#FormProduto').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        alertSucesso(data.msg);
+                    } else {
+
+                        if (data.msg.indexOf("Erro") > -1) {
+                            alertErro(data.msg);
+                        }
+                        else {
+                            alertInformacao(data.msg);
+                        }
+                    }
+                }
+            });
+
+        });
+    }
+
+</script>
+

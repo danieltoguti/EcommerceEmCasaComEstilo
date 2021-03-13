@@ -1,0 +1,25 @@
+﻿
+@{
+    @model tb_genero;
+    ViewData["Title"] = "Generos";
+
+    Layout = "_Layout_dashboard";
+}
+
+<h4>Cadastro de Cor</h4>
+
+<form asp-action="Salvar" asp-controller="Genero">
+    <div class="form-group">
+        <label asp-for="Descricao"></label>
+        <input type="text" class="form-control" asp-for="Descricao">
+        <input type="hidden" asp-for="CodigoGenero">
+    </div>
+
+    @Html.Raw(ViewData["Valida"])
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+
+</form>
+<br />
+
+<button type="button" class="btn btn-info btn-sm" onclick="window.location.href='/Genero'">Voltar</button>

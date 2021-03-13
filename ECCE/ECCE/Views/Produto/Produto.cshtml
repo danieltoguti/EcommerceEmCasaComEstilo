@@ -1,0 +1,39 @@
+﻿
+@{
+    @model ProdutoView;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Produto</title>
+
+    <div>@Model.tb_produto.Nome</div>
+
+
+    <h4>Fotos</h4>
+    @foreach (var foto in Model.produtofotoModel)
+    {
+        @if (foto.Caminho != "")
+        {
+            <div><img src="@foto.Descricao" style="width:200px;height:200px;" /></div>
+        }
+
+    }
+
+
+    <h4>Cores</h4>
+    <hr />
+
+    @foreach (var Cores in Model.produtocorModel)
+    {
+        <div>@Cores.Descricao</div>
+    }
+    <hr />
+
+</head>
+<body>
+</body>
+</html>

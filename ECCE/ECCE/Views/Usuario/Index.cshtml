@@ -1,0 +1,56 @@
+﻿@{
+    @model List<tb_login>;
+    ViewData["Title"] = "Produto";
+
+    Layout = "_Layout_dashboard";
+
+}
+
+<div>
+    <table class="table">
+        <tr>
+            <th><h4>Usuários</h4></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
+    @if (Model.Count > 0)
+    {
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CodigoLogin</td>
+                        <td>@item.Nome</td>
+                        <td>@item.Tipo</td>
+                        <td><button type="button" class="btn btn-warning" onclick="window.location.href='/produto/editar?CodigoProduto=@item.CodigoLogin&Descricao=@item.Nome'">Editar</button></td>
+                        <td><button type="button" class="btn btn-danger" onclick="window.location.href='/produto/excluir?CodigoProduto=@item.CodigoLogin'">Excluir</button></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-primary" role="alert">
+            Sem Registros!
+        </div>
+    }
+
+</div>
+
+
+
+

@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Plataforma digital ECCE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- local -->
+    <script src="~/js/main.js"></script>
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="shortcut icon" type="image/png" href="~/img/favicon.png" />
+</head>
+
+<body>
+    <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content">
+                <!-- sidebar-brand  -->
+                <div class="sidebar-item sidebar-brand">
+                    <a href="#">
+                        <img class="logo" src="~/img/em_casa_logo_v.png" alt="User picture">
+                    </a>
+                </div>
+                <div class="sidebar-item sidebar-header d-flex flex-nowrap">
+                    <div class="user-info">
+                        Bem vindo,
+                        @if (ViewData["NomeLogin"] != "")
+                        {
+                            <span class="user-role">@ViewData["NomeLogin"] </span><br />
+                        }
+                        <span class="user-status">
+                            <i class="fa fa-circle"></i>
+                            <span>Online</span>
+                        </span><br>
+                        <span>
+                            <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Home" asp-action="Logout">Sair</a>
+                        </span>
+                        <br />
+                        <span>
+                            <a class="fas fa-home" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </span>
+                    </div>
+                </div>
+                <!-- sidebar-menu  -->
+                <div class=" sidebar-item sidebar-menu">
+                    <ul>
+
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-chart-line"></i>
+                                <span class="menu-text">Pedidos</span>
+                            </a>
+                            <!--
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Nota Fiscal</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            -->
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="menu-text">Produtos</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Produto" asp-action="Index">Produto</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Categoria" asp-action="Index">Categoria</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Cor" asp-action="Index">Cor</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Tamanho" asp-action="Index">Tamanho</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Genero" asp-action="Index">Gênero</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="far fa-user"></i>
+                                <span class="menu-text">Colaboradores</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Usuario" asp-action="index">Colaborador</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Funcao" asp-action="Index">Função</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-users"></i>
+                                <span class="menu-text">Clientes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- sidebar-menu  -->
+            </div>
+        </nav>
+        <!-- page-content  -->
+        <main class="page-content pt-2">
+            <div id="overlay" class="overlay"></div>
+            <div class="container-fluid p-5">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        @RenderBody()
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- page-wrapper -->
+    <!-- usando bibliotecas com link externo -->
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

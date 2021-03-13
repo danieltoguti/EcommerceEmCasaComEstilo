@@ -1,0 +1,26 @@
+﻿
+@{
+    @model tb_funcionario_funcao;
+    ViewData["Title"] = "Função";
+
+    Layout = "_Layout_dashboard";
+}
+
+<h4>Cadastro de Função</h4>
+
+<form asp-action="Salvar" asp-controller="Funcao">
+    <div class="form-group">
+        <label asp-for="Descricao"></label>
+        <input type="text" class="form-control" asp-for="Descricao">
+        <input type="hidden" asp-for="CodigoFuncao">
+    </div>
+
+    @Html.Raw(ViewData["Valida"])
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+
+</form>
+<br />
+
+<button type="button" class="btn btn-info btn-sm" onclick="window.location.href='/Funcao'">Voltar</button>
+

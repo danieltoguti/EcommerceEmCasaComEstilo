@@ -1,0 +1,24 @@
+﻿@{
+    @model List<ProdutoVWList>;
+    ViewData["Title"] = "Home Page";
+
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="card col-md-3 text-center">
+            <div class="card-header">
+                <div>@item.tb_produto.Nome</div>
+            </div>
+            <div class="card-body">
+                <p><img src="@item.Foto" style="height: 200px;" /></p>
+            </div>
+            <div class="card-footer">
+                <p>R$ @item.tb_produto.Valor</p>
+                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Produto" asp-action="Produto">Mais Detalhes</a>
+            </div>
+        </div>
+        <hr />
+
+    }
+</div>
