@@ -84,7 +84,7 @@ namespace ECCE.Data
                     cmd.Parameters.AddWithValue("@CEP", item.Cep);
                     cmd.Parameters.AddWithValue("@Endereco", item.Endereco);
                     cmd.Parameters.AddWithValue("@Numero", item.Numero);
-                    //cmd.Parameters.AddWithValue("@Complemento", item.Complemento);
+
                     cmd.Parameters.AddWithValue("@Bairro", item.Bairro);
                     cmd.Parameters.AddWithValue("@Cidade", item.Cidade);
                     cmd.Parameters.AddWithValue("UF", item.UF);

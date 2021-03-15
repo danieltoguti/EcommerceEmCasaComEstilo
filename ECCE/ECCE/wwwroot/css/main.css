@@ -85,7 +85,9 @@
       overflow-y: hidden; }
   .sidebar-wrapper .badge {
     border-radius: 0; }
-
+h1, p, a {
+    font-family: 'Roboto', sans-serif
+}
 .sidebar-bg .sidebar-wrapper {
   background-size: cover;
   background-position: center;
@@ -151,8 +153,14 @@
 .logo{
   width: 110px;
 }
+.col-md-3 {
+    padding-right: 0!important;
+    padding-left: 0!important;
+    margin-bottom: 1em
+}
 .sidebar-wrapper .sidebar-search > div {
-  padding: 1rem 1.2rem; }
+    padding: 1rem 1.2rem;
+}
 
 .sidebar-wrapper .sidebar-search input {
   border-radius: 0; }
@@ -238,17 +246,18 @@
         white-space: nowrap;
         text-overflow: ellipsis; }
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
-          content: "\f111";
-          font-family: "Font Awesome 5 Free";
-          font-weight: 400;
-          font-style: normal;
-          display: inline-block;
-          text-align: center;
-          text-decoration: none;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          margin-right: 10px;
-          font-size: 8px; }
+            content: "\f111";
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin-right: 10px;
+            font-size: 8px;
+        }
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .badge,
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .label {
           margin-left: auto; }
@@ -372,6 +381,7 @@
       animation: sonar 1.5s infinite; }
 
 body {
+    font-family: 'Roboto', sans-serif;
   font-size: .9rem; }
 
 /*----------------page-wrapper----------------*/

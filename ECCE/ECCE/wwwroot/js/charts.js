@@ -15,8 +15,8 @@ function ColumnChart() {
         ])
         const options = {
             title: 'Dragon Ball Z - Characters Ki',
-            height: 50,
-            width: 50,
+            height: 450,
+            width: 450,
 
         }
 
@@ -45,8 +45,8 @@ function barChart() {
         ])
         const options = {
             title: 'Dragon Ball Z - Characters Ki',
-            height: 50,
-            width: 50,
+            height: 450,
+            width: 450,
             bar: { groupWidth: '75%' },
         }
 
@@ -135,8 +135,8 @@ function donutsChart() {
         const options = {
             title: 'Dragon Ball Z - Characters Ki',
             pieHole: 0.4,
-            height: 50,
-            width: 50,
+            height: 450,
+            width: 450,
         }
 
         //const chart = new google.visualization.ColumnChart(container)

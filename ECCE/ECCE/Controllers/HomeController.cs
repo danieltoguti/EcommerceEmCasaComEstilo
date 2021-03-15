@@ -29,7 +29,7 @@ namespace ECCE.Controllers
 
         public IActionResult Index()
         {
-            
+
             ProdutoDB Prod = new ProdutoDB();
             var resp = Prod.GetProdutoVWList();
 
@@ -42,7 +42,7 @@ namespace ECCE.Controllers
         public async Task<IActionResult> Logout()
         {
             await _hCont.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-           return  RedirectToAction("index");
+            return RedirectToAction("index");
         }
 
         [Authorize(Roles = "A")]
@@ -60,4 +60,3 @@ namespace ECCE.Controllers
         }
     }
 }
-
