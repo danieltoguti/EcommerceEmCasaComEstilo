@@ -22,7 +22,7 @@ namespace ECCE.Controllers
         public IActionResult Index()
         {
             UsuarioDB Usuario = new UsuarioDB();
-            var MLista = Usuario.GetAll();
+            var MLista = Usuario.GetAllFuncionario();
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);

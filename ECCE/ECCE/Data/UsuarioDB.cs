@@ -295,7 +295,7 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "select * from tb_login where tipo='F' order by nome";
+                sSQL = "select * from tb_login where tipo='F' OR tipo='A' order by nome";
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
