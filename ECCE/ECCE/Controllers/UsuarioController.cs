@@ -82,15 +82,17 @@ namespace ECCE.Controllers
             return View("index", model);
         }
 
-        public IActionResult EditarAdmin(int CodigoLogin, string Tipo, string Ativo)
+        public IActionResult EditarAdmin(int CodigoLogin)
         {
-            var model = new tb_login();
-            model.CodigoLogin = CodigoLogin;
-            model.Tipo = Tipo;
-            model.Ativo = Ativo;
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            UsuarioDB Usuario = new UsuarioDB();
+            var model = Usuario.GetUsuario(CodigoLogin);
+            model.JsonLTEDR = JsonConvert.SerializeObject(model.tb_endereco);
           
             ViewData["Valida"] = "";
-            return View("CadastroFuncionario", model);
+            return View("CadastroCliente", model);
         }
         public IActionResult Salvar(CadastroLogin obj)
         {

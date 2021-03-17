@@ -27,6 +27,7 @@ namespace ECCE.Models
         public List<produtotamanhoModel> produtotamanhoModel { get; set; }
         public List<produtocategoriaModel> produtocategoriaModel { get; set; }
         public List<produtofotoModel> produtofotoModel { get; set; }
+        public tb_venda_itens tb_venda_itens { get; set; }
 
     }
 
@@ -40,6 +41,9 @@ namespace ECCE.Models
     {
         [Key]
         public int CodigoProduto { get; set; }
+
+        [Display(Name = "Cógigo", Prompt = "")]
+        public string CodigoInterno { get; set; }
 
         [Display(Name = "Nome", Prompt = "")]
         public string Nome { get; set; }
@@ -58,5 +62,8 @@ namespace ECCE.Models
 
         [Display(Name = "Peso", Prompt = "")]
         public double Peso { get; set; }
+
+        [Display(Name = "Status", Prompt = "")]
+        public double Ativo { get; set; }
     }
 }

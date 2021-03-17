@@ -31,6 +31,10 @@
 
 <form id="FormProduto" asp-action="Salvar" asp-controller="Produto">
     <div class="form-group">
+
+        <label asp-for="tb_produto.CodigoInterno"></label>
+        <input type="text" class="form-control" asp-for="tb_produto.CodigoInterno">
+
         <label asp-for="tb_produto.Nome"></label>
         <input type="text" class="form-control" asp-for="tb_produto.Nome">
 
@@ -43,7 +47,8 @@
         <label asp-for="tb_produto.Peso"></label>
         <input type="text" class="form-control" asp-for="tb_produto.Peso">
 
-        <!--E a Data Cadastro?-->
+        <label asp-for="tb_produto.Ativo"></label>
+        <input type="text" class="form-control" asp-for="tb_produto.Ativo">
 
         <input type="hidden" asp-for="tb_produto.CodigoProduto">
 

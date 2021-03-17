@@ -89,14 +89,6 @@ namespace ECCE.Controllers
             return View("CadastroProduto", resp);
         }
 
-        public IActionResult Excluir(int Codigo)
-        {
-            ProdutoDB Prod = new ProdutoDB();
-            Prod.ExcluirDados(Codigo);
-            return RedirectToAction("index", "produto");
-        }
-
-
         public IActionResult Salvar(ProdutoModel obj)
         {
             string smgvalida = Validar(obj);
@@ -145,10 +137,10 @@ namespace ECCE.Controllers
                 return "Digite o nome do produto";
             }
 
-            /* if (Func.ValidarNome(obj.tb_produto))
+            if (Func.ValidarNome(obj.tb_produto))
              {
                  return "Produto já cadastrado(a)!";
-             }*/
+             }
 
             return "";
         }

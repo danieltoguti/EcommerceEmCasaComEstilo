@@ -108,13 +108,15 @@ namespace ECCE.Data
                     MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                     cn.Open();
 
-                    sSQL = "update tb_login set nome=@nome, email=@email, telefone=@telefone, cpf_cnpj@cpf_cnpj, " +
-                        "senha@senha where CodigoLogin=@codigologin";
+                    sSQL = "update tb_login set nome=@nome, email=@email, telefone=@telefone, cpf_cnpj=@cpf_cnpj, " +
+                        "senha=MD5(@senha), tipo=@tipo, Ativo=@ativo where CodigoLogin=@codigologin";
                     cmd.Parameters.AddWithValue("@nome", obj.tb_login.Nome);
                     cmd.Parameters.AddWithValue("@email", obj.tb_login.Email);
                     cmd.Parameters.AddWithValue("@telefone", obj.tb_login.Telefone);
                     cmd.Parameters.AddWithValue("@cpf_cnpj", obj.tb_login.CPF_CNPJ);
                     cmd.Parameters.AddWithValue("@senha", obj.tb_login.Senha);
+                    cmd.Parameters.AddWithValue("@tipo", obj.tb_login.Tipo);
+                    cmd.Parameters.AddWithValue("@Ativo", obj.tb_login.Ativo);
                     cmd.Parameters.AddWithValue("@codigologin", obj.tb_login.CodigoLogin);
 
 
@@ -158,93 +160,7 @@ namespace ECCE.Data
             }
         }
 
-        public bool UpDateDadosAdmin(tb_login obj)
-        {
-            {
-                try
-                {
-                    string sSQL = "";
-                    MySqlCommand cmd = new MySqlCommand();
-                    MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
-                    cn.Open();
-
-                    sSQL = "update tb_login set nome=@nome, email=@email, telefone=@telefone, cpf_cnpj@cpf_cnpj, " +
-                        "senha@senha, tipo=@tipo, ativo=@ativo, codigofuncao=@codigofuncao";
-                    cmd.Parameters.AddWithValue("@nome", obj.Nome);
-                    cmd.Parameters.AddWithValue("@email", obj.Email);
-                    cmd.Parameters.AddWithValue("@cpf_cnpj", obj.CPF_CNPJ);
-                    cmd.Parameters.AddWithValue("@senha", obj.Senha);
-                    cmd.Parameters.AddWithValue("@tipo", obj.Tipo);
-                    cmd.Parameters.AddWithValue("@ativo", obj.Ativo);
-                    cmd.Parameters.AddWithValue("@codigofuncao", obj.CodigoFuncao);
-
-                    cmd.CommandText = sSQL;
-                    cmd.Connection = cn;
-                    cmd.ExecuteNonQuery();
-
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    string msg = e.Message;
-                    return false;
-                }
-            }
-
-        }
-
-        public bool ExcluirDados(int Codigo)
-        {
-            {
-                try
-                {
-                    string sSQL = "";
-                    MySqlCommand cmd = new MySqlCommand();
-                    MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
-                    cn.Open();
-
-                    sSQL = "delete from tb_login  where codigologin=@codigologin";
-                    cmd.Parameters.AddWithValue("@codigologin", Codigo);
-
-                    cmd.CommandText = sSQL;
-                    cmd.Connection = cn;
-                    cmd.ExecuteNonQuery();
-
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    string msg = e.Message;
-                    return false;
-                }
-            }
-        }
-        public bool Validalogin(tb_login obj)
-
-        {
-            try
-            {
-                string sSQL = "";
-                MySqlCommand cmd = new MySqlCommand();
-                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
-                cn.Open();
-
-                sSQL = "select * from tb_login where nome=@nome";
-                cmd.Parameters.AddWithValue("@nome", obj.Nome);
-
-                cmd.CommandText = sSQL;
-                cmd.Connection = cn;
-                var Dr = cmd.ExecuteReader();
-                return Dr.HasRows;
-            }
-            catch (Exception e)
-            {
-                string msg = e.Message;
-                return false;
-            }
-        }
-
-        public List<tb_login> GetAll()
+        public CadastroLogin GetUsuario(int CodigoLogin)
         {
 
             try
@@ -254,30 +170,61 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "select * from tb_login order by nome";
+                sSQL = "select * from tb_login where CodigoLogin=@codigoLogin";
+                cmd.Parameters.AddWithValue("@CodigoLogin", CodigoLogin);
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 var Dr = cmd.ExecuteReader();
 
-                var Lista = new List<tb_login>();
+                Dr.Read();
 
-                while (Dr.Read())
+                var Usuario = new tb_login()
                 {
-                    var item = new tb_login
+                    CodigoLogin = Convert.ToInt32(Dr["CodigoLogin"]),
+                    Nome = Dr["Nome"].ToString(),
+                    Email = Dr["Email"].ToString(),
+                    Telefone = Dr["Telefone"].ToString(),
+                    CPF_CNPJ = Dr["CPF_CNPJ"].ToString(),
+                    Senha = Dr["Senha"].ToString(),
+                    Tipo = Dr["Tipo"].ToString(),
+                    Ativo = Dr["Ativo"].ToString(),
+
+                };
+
+                Dr.Dispose();
+
+                //Carrega Endereços             
+                sSQL = "select * from tb_endereco where CodigoLogin=@CodigoLogin";
+                cmd.CommandText = sSQL;
+                var DrEndereco = cmd.ExecuteReader();
+
+                var tb_endereco = new List<tb_endereco>();
+
+                while (DrEndereco.Read())
+                {
+                    tb_endereco.Add(new tb_endereco()
                     {
-                        CodigoLogin = Convert.ToInt32(Dr["CodigoLogin"]),
-                        Nome = Dr["Nome"].ToString(),
-                        Email = Dr["Email"].ToString(),
-                        Telefone = Dr["Telefone"].ToString(),
-                        CodigoFuncao = Dr["CodigoFuncao"].ToString()
-
-                    };
-                    Lista.Add(item);
+                        CodigoEndereco = Convert.ToInt32(DrEndereco["CodigoEndereco"]),
+                        CodigoLogin = Convert.ToInt32(DrEndereco["CodigoLogin"]),
+                        Descricao = DrEndereco["Descricao"].ToString(),
+                        Cep = DrEndereco["CEP"].ToString(),
+                        Endereco = DrEndereco["Endereco"].ToString(),
+                        Numero = DrEndereco["Numero"].ToString(),
+                        Bairro = DrEndereco["Bairro"].ToString(),
+                        Cidade = DrEndereco["Cidade"].ToString(),
+                        UF = DrEndereco["UF"].ToString(),
+                    });
                 }
 
-                return Lista;
+                var model = new CadastroLogin();
+                model.tb_login = Usuario;
+                model.tb_endereco = tb_endereco;
+
+                return model;
             }
+
+
             catch (Exception e)
             {
                 string msg = e.Message;
@@ -351,49 +298,6 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Email = Dr["Email"].ToString(),
                         Telefone = Dr["Telefone"].ToString()
-                    };
-                    Lista.Add(item);
-                }
-
-                return Lista;
-            }
-            catch (Exception e)
-            {
-                string msg = e.Message;
-                return null;
-            }
-        }
-
-        public List<tb_login> GetDadosUsuario(int Codigo)
-        {
-
-            try
-            {
-                string sSQL = "";
-                MySqlCommand cmd = new MySqlCommand();
-                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
-                cn.Open();
-
-                sSQL = "select * from tb_login where codigologin=@codigologin";
-                cmd.Parameters.AddWithValue("@codigologin", Codigo);
-
-                cmd.CommandText = sSQL;
-                cmd.Connection = cn;
-                var Dr = cmd.ExecuteReader();
-
-                var Lista = new List<tb_login>();
-
-                while (Dr.Read())
-                {
-                    var item = new tb_login
-                    {
-                        CodigoLogin = Convert.ToInt32(Dr["CodigoLogin"]),
-                        Nome = Dr["Nome"].ToString(),
-                        Email = Dr["Email"].ToString(),
-                        Telefone = Dr["Telefone"].ToString(),
-                        CPF_CNPJ = Dr["CPF_CNPJ"].ToString(),
-                        Senha = Dr["Senha"].ToString(),
-                        
                     };
                     Lista.Add(item);
                 }

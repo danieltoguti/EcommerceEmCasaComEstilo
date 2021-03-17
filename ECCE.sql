@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `tb_categoria` (
   `CodigoCategoria` int NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(50) NOT NULL,
   PRIMARY KEY (`CodigoCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `tb_cor` (
   `CodigoCor` int NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`CodigoCor`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
@@ -49,16 +49,7 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   PRIMARY KEY (`CodigoEndereco`),
   KEY `CodigoLogin` (`CodigoLogin`),
   CONSTRAINT `FK__tb_login` FOREIGN KEY (`CodigoLogin`) REFERENCES `tb_login` (`CodigoLogin`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- Exportação de dados foi desmarcado.
-
--- Copiando estrutura para tabela ecce.tb_funcionario_funcao
-CREATE TABLE IF NOT EXISTS `tb_funcionario_funcao` (
-  `CodigoFuncao` int NOT NULL AUTO_INCREMENT,
-  `Descricao` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`CodigoFuncao`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
@@ -67,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `tb_genero` (
   `CodigoGenero` int NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`CodigoGenero`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
@@ -86,21 +77,7 @@ CREATE TABLE IF NOT EXISTS `tb_login` (
   PRIMARY KEY (`CodigoLogin`) USING BTREE,
   KEY `CodigoFuncao` (`CodigoFuncao`),
   CONSTRAINT `FK_tb_login_tb_funcionario_funcao` FOREIGN KEY (`CodigoFuncao`) REFERENCES `tb_funcionario_funcao` (`CodigoFuncao`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
--- Exportação de dados foi desmarcado.
-
--- Copiando estrutura para tabela ecce.tb_nf
-CREATE TABLE IF NOT EXISTS `tb_nf` (
-  `CodigoTbNf` int NOT NULL AUTO_INCREMENT,
-  `CodigoNF` varchar(50) NOT NULL DEFAULT '',
-  `CodigoVenda` int DEFAULT NULL,
-  `ValorNF` double DEFAULT NULL,
-  `DataRegistro` datetime DEFAULT NULL,
-  PRIMARY KEY (`CodigoTbNf`),
-  KEY `CodigoVenda` (`CodigoVenda`),
-  CONSTRAINT `FK_tb_nf_tb_venda` FOREIGN KEY (`CodigoVenda`) REFERENCES `tb_venda` (`CodigoVenda`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
@@ -113,8 +90,9 @@ CREATE TABLE IF NOT EXISTS `tb_produto` (
   `Valor` double NOT NULL DEFAULT '0',
   `DataRegistro` datetime DEFAULT NULL,
   `Peso` double NOT NULL DEFAULT '0',
+  `Ativo` int DEFAULT '1',
   PRIMARY KEY (`CodigoProduto`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
@@ -136,42 +114,15 @@ CREATE TABLE IF NOT EXISTS `tb_produto_cor` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela ecce.tb_produto_estoque
-CREATE TABLE IF NOT EXISTS `tb_produto_estoque` (
-  `CodigoEstoque` int NOT NULL AUTO_INCREMENT,
-  `NFEntrada` varchar(50) DEFAULT NULL,
-  `DataNFEntrada` date DEFAULT NULL,
-  `DataVencimentoGarantia` date DEFAULT NULL,
-  `DataRegistro` datetime DEFAULT NULL,
-  PRIMARY KEY (`CodigoEstoque`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Exportação de dados foi desmarcado.
-
 -- Copiando estrutura para tabela ecce.tb_produto_estoque_movimentacao
 CREATE TABLE IF NOT EXISTS `tb_produto_estoque_movimentacao` (
   `CodigoMovimentacao` int NOT NULL AUTO_INCREMENT,
-  `CodigoEstoque` int DEFAULT NULL,
   `CodigoProduto` int DEFAULT NULL,
-  `CodigoOperacao` int DEFAULT NULL,
   `TipoMovimentacao` varchar(10) DEFAULT NULL,
   `DataRegistro` datetime DEFAULT NULL,
   PRIMARY KEY (`CodigoMovimentacao`),
-  KEY `CodigoEstoque` (`CodigoEstoque`),
   KEY `CodigoProduto` (`CodigoProduto`),
-  KEY `CodigoOperacao` (`CodigoOperacao`),
-  CONSTRAINT `FK__tb_produto` FOREIGN KEY (`CodigoProduto`) REFERENCES `tb_produto` (`CodigoProduto`),
-  CONSTRAINT `FK__tb_produto_estoque` FOREIGN KEY (`CodigoEstoque`) REFERENCES `tb_produto_estoque` (`CodigoEstoque`),
-  CONSTRAINT `FK__tb_produto_estoque_operacao` FOREIGN KEY (`CodigoOperacao`) REFERENCES `tb_produto_estoque_operacao` (`CodigoOperacao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Exportação de dados foi desmarcado.
-
--- Copiando estrutura para tabela ecce.tb_produto_estoque_operacao
-CREATE TABLE IF NOT EXISTS `tb_produto_estoque_operacao` (
-  `CodigoOperacao` int NOT NULL AUTO_INCREMENT,
-  `Descricao` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`CodigoOperacao`)
+  CONSTRAINT `FK__tb_produto` FOREIGN KEY (`CodigoProduto`) REFERENCES `tb_produto` (`CodigoProduto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
@@ -184,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `tb_produto_foto` (
   PRIMARY KEY (`CodigoFoto`),
   KEY `CodigoFoto` (`CodigoProduto`) USING BTREE,
   CONSTRAINT `FK_tb_produto_foto` FOREIGN KEY (`CodigoProduto`) REFERENCES `tb_produto` (`CodigoProduto`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
@@ -211,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `tb_tamanho` (
   `CodigoTamanho` int NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`CodigoTamanho`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
 
