@@ -1,34 +1,57 @@
-﻿@{
-    @model List<ProdutoVWList>;
-    ViewData["Title"] = "Home Page";
-
+﻿
+@{
+    @model ProdutoView;
 }
-<div class="row" id="idcarrinho"></div>
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="card col-md-3 text-center">
-            <div class="card-header">
-                <div>@item.tb_produto.Nome</div>
+
+<h5>Carrinho</h5>
+<hr />
+    <div class="row">
+        <div>
+            <div>Código: @Model.tb_produto.CodigoInterno</div>
+            <div>Nome: @Model.tb_produto.Nome</div>
+            <div>Descrição: @Model.tb_produto.Descricao</div>
+            <div>Preço: @Model.tb_produto.Valor</div>
+
+            <h4>Fotos</h4>
+            <div class="row">
+                @foreach (var foto in Model.produtofotoModel)
+                {
+                    @if (foto.Caminho != "")
+                    {
+                        <div><img src="@foto.Descricao" style="width:200px;height:200px;" /></div>
+                        <br />
+                    }
+
+                }
             </div>
-            <div class="card-body">
-                <p><img src="@item.Foto" style="height: 200px;" /></p>
-                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail"></a>
+
+            <h4>Cores</h4>
+            <hr />
+
+            <div class="row">
+                @foreach (var Cores in Model.produtocorModel)
+                {
+                    <div>@Cores.Descricao</div>
+                    <br />
+                }
             </div>
-            <div class="card-footer">
-                <p>R$ @item.tb_produto.Valor</p>
-                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">Mais Detalhes</a>
+            <hr />
+            <h4>Tamanhos</h4>
+            <hr />
+
+            <div class="row">
+                @foreach (var Tamanho in Model.produtotamanhoModel)
+                {
+                    <div>@Tamanho.Descricao</div>
+                    <br />
+                }
             </div>
+       </div>
+    </div>
 
-            <div><button type="button" class="btn btn-primary" onclick="AddCar(@item.tb_produto.CodigoProduto,'@item.tb_produto.Nome');" >Adicionar</button></div>
-        </div>
+    <div class="row" id="idcarrinho"></div>
 
-
-        <br />
-
-    }
-</div>
-<script>
+    <script>
     $(document).ready(function () {
         GetCarrinho();
     });
@@ -65,12 +88,12 @@
 
         $.ajax({
             url: _url,
-            type: 'GET',            
+            type: 'GET',
             processData: true,
             contentType: true,
             success: function (result) {
                 $("#idcarrinho").html(result);
-               
+
              }
             ,
             error: function (jqXHR) {
@@ -109,4 +132,4 @@
         });
     }
 
-</script>
+    </script>

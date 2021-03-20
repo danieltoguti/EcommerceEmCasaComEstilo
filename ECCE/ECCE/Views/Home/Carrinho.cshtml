@@ -1,33 +1,14 @@
 ﻿@{
-    @model List<ProdutoVWList>;
-    ViewData["Title"] = "Home Page";
+
+    ViewData["Title"] = "Carrinho";
 
 }
+
+
+
+
 <div class="row" id="idcarrinho"></div>
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="card col-md-3 text-center">
-            <div class="card-header">
-                <div>@item.tb_produto.Nome</div>
-            </div>
-            <div class="card-body">
-                <p><img src="@item.Foto" style="height: 200px;" /></p>
-                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail"></a>
-            </div>
-            <div class="card-footer">
-                <p>R$ @item.tb_produto.Valor</p>
-                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">Mais Detalhes</a>
-            </div>
 
-            <div><button type="button" class="btn btn-primary" onclick="AddCar(@item.tb_produto.CodigoProduto,'@item.tb_produto.Nome');" >Adicionar</button></div>
-        </div>
-
-
-        <br />
-
-    }
-</div>
 <script>
     $(document).ready(function () {
         GetCarrinho();
@@ -65,12 +46,12 @@
 
         $.ajax({
             url: _url,
-            type: 'GET',            
+            type: 'GET',
             processData: true,
             contentType: true,
             success: function (result) {
                 $("#idcarrinho").html(result);
-               
+
              }
             ,
             error: function (jqXHR) {
