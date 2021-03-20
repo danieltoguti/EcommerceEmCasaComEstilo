@@ -56,6 +56,7 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
+
             ViewData["Carrinho"] = GetAll();
 
             return View(resp);
@@ -82,11 +83,13 @@ namespace ECCE.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
         [HttpGet]
         public void AddCar(string key, string value)
         {
             Set(key, value, 10);
         }
+
 
         public void Set(string key, string value, int? expireTime)
         {
