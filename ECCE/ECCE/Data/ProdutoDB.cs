@@ -585,6 +585,7 @@ namespace ECCE.Data
             }
 
         }
+
         public List<produtocorModel> GetProdutoCor(int CodigoProduto)
         {
 

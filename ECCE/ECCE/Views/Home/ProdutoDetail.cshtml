@@ -1,7 +1,6 @@
 ﻿
 @{
     @model ProdutoView;
-    //  var LTCor = (List<SelectListItem>)(@ViewData["LTCor"]);
 }
 
 <h5>Carrinho</h5>
@@ -32,8 +31,11 @@
         <div class="row">
             @foreach (var Cores in Model.produtocorModel)
             {
-                <div>@Cores.Descricao</div>
-                <br />
+                <div class="col-2">
+                    <input type="radio">
+                    <label>@Cores.Descricao</label>
+                </div>
+                <div class="col-1"></div>
             }
         </div>
         <hr />
@@ -42,9 +44,11 @@
         <div class="row">
             @foreach (var Tamanho in Model.produtotamanhoModel)
             {
-
-                <div>@Tamanho.Descricao</div>
-                <br />
+                <div class="col-2">
+                    <input type="radio">
+                    <label>@Tamanho.Descricao</label>
+                </div>
+                <div class="col-1"></div>
             }
         </div>
     </div>
