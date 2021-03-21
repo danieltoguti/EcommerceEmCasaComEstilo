@@ -1,61 +1,108 @@
 ﻿
 @{
-    @model ProdutoView;
+                @model ProdutoView;
 }
 
-<h5>Carrinho</h5>
+<h5>@Model.tb_produto.Nome</h5>
 <hr />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+<link href="~/lib/slick/slick.css" rel="stylesheet">
+<link href="~/lib/slick/slick-theme.css" rel="stylesheet">
+
+<link href="~/css/pdp.css" rel="stylesheet">
+
 <div class="row">
-    <div>
-        <div>Código: @Model.tb_produto.CodigoInterno</div>
-        <div>Nome: @Model.tb_produto.Nome</div>
-        <div>Descrição: @Model.tb_produto.Descricao</div>
-        <div>Preço: @Model.tb_produto.Valor</div>
+    <div class="product-detail">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product-detail-top">
+                        <div class="row align-items-center">
+                            <div class="col-md-5">
+                                <div class="product-slider-single normal-slider">
+                                    @foreach (var foto in Model.produtofotoModel)
+                                    {
+                                        @if (foto.Caminho != "")
+                                        {
+                                             <img src="@foto.Descricao" alt="Product Image">
+                                        }
+                                     }
+                                </div>
+                                <div class="product-slider-single-nav normal-slider">
+                                    @foreach (var foto in Model.produtofotoModel)
+                                    {
+                                        @if (foto.Caminho != "")
+                                        {
+                                            <div class="slider-nav-img"><img src="@foto.Descricao" alt="Product Image"></div>
+                                         }
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="product-content">
+                                    <div class="title"><h2>@Model.tb_produto.Nome</h2></div>
 
-        <h4>Fotos</h4>
-        <div class="row">
-            @foreach (var foto in Model.produtofotoModel)
-            {
-                @if (foto.Caminho != "")
-                {
-                    <div><img src="@foto.Descricao" style="width:200px;height:200px;" /></div>
-                    <br />
-                }
+                                    <div class="price">
+                                        <h4>Preço: R$ @Model.tb_produto.Valor</h4>
+                                        
+                                    </div>
+                                    <div class="quantity">
+                                        <h4>Quantidade:  </h4>
+                                        <div class="qty">
+                                            <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                            <input type="text" value="1">
+                                            <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    @foreach (var Tamanho in Model.produtotamanhoModel)
+                                    {
+                                        <div class="p-size">
+                                            <h4>Tamanho:</h4>
+                                            <div class="btn-group btn-group-sm">
+                                                <button type="button" class="btn">@Tamanho.Descricao</button>
+                                            </div>
+                                        </div>}
+                                    <div class="action">
+                                        <a class="btn" href="#" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-cart"></i>Adicionar ao carrinho</a>
+                                        <a class="btn" href="../Carrinho" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-bag"></i>Comprar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            }
-        </div>
-
-        <h4>Cores</h4>
-        <hr />
-
-        <div class="row">
-            @foreach (var Cores in Model.produtocorModel)
-            {
-                <div class="col-2">
-                    <input type="radio">
-                    <label>@Cores.Descricao</label>
                 </div>
-                <div class="col-1"></div>
-            }
-        </div>
-        <hr />
-        <h4>Tamanhos</h4>
-        <hr />
-        <div class="row">
-            @foreach (var Tamanho in Model.produtotamanhoModel)
-            {
-                <div class="col-2">
-                    <input type="radio">
-                    <label>@Tamanho.Descricao</label>
+                <div class="col-lg-6">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="pill" href="#description">Descrição</a>
+                        </li>
+                        
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="description" class="container tab-pane active">
+                            <h4>Descrição do Produto</h4>
+                            <p>
+                                @Model.tb_produto.Descricao
+
+                            </p>
+                        </div>
+                      
+                    </div>
                 </div>
-                <div class="col-1"></div>
-            }
+            </div>
         </div>
     </div>
 </div>
-<div><button type="button" class="btn btn-primary" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');">Adicionar</button></div>
 
 <div class="row" id="idcarrinho"></div>
+
+<script src="~/lib/slick/slick.min.js"></script>
+<script src="~/js/pdp.js"></script>
 
 <script>
     $(document).ready(function () {
