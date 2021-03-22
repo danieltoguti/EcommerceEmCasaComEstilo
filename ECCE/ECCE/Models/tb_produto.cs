@@ -63,7 +63,7 @@ namespace ECCE.Models
         [Display(Name = "Peso", Prompt = "")]
         public double Peso { get; set; }
 
-        [Display(Name = "Status", Prompt = "")]
+        [Display(Name = "Status", Prompt = "Digite 1 para ativo e 0 para inativo")]
         public double Ativo { get; set; }
     }
 }

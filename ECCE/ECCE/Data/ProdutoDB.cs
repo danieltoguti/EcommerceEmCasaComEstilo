@@ -512,7 +512,7 @@ namespace ECCE.Data
                     var item = new tb_produto
                     {
                         CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
-                        CodigoInterno = Dr["CodigoInterno"].ToString(),
+
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDouble(Dr["Valor"]),
@@ -556,7 +556,7 @@ namespace ECCE.Data
                     tbPro = new tb_produto
                     {
                         CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
-                        CodigoInterno = Dr["CondigoInterno"].ToString(),
+                        CodigoInterno = Dr["CodigoInterno"].ToString(),
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDouble(Dr["Valor"]),

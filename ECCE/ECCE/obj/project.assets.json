@@ -6930,11 +6930,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danie\\Desktop\\EcommerceEmCasaComEstilo-mainv2\\EcommerceEmCasaComEstilo-main\\ECCE\\ECCE\\ECCE.csproj",
+      "projectUniqueName": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\ECCE.csproj",
       "projectName": "ECCE",
-      "projectPath": "C:\\Users\\danie\\Desktop\\EcommerceEmCasaComEstilo-mainv2\\EcommerceEmCasaComEstilo-main\\ECCE\\ECCE\\ECCE.csproj",
+      "projectPath": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\ECCE.csproj",
       "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danie\\Desktop\\EcommerceEmCasaComEstilo-mainv2\\EcommerceEmCasaComEstilo-main\\ECCE\\ECCE\\obj\\",
+      "outputPath": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
