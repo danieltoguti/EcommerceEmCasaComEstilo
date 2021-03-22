@@ -2,5 +2,5 @@
  Projeto final da faculdade
 
 Banco de Dados MySql
-Backend
-Frontend
+Backend Asp .Net Core 3.1
+Frontend Jquery e Ajax
