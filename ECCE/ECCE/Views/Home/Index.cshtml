@@ -12,8 +12,9 @@
                 <div>@item.tb_produto.Nome</div>
             </div>
             <div class="card-body">
-                <p><img src="@item.Foto" style="height: 200px;" /></p>
-                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail"></a>
+                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">
+                    <p><img src="@item.Foto" style="height: 200px;" /></p>
+                </a>
             </div>
             <div class="card-footer">
                 <p>R$ @item.tb_produto.Valor</p>

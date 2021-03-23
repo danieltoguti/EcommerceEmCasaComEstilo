@@ -1,8 +1,7 @@
 ﻿
 @{
-    @model CadastroLogin;
-    ViewData["Title"] = "Cadastro";
-}
+                @model CadastroLogin;
+                ViewData["Title"] = "Cadastro"; }
 <script type="text/javascript" src="~/js/viacep.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
 <h1>Cadastro</h1>
@@ -35,16 +34,22 @@
         </div>
         @if (ViewData["Tipo"].ToString() == "A")
         {
-            <div class="form-group col-md-3">
-                <label asp-for="tb_login.Tipo"></label>
-                <input type="text" class="form-control" asp-for="tb_login.Tipo">
-            </div>
-            <div class="form-group col-md-3">
-                <label asp-for="tb_login.Ativo"></label>
-                <input type="text" class="form-control" asp-for="tb_login.Ativo">
-            </div>
-
-        }
+<div class="form-group col-md-3">
+    <label asp-for="tb_login.Tipo"></label>
+    <select type="text" class="form-control" asp-for="tb_login.Tipo">
+        <option value="A">Admininistrador</option>
+        <option value="C">Cliente</option>
+        <option value="F">Funcionário</option>
+        <option value="G">Gerente</option>
+    </select>
+</div>
+                <div class="form-group col-md-3">
+                    <label asp-for="tb_login.Ativo"></label>
+                    <select type="text" class="form-control" asp-for="tb_login.Ativo">
+                        <option value="1">Ativo</option>
+                        <option value="0">Inativo</option>
+                    </select>
+                </div>}
 
 
         <input type="hidden" asp-for="tb_login.CodigoLogin">
@@ -111,7 +116,12 @@
     <button type="submit" class="btn btn-primary">Registrar</button>
 
 </form>
+@if (ViewData["Tipo"].ToString() == "A")
+{
+<br />
+    <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='../Home/DashBoard'">Dashboard</button>
 
+}
 
 
 <script>
@@ -222,4 +232,3 @@
 
 
 </script>
-

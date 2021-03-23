@@ -3859,7 +3859,6 @@ C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\net
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.pdb
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.genruntimeconfig.cache
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\Cliente.cshtml.g.cs
-C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\Editar.cshtml.g.cs
 C:\Users\PC - Desktop\Downloads\EcommerceEmCasaComEstilo17_03_21\EcommerceEmCasaComEstilo\ECCE\ECCE\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\PC - Desktop\Downloads\EcommerceEmCasaComEstilo17_03_21\EcommerceEmCasaComEstilo\ECCE\ECCE\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\PC - Desktop\Downloads\EcommerceEmCasaComEstilo17_03_21\EcommerceEmCasaComEstilo\ECCE\ECCE\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
