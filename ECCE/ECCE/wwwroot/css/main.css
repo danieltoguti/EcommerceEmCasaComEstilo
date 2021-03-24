@@ -268,13 +268,15 @@ h1, p, a {
 .sidebar-wrapperrounded{
   background-color: #828282;
 }
+
 .sidebar-wrapper .sidebar-footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex; }
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
   .sidebar-wrapper .sidebar-footer > div {
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;

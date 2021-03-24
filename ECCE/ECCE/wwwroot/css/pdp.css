@@ -8,10 +8,6 @@ body {
     background: #f3f6ff;
 }
 
-a {
-    color: #FF6F61;
-}
-
 a:hover,
 a:active,
 a:focus {
@@ -28,13 +24,6 @@ h1 {
 h2 {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-}
-
-@media(min-width: 992px) {
-    .container-fluid {
-        padding-right: 60px;
-        padding-left: 60px;
-    }
 }
 
 
@@ -149,10 +138,10 @@ h2 {
     margin-bottom: 30px;
 }
 
-.product-detail .product-detail-top {
-    padding: 0;
-    background: #ffffff;
-}
+    .product-detail .product-detail-top {
+        padding: 15px;
+        background: #ffffff;
+    }
 
 .product-detail .product-slider-single img {
     width: 100%;
@@ -166,6 +155,7 @@ h2 {
 .product-detail .product-slider-single-nav .slider-nav-img {
     border-right: 1px solid #FF6F61;
     overflow: hidden;
+    width: 2em!important;
 }
 
 .product-detail .product-slider-single-nav img {
@@ -187,10 +177,10 @@ h2 {
     position: relative;
     width: 100%;
 }
-
-.product-detail .product-content {
-    padding: 30px;
-}
+    .product-detail .product-content {
+        padding: 0 30px;
+        text-align: center;
+    }
 
 @media (min-width: 768px) {
     .product-detail .product-content {
@@ -199,7 +189,7 @@ h2 {
 }
 
 .product-detail .product-content .title h2 {
-    font-size: 20px;
+    font-size: 25px;
     margin-bottom: 5px;
 }
 
@@ -219,24 +209,30 @@ h2 {
     margin-bottom: 15px;
 }
 
-.product-detail .product-content .price h4,
-.product-detail .product-content .quantity h4,
-.product-detail .product-content .p-size h4,
-.product-detail .product-content .p-color h4 {
-    display: inline-block;
-    width: 80px;
-    font-size: 16px;
-    font-weight: 700;
-    margin-right: 5px;
-}
+    .product-detail .product-content .price h4,
+    .product-detail .product-content .quantity h4,
+    .product-detail .product-content .p-size h4,
+    .product-detail .product-content .p-color h4 {
+        display: inline-block;
+        width: 80px;
+        font-size: 16px;
+        font-weight: 700;
+        margin-right: 5px;
+    }
+    .product-detail .product-content .price h4 {
+        font-size: 23px;
+        width: 120px;
+        color: #6c6a98;
+    }
 
-.product-detail .product-content .price p {
-    display: inline-block;
-    color: #FF6F61;
-    font-size: 30px;
-    font-weight: 700;
-    margin: 0;
-}
+
+    .product-detail .product-content .price p {
+        display: inline-block;
+        color: #FF6F61;
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0;
+    }
 
 .product-detail .product-content .price span {
     color: #999999;
@@ -267,20 +263,24 @@ h2 {
 .product-detail .product-content .quantity button.btn-plus {
     border-radius: 0 4px 4px 0;
 }
+.action {
+    display: flex
+}
 
 .product-detail .product-content .quantity input {
     width: 40px;
     height: 30px;
-    color: #ffffff;
-    font-size: 14px;
+    color: rgb(0 0 0 / 90%);
+    font-size: 13px;
     text-align: center;
-    background: #000000;
-    border: none;
+    background: #ffffff;
+    border: 1px solid rgb(0 0 0 / 90%);
 }
 
 .product-detail .product-content .action a:first-child {
     margin-right: 11px;
 }
+
 
 .product-detail .product-content .action a i {
     margin-right: 5px;
@@ -293,15 +293,17 @@ h2 {
     transition: all .3s;
 }
 
-.product-detail .nav.nav-pills .nav-link:hover,
-.product-detail .nav.nav-pills .nav-link.active {
-    color: #000000;
-    background: #FF6F61;
-}
+    .product-detail .nav.nav-pills .nav-link:hover,
+    .product-detail .nav.nav-pills .nav-link.active {
+        color: #ffffff;
+        background: #353535;
+        cursor: auto;
+    }
 
 .product-detail .tab-content {
     background: #ffffff;
     padding: 25px 15px 15px 15px;
+    height: 340px;
 }
 
 .product-detail .tab-content ul {
