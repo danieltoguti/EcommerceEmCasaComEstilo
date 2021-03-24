@@ -1,12 +1,10 @@
 ﻿
 @{
-                @model ProdutoView;
+    @model ProdutoView;
 }
 
 <h5>@Model.tb_produto.Nome</h5>
 <hr />
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
 <link href="~/lib/slick/slick.css" rel="stylesheet">
 <link href="~/lib/slick/slick-theme.css" rel="stylesheet">
@@ -26,17 +24,17 @@
                                     {
                                         @if (foto.Caminho != "")
                                         {
-                                             <img src="@foto.Descricao" alt="Product Image">
+                                            <img src="@foto.Descricao" alt="Product Image">
                                         }
-                                     }
+                                    }
                                 </div>
                                 <div class="product-slider-single-nav normal-slider">
                                     @foreach (var foto in Model.produtofotoModel)
                                     {
                                         @if (foto.Caminho != "")
                                         {
-                                            <div class="slider-nav-img"><img src="@foto.Descricao" alt="Product Image"></div>
-                                         }
+                                            <div class="slider-nav-img" style="width: 45px"><img src="@foto.Descricao" alt="Product Image"></div>
+                                        }
                                     }
                                 </div>
                             </div>
@@ -45,8 +43,8 @@
                                     <div class="title"><h2>@Model.tb_produto.Nome</h2></div>
 
                                     <div class="price">
-                                        <h4>Preço: R$ @Model.tb_produto.Valor</h4>
-                                        
+                                        <h4>R$ @Model.tb_produto.Valor</h4>
+
                                     </div>
                                     <div class="quantity">
                                         <h4>Quantidade:  </h4>
@@ -65,8 +63,8 @@
                                             </div>
                                         </div>}
                                     <div class="action">
-                                        <a class="btn" href="#" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-cart"></i>Adicionar ao carrinho</a>
-                                        <a class="btn" href="../Carrinho" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-bag"></i>Comprar</a>
+                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="#" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-cart"></i>Adicionar ao carrinho</a>
+                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="../Carrinho" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-bag"></i>Comprar</a>
                                     </div>
                                 </div>
                             </div>
@@ -79,19 +77,18 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="pill" href="#description">Descrição</a>
                         </li>
-                        
+
 
                     </ul>
 
                     <div class="tab-content">
                         <div id="description" class="container tab-pane active">
-                            <h4>Descrição do Produto</h4>
                             <p>
                                 @Model.tb_produto.Descricao
 
                             </p>
                         </div>
-                      
+
                     </div>
                 </div>
             </div>
