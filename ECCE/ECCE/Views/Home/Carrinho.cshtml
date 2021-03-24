@@ -1,13 +1,31 @@
-﻿@{
-
-    ViewData["Title"] = "Carrinho";
-
-}
-
-
-
-
+﻿@{ ViewData["Title"] = "Carrinho"; }
+<h4>Carrinho</h4>
+<hr />
 <div class="row" id="idcarrinho"></div>
+<hr />
+<h6>Calculo de frete</h6>
+<div class="row">
+    <div class="col-md-2">
+        <label>CEP: </label>
+        <input type="text" name="CEP"><br><br>
+    </div>
+    <div class="col-md-2">
+        <label>Escolha o tipo de envio:</label>
+        <select type="text" class="form-control">
+            <option value="04510">PAC</option>
+            <option value="04014">SEDEX</option>
+        </select>
+    </div class="col-md-1">
+    <div >
+    <button type="submit" class="btn btn-primary btn-sm">Calcular</button>
+    </div>
+
+</div>
+    <hr />
+    <p>Valor total:</p>
+    <hr />
+    <button type="submit" class="btn btn-primary">Finalizar</button>
+
 
 <script>
     $(document).ready(function () {
