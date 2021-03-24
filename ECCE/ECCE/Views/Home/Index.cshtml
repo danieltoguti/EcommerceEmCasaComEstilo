@@ -17,7 +17,7 @@
                 </a>
             </div>
             <div class="card-footer">
-                <p>R$ @item.tb_produto.Valor</p>
+                <p>@item.tb_produto.Valor.ToString("C")</p>
                 <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">Mais Detalhes</a>
             </div>
 
