@@ -6,9 +6,6 @@
 <h5>@Model.tb_produto.Nome</h5>
 <hr />
 
-<link href="~/lib/slick/slick.css" rel="stylesheet">
-<link href="~/lib/slick/slick-theme.css" rel="stylesheet">
-
 <link href="~/css/pdp.css" rel="stylesheet">
 
 <div class="row">
@@ -43,28 +40,30 @@
                                     <div class="title"><h2>@Model.tb_produto.Nome</h2></div>
 
                                     <div class="price">
-                                        <h4>@Model.tb_produto.Valor.ToString("C")</h4>
+                                        <h4 id="txt_preco">@Model.tb_produto.Valor.ToString("C")</h4>
 
                                     </div>
-                                    <div class="quantity">
-                                        <h4>Quantidade:  </h4>
-                                        <div class="qty">
-                                            <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                            <input type="text" value="1">
-                                            <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                        </div>
+                                     <div class="p-size">
+                                        <h4>Tamanho:</h4>
+                                        <select id="txt_tamanho" class="form-control" style="width:70px">
+                                            @foreach (var Tamanho in Model.produtotamanhoModel)
+                                            {
+                                                <option>@Tamanho.Descricao</option>
+                                            }
+                                        </select>
                                     </div>
-                                    @foreach (var Tamanho in Model.produtotamanhoModel)
-                                    {
-                                        <div class="p-size">
-                                            <h4>Tamanho:</h4>
-                                            <div class="btn-group btn-group-sm">
-                                                <button type="button" class="btn">@Tamanho.Descricao</button>
-                                            </div>
-                                        </div>}
+                                    <div class="p-size">
+                                        <h4>Cor:</h4>
+                                        <select id="txt_cor" class="form-control" style="width:130px">
+                                            @foreach (var Cor in Model.produtocorModel)
+                                            {
+                                                <option>@Cor.Descricao</option>
+                                            }
+                                        </select>
+                                    </div>
                                     <div class="action">
-                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="#" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-cart"></i>Adicionar ao carrinho</a>
-                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="../Carrinho" onclick="AddCar(@Model.tb_produto.CodigoProduto,'@Model.tb_produto.Nome');"><i class="fa fa-shopping-bag"></i>Comprar</a>
+                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="#" onclick="AddCar();"><i class="fa fa-shopping-cart"></i>Adicionar ao carrinho</a>
+                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="../Carrinho" onclick="AddCar();"><i class="fa fa-shopping-bag"></i>Comprar</a>
                                     </div>
                                 </div>
                             </div>
@@ -96,8 +95,6 @@
     </div>
 </div>
 
-
-
 <div class="row" id="idcarrinho"></div>
 
 <script src="~/lib/slick/slick.min.js"></script>
@@ -109,15 +106,25 @@
     });
 
 
-    function AddCar(codigo,descricao) {
-        var _url = '@Url.Action("AddCar", "Home")';
+    function AddCar() {        
+        var _quantidade = $("#txt_quantidade option:selected").val();
+        var _tamanho = $("#txt_tamanho option:selected").val();
+        var _cor = $("#txt_cor option:selected").val();
+        var foto = $("#txt_foto").val();
+        var _url = '@Url.Action("AddCar", "Carrinho")';
 
         $.ajax({
             url: _url,
             type: 'GET',
             data: {
-                key: codigo,
-                value: descricao
+                CodigoProduto: '@Model.tb_produto.CodigoProduto',
+                Nome: '@Model.tb_produto.Nome',
+                Peso: '@Model.tb_produto.Peso',
+                Quantidade: _quantidade,
+                Tamanho: _tamanho,
+                Preco: '@Model.tb_produto.Valor',
+                Cor: _cor,
+                Foto: '@Model.produtofotoModel',
             },
             processData: true,
             contentType: true,
@@ -136,7 +143,11 @@
     }
 
     function GetCarrinho() {
-        var _url = '@Url.Action("GetAll", "Home")';
+
+        var tb ="";
+
+        $("#idcarrinho").html("");
+        var _url = '@Url.Action("GetAll", "Carrinho")';
 
         $.ajax({
             url: _url,
@@ -144,7 +155,21 @@
             processData: true,
             contentType: true,
             success: function (result) {
-                $("#idcarrinho").html(result);
+                if (result.success) {
+                    tb = "<table class='table'>";
+                    $.each(result.resp, function (i, item) {
+                        tb += "<tr>";
+                        tb += "<td>" + item.nome + "</td>";
+                        tb += "<td>" + item.quantidade + "</td>";
+                        tb += "<td>" + item.tamanho + "</td>";
+                        tb += "<td>" + item.preco + "</td>";
+                        tb += "<td>" + item.cor + "</td>";
+                        tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
+                        tb += "</tr>";
+                    });
+                    tb += "</table>";
+                    $("#idcarrinho").html(tb);
+                }
 
              }
             ,
@@ -160,13 +185,13 @@
 
 
     function RemoveItem(codigo) {
-        var _url = '@Url.Action("RemoveItem", "Home")';
+        var _url = '@Url.Action("RemoveItem", "Carrinho")';
 
         $.ajax({
             url: _url,
             type: 'GET',
             data: {
-                key: codigo
+                Id: codigo
             },
             processData: true,
             contentType: true,

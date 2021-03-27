@@ -27,7 +27,7 @@ namespace ECCE.Models
         public List<produtotamanhoModel> produtotamanhoModel { get; set; }
         public List<produtocategoriaModel> produtocategoriaModel { get; set; }
         public List<produtofotoModel> produtofotoModel { get; set; }
-        public tb_venda_itens tb_venda_itens { get; set; }
+
 
     }
 

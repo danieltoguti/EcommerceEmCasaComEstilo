@@ -1,52 +1,83 @@
 ﻿@{ ViewData["Title"] = "Carrinho"; }
-<h4>Carrinho</h4>
-<hr />
-<div class="row" id="idcarrinho"></div>
-<hr />
+
+
+<link rel="stylesheet" href="~/lib/bootstrap-ecommerce-uikit/css/ui.css" />
+<link rel="stylesheet" href="~/lib/bootstrap-ecommerce-uikit/css/responsive.css" media="only screen and (max-width: 1200px)" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" />
+
+
+
+<section class="container" id="order" style="margin-top: 50px">
+    <div id="code_cart">
+        <div class="card">
+            <table class="table table-hover shopping-cart-wrap">
+                <thead class="text-muted">
+                    <tr>
+                        <th scope="col">Produto</th>
+                        <th scope="col" width="120">Quantidade</th>
+                        <th scope="col" width="120">Preço</th>
+                        <th scope="col" width="200" class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody id="idcarrinho">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<br />
+<br />
+
+
 <h6>Calculo de frete</h6>
+
 <div class="row">
     <div class="col-md-2">
         <label>CEP: </label>
-        <input type="text" name="CEP"><br><br>
+        <input id="txt_cep" type="text" name="CEP"><br><br>
     </div>
     <div class="col-md-2">
         <label>Escolha o tipo de envio:</label>
-        <select type="text" class="form-control">
+        <select id="txt_servico" type="text" class="form-control">
             <option value="04510">PAC</option>
             <option value="04014">SEDEX</option>
         </select>
-    </div class="col-md-1">
-    <div >
-    <button type="submit" class="btn btn-primary btn-sm">Calcular</button>
+    </div>
+    <div>
+        <button id="btn_Calcular" type="button" class="btn btn-primary btn-sm">Calcular</button>
     </div>
 
 </div>
-    <hr />
-    <p>Valor total:</p>
-    <hr />
-    <button type="submit" class="btn btn-primary">Finalizar</button>
+<hr />
+<p>Valor total: <span id="RespFrete"></span></p>
+<hr />
+<button type="submit" class="btn btn-primary">Finalizar</button>
 
 
 <script>
     $(document).ready(function () {
+        $("#btn_Calcular").click(function () {
+            Calcular($("#txt_cep").val(), $("#txt_servico").val());
+        });
+
         GetCarrinho();
     });
 
-
-    function AddCar(codigo,descricao) {
-        var _url = '@Url.Action("AddCar", "Home")';
+    function Calcular(_cep, _servico) {
+        $("#RespFrete").html("Aguarde...");
+        var _url = '@Url.Action("GetCalculo", "CalculaFrete")';
 
         $.ajax({
             url: _url,
             type: 'GET',
             data: {
-                key: codigo,
-                value: descricao
+                cep : _cep,
+                cdservico : _servico,
             },
             processData: true,
             contentType: true,
             success: function (result) {
-                GetCarrinho();
+                $("#RespFrete").html(result.resposta);
             }
             ,
             error: function (jqXHR) {
@@ -60,7 +91,12 @@
     }
 
     function GetCarrinho() {
-        var _url = '@Url.Action("GetAll", "Home")';
+
+        var tb = "";
+
+        $("#idcarrinho").html("");
+        var _url = '@Url.Action("GetAll", "Carrinho")';
+        var Peso = 0;
 
         $.ajax({
             url: _url,
@@ -68,9 +104,29 @@
             processData: true,
             contentType: true,
             success: function (result) {
-                $("#idcarrinho").html(result);
+                if (result.success) {
+                    tb = "<tr>";
+                    $.each(result.resp, function (i, item) {
 
-             }
+                        tb += "<td><figure class='media'><figcaption class='media-body'>";
+                        tb += "<h6 class='title text-truncate'>" + item.nome + "</h6>";
+                        tb += "<dl class='dlist-inline small'><dt>Tamanho: </dt><dd>" + item.tamanho + "</dd></dl>";
+                        tb += "<dl class='dlist-inline small'><dt>Cor: </dt><dd>" + item.cor + "</dd></dl>";
+                        tb += "</figcaption></figure ></td>";
+                        tb += "<td><select class='form-control'><option>1</option><option>2</option><option>3</option>";
+                        tb += "<option>4</option><option>5</option><option>6</option><option>7</option></select></td>";
+                        tb += "<td><div class='price-wrap'><var class='price'>R$ 150,00</var>";
+                        tb += "<small class='text-muted'>(" + item.preco + " cada)</small></div></td>";
+                        tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
+                        tb += "</tr>";
+
+                    });
+
+                    $("#idcarrinho").html(tb);
+
+                }
+
+            }
             ,
             error: function (jqXHR) {
 
@@ -82,15 +138,14 @@
         });
     }
 
-
-    function RemoveItem(codigo) {
-        var _url = '@Url.Action("RemoveItem", "Home")';
+      function RemoveItem(codigo) {
+        var _url = '@Url.Action("RemoveItem", "Carrinho")';
 
         $.ajax({
             url: _url,
             type: 'GET',
             data: {
-                key: codigo
+                Id: codigo
             },
             processData: true,
             contentType: true,

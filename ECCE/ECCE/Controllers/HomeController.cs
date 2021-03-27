@@ -40,24 +40,29 @@ namespace ECCE.Controllers
         }
         public IActionResult Carrinho()
         {
+            CarrinhoController car = new CarrinhoController(_hCont);
+
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
-            ViewData["Carrinho"] = GetAll();
+            ViewData["Carrinho"] = car.GetAll();
 
             return View();
         }
+
 
         public IActionResult ProdutoDetail(int id)
         {
             ProdutoDB Produto = new ProdutoDB();
             var resp = Produto.GetProdutoView(id);
 
+            CarrinhoController car = new CarrinhoController(_hCont);
+
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
 
-            ViewData["Carrinho"] = GetAll();
+            ViewData["Carrinho"] = car.GetAll();
 
             return View(resp);
         }
@@ -82,60 +87,6 @@ namespace ECCE.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-        [HttpGet]
-        public void AddCar(string key, string value)
-        {
-            Set(key, value, 10);
-        }
-
-        public void Set(string key, string value, int? expireTime)
-        {
-            CookieOptions option = new CookieOptions();
-
-            if (expireTime.HasValue)
-                option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
-            else
-                option.Expires = DateTime.Now.AddMilliseconds(10);
-
-            Response.Cookies.Append(key, value, option);
-        }
-
-        [HttpGet]
-        public void RemoveItem(string key)
-        {
-            Response.Cookies.Delete(key);
-        }
-
-        [HttpGet]
-        public string Get(string key)
-        {
-            return Request.Cookies[key];
-        }
-
-
-        [HttpGet]
-        public string GetAll()
-        {
-
-            string Carrinho = "<table>";
-            foreach (var item in Request.Cookies)
-            {
-                if (item.Key.Length < 4)
-                {
-                    Carrinho += "<tr>";
-                    Carrinho += "<td>" + item.Key + "</td>";
-                    Carrinho += "<td>" + item.Value + "</td>";
-                    Carrinho += "<td><a href='##' onclick='RemoveItem(" + item.Key + ");'>Excluir</a></td>";
-                    Carrinho += "</tr>";
-                }
-            }
-            Carrinho += "</table>";
-            return Carrinho;
-        }
-
-
 
     }
 }
