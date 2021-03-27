@@ -90,7 +90,6 @@ namespace ECCE.Controllers
             Set(key, value, 10);
         }
 
-
         public void Set(string key, string value, int? expireTime)
         {
             CookieOptions option = new CookieOptions();
@@ -109,11 +108,12 @@ namespace ECCE.Controllers
             Response.Cookies.Delete(key);
         }
 
-        [HttpGet] //AQUIE SE QUISER UM ITEM ESPECÍFICO 
+        [HttpGet]
         public string Get(string key)
         {
             return Request.Cookies[key];
         }
+
 
         [HttpGet]
         public string GetAll()
@@ -134,6 +134,8 @@ namespace ECCE.Controllers
             Carrinho += "</table>";
             return Carrinho;
         }
+
+
 
     }
 }
