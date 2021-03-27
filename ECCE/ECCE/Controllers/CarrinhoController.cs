@@ -21,7 +21,7 @@ namespace ECCE.Controllers
         }
 
         [HttpGet]
-        public void AddCar(int CodigoProduto, string Nome, double Peso, int Quantidade, string Tamanho, double Preco, string Cor)
+        public void AddCar(int CodigoProduto, string Nome, string Tamanho, double Preco, string Cor)
         {
             List<CarrinhoModel> Car=null;
             CarrinhoModel item = new CarrinhoModel();
@@ -44,8 +44,6 @@ namespace ECCE.Controllers
            
             item.CodigoProduto = CodigoProduto;
             item.Nome = Nome;
-            item.Peso = Peso;
-            item.Quantidade = Quantidade;
             item.Tamanho = Tamanho;
             item.Preco = Preco;
             item.Cor = Cor;

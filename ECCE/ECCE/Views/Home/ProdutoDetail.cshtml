@@ -107,10 +107,8 @@
 
 
     function AddCar() {        
-        var _quantidade = $("#txt_quantidade option:selected").val();
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
-        var foto = $("#txt_foto").val();
         var _url = '@Url.Action("AddCar", "Carrinho")';
 
         $.ajax({
@@ -120,7 +118,6 @@
                 CodigoProduto: '@Model.tb_produto.CodigoProduto',
                 Nome: '@Model.tb_produto.Nome',
                 Peso: '@Model.tb_produto.Peso',
-                Quantidade: _quantidade,
                 Tamanho: _tamanho,
                 Preco: '@Model.tb_produto.Valor',
                 Cor: _cor,

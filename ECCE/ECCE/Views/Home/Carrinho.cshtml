@@ -96,7 +96,6 @@
 
         $("#idcarrinho").html("");
         var _url = '@Url.Action("GetAll", "Carrinho")';
-        var Peso = 0;
 
         $.ajax({
             url: _url,
@@ -113,19 +112,17 @@
                         tb += "<dl class='dlist-inline small'><dt>Tamanho: </dt><dd>" + item.tamanho + "</dd></dl>";
                         tb += "<dl class='dlist-inline small'><dt>Cor: </dt><dd>" + item.cor + "</dd></dl>";
                         tb += "</figcaption></figure ></td>";
-                        tb += "<td><select class='form-control'><option>1</option><option>2</option><option>3</option>";
+                        tb += "<td id='qtd'><select class='form-control'><option>1</option><option>2</option><option>3</option>";
                         tb += "<option>4</option><option>5</option><option>6</option><option>7</option></select></td>";
-                        tb += "<td><div class='price-wrap'><var class='price'>R$ 150,00</var>";
+                        tb += "<td><div class='price-wrap'><var class='price'>" + 15151515 + "</var>";
                         tb += "<small class='text-muted'>(" + item.preco + " cada)</small></div></td>";
                         tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
 
                     });
-
                     $("#idcarrinho").html(tb);
 
                 }
-
             }
             ,
             error: function (jqXHR) {
@@ -164,3 +161,14 @@
     }
 
 </script>
+
+
+
+<!--
+
+var _qt = $('#qtd').change(function (event) {
+                       var _qtd = event.currentTarget.value;
+                       console.log(_qtd);
+                   });
+              -->
+    
