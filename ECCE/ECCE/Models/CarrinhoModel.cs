@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,8 +15,8 @@ namespace ECCE.Models
         public int Quantidade { get; set; }
         public string Cor { get; set; }
         public string Tamanho { get; set; }
+
         public double Preco { get; set; }
-        public double PrecoQuantidade { get; set; }
         public string Foto { get; set; }
     }
 }
