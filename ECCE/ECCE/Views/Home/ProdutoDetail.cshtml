@@ -21,7 +21,7 @@
                                     {
                                         @if (foto.Caminho != "")
                                         {
-                                            <img src="@foto.Descricao" alt="Product Image">
+                                            <img  src="@foto.Descricao" alt="Product Image">
                                         }
                                     }
                                 </div>
@@ -30,7 +30,7 @@
                                     {
                                         @if (foto.Caminho != "")
                                         {
-                                            <div class="slider-nav-img" style="width: 45px"><img src="@foto.Descricao" alt="Product Image"></div>
+                                            <div class="slider-nav-img" id="foto" style="width: 45px"><img src="@foto.Descricao" alt="Product Image"></div>
                                         }
                                     }
                                 </div>
@@ -43,7 +43,7 @@
                                         <h4 id="txt_preco">@Model.tb_produto.Valor.ToString("C")</h4>
 
                                     </div>
-                                     <div class="p-size">
+                                    <div class="p-size">
                                         <h4>Tamanho:</h4>
                                         <select id="txt_tamanho" class="form-control" style="width:70px">
                                             @foreach (var Tamanho in Model.produtotamanhoModel)
@@ -59,6 +59,18 @@
                                             {
                                                 <option>@Cor.Descricao</option>
                                             }
+                                        </select>
+                                    </div>
+                                    <div class="p-size">
+                                        <h4>Quantidade</h4>
+                                        <select id="txt_quantidade" class="form-control" style="width:70px">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
                                         </select>
                                     </div>
                                     <div class="action">
@@ -106,9 +118,13 @@
     });
 
 
-    function AddCar() {        
+    function AddCar() {      
+
+        var _foto = $("#foto").val();
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
+        var _quantidade = $("#txt_quantidade option:selected").val();
+
         var _url = '@Url.Action("AddCar", "Carrinho")';
 
         $.ajax({
@@ -121,7 +137,8 @@
                 Tamanho: _tamanho,
                 Preco: '@Model.tb_produto.Valor',
                 Cor: _cor,
-                Foto: '@Model.produtofotoModel',
+                Foto: _foto,
+                Quantidade: _quantidade,
             },
             processData: true,
             contentType: true,
@@ -156,6 +173,7 @@
                     tb = "<table class='table'>";
                     $.each(result.resp, function (i, item) {
                         tb += "<tr>";
+                        tb += "<td>" + item.foto + "</td>";
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";

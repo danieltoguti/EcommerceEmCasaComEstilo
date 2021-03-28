@@ -107,14 +107,15 @@
                     tb = "<tr>";
                     $.each(result.resp, function (i, item) {
 
-                        tb += "<td><figure class='media'><figcaption class='media-body'>";
+                        tb += "<td><figure class='media'>";
+                        tb += "<div class='img-wrap'><img src='" + item.foto + "class='img-thumbnail img-sm'></div>";
+                        tb += "<figcaption class='media-body'>";
                         tb += "<h6 class='title text-truncate'>" + item.nome + "</h6>";
                         tb += "<dl class='dlist-inline small'><dt>Tamanho: </dt><dd>" + item.tamanho + "</dd></dl>";
                         tb += "<dl class='dlist-inline small'><dt>Cor: </dt><dd>" + item.cor + "</dd></dl>";
                         tb += "</figcaption></figure ></td>";
-                        tb += "<td id='qtd'><select class='form-control'><option>1</option><option>2</option><option>3</option>";
-                        tb += "<option>4</option><option>5</option><option>6</option><option>7</option></select></td>";
-                        tb += "<td><div class='price-wrap'><var class='price'>" + 15151515 + "</var>";
+                        tb += "<td>" + item.quantidade + " </td>";
+                        tb += "<td><div class='price-wrap'><var class='price'>" + item.quantidade * item.preco + "</var>";
                         tb += "<small class='text-muted'>(" + item.preco + " cada)</small></div></td>";
                         tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
