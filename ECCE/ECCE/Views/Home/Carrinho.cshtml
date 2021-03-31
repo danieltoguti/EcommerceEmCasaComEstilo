@@ -124,7 +124,7 @@
                     $.each(result.resp, function (i, item) {
 
                         tb += "<td><figure class='media'>";
-                        tb += "<div class='img-wrap'><img src='" + item.foto + "class='img-thumbnail img-sm'></div>";
+                        tb += "<div class='img-wrap'><img src='~/img/em_casa_logo_v.png'class='img-thumbnail img-sm'></div>";
                         tb += "<figcaption class='media-body'>";
                         tb += "<h6 class='title text-truncate'>" + item.nome + "</h6>";
                         tb += "<dl class='dlist-inline small'><dt>Tamanho: </dt><dd>" + item.tamanho + "</dd></dl>";
@@ -135,7 +135,7 @@
                         tb += "<small class='text-muted'>(" + formata(item.preco) + " cada)</small></div></td>";
                         tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
-                        Total += item.preco * item.quantidade;
+                        Total += formata(item.preco) * item.quantidade;
 
                     });
 

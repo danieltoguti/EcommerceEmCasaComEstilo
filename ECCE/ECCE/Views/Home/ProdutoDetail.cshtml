@@ -3,6 +3,7 @@
     @model ProdutoView;
 }
 
+<link href="~/css/pdp.css" rel="stylesheet">
 
 <div class="card">
     <div class="row">
@@ -10,13 +11,15 @@
             <article class="gallery-wrap">
                 <div class="img-big-wrap">
                     <a href="#"><img src="~/img/images.jpg"></a>
-                </div> <!-- img-big-wrap.// -->
-                <div class="thumbs-wrap">
-                    <a href="#" class="item-thumb"> <img src="~/img/Calca.webp"></a>
-                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/12.jpg"></a>
-                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/12.jpg"></a>
-                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/4.jpg"></a>
-                </div> <!-- thumbs-wrap.// -->
+                </div>
+                <!--
+                <div class="product-slider-single-nav normal-slider">
+                    <div class="thumbs-wrap">
+                        <a href="#" class="item-thumb"> <img src="~/img/Calca.webp"></a>
+                        <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/12.jpg"></a>
+                        <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/12.jpg"></a>
+                        <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/4.jpg"></a>
+                    </div>  -->
             </article> <!-- gallery-wrap .end// -->
         </aside>
         <main class="col-md-6 border-left" style="padding: 2em 2em;">
@@ -72,7 +75,7 @@
 
                 <hr>
 
-                <a onclick="AddCar();" href="../Carrinho"  class="btn  btn-primary"> Comprar agora </a>
+                <a onclick="AddCar();" href="../Carrinho" class="btn  btn-primary"> Comprar agora </a>
                 <a href="#" class="btn  btn-outline-primary" onclick="AddCar();"> <span class="text">Adicionar ao carrinho</span> <i class="fas fa-shopping-cart"></i>  </a>
             </article> <!-- product-info-aside .// -->
         </main> <!-- col.// -->
@@ -81,6 +84,8 @@
 
 <div class="row" id="idcarrinho"></div>
 
+<script src="~/lib/slick/slick.min.js"></script>
+<script src="~/js/pdp.js"></script>
 
 <script>
 
@@ -92,7 +97,7 @@
         return parseFloat(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL"});
     }
 
-    function AddCar() { 
+    function AddCar() {
         var _foto = $("#foto").val();
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
@@ -146,7 +151,7 @@
                     tb = "<table class='table'>";
                     $.each(result.resp, function (i, item) {
                         tb += "<tr>";
-                        tb += "<td>" + item.foto + "</td>";
+                        tb += "<div class='img-wrap'><img src='~/img/em_casa_logo_v.png' class='img-thumbnail img-sm'></div>";
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
@@ -156,7 +161,7 @@
                         tb += "</tr>";
                     });
                     tb += "</table>";
-                    $("#idcarrinho").html(tb);
+                    //$("#idcarrinho").html(tb);
                 }
 
              }
