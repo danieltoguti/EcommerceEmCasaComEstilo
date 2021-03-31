@@ -74,13 +74,6 @@
 
     });
 
-    function ValorTotal(_frete, _compra) {
-        var total = _frete + _compra;
-            $("#ValorFinal").html(total);
-
-
-        });
-
     function Calcular(_cep, _servico) {
         $("#RespFrete").html("Aguarde...");
         var _url = '@Url.Action("GetCalculo", "CalculaFrete")';
