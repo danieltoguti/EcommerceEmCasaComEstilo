@@ -66,11 +66,20 @@
     $(document).ready(function () {
         $("#btn_Calcular").click(function () {
             Calcular($("#txt_cep").val(), $("#txt_servico").val());
+            var frete = $("#total").val() + $("#RespFrete2").val()
+            $("#ValorFinal").html(frete);
         });
 
         GetCarrinho();
 
     });
+
+    function ValorTotal(_frete, _compra) {
+        var total = _frete + _compra;
+            $("#ValorFinal").html(total);
+
+
+        });
 
     function Calcular(_cep, _servico) {
         $("#RespFrete").html("Aguarde...");
@@ -105,6 +114,7 @@
 
         var tb = "";
         var Total = 0;
+
         $("#idcarrinho").html("");
         var _url = '@Url.Action("GetAll", "Carrinho")';
 
@@ -131,12 +141,12 @@
                         tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                         Total += item.preco * item.quantidade;
-                        tb += "<tr><td><h6> Total = " + Total + "<h6></td></tr>";
 
                     });
 
                     $("#idcarrinho").html(tb);
                     $("#total").html(Total);
+
 
                 }
             }
@@ -149,6 +159,7 @@
             }
 
         });
+
     }
 
       function RemoveItem(codigo) {
@@ -174,7 +185,8 @@
             }
 
         });
-    }
+      }
+
 
 </script>
 

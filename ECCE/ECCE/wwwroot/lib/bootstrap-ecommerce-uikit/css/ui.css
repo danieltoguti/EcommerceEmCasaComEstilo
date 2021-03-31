@@ -1615,8 +1615,6 @@ article:after,
   position: relative; }
 
 .widget-header {
-  margin-left: 7px;
-  margin-right: 7px;
   display: inline-block;
   position: relative; }
   .widget-header form {

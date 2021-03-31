@@ -1,14 +1,21 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ECCE</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/bootstrap-4.2.1-dist/css/bootstrap.css?v=2.0" rel="stylesheet" type="text/css">
+    <link href="~/lib/bootstrap-ecommerce-uikit/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/bootstrap-ecommerce-uikit/ui-ecommerce/fonts/fontawesome/css/all.min.css?v2.0" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/css/nav.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-ecommerce-uikit/css/ui.css" rel="stylesheet" type="text/css">
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -16,87 +23,233 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 </head>
+<style>
+    <style type="text/css" >
+    output {
+        display: block;
+        width: 100%
+    }
+
+    .section-content {
+        border-top: 7px solid #eee
+    }
+
+    .card-product-list:last-child {
+        margin-bottom: 0 !important
+    }
+
+    .section-content .padding-y {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+
+    .section-header, .section-footer {
+        box-shadow: 0 2px 10px rgba(51, 51, 51, 0.1);
+        position: relative;
+    }
+</style>
+
 <body style="background-color: gainsboro">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-white border-bottom box-shadow mb-3">
+    <header class="section-header" style="background-color: #fff; margin-bottom: 1em">
+        <section class="header-main border-bottom">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/em_casa_logo_v.png" style="width:80px" alt="Em Casa Com Estilo">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Carrinho"><i class="fa fa-shopping-cart"> </i></a>
-                        </li>
-                    </ul>
-                    @if (ViewData["NomeLogin"] != "")
-                    {
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Sair</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <h5>@ViewData["NomeLogin"]</h5>
-                            </li>
-                        </ul>
-                    }
-                    @if (ViewData["Tipo"].ToString() == "A")
-                    {
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="DashBoard">Dashboard</a>
-                            </li>
-                        </ul>
-                    }
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-4 col-sm-4">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                            <img src="~/img/em_casa_logo_v.png" style="width:80px" alt="Em Casa Com Estilo">
+                        </a> <!-- Pesquisar -->
+                    </div>
+                    <div class="col-lg-6 col-sm-8 col-8">
+                        <form action="#" class="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Procurar">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary searchme" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- carrinho link -->
+                    <div class="col-lg-3 col-12 col-sm-12">
+                        <div class="widgets-wrap d-flex justify-content-end">
+                            <div class="widget-header">
+                                <a class="icontext" asp-area="" asp-controller="Home" asp-action="Carrinho">
+                                    <div class="icon"><i class="fa fa-lg fa-shopping-cart"></i></div>
+                                    <div class="text">
+                                        <span>Meu carrinho</span>
+                                    </div>
+                                </a>
 
+                                @if (ViewData["NomeLogin"] == "")
+                                {
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Registrar-se</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                                </li>
 
-                    @if (ViewData["NomeLogin"] == "")
-                    {
-                        <ul class="navbar-nav ">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Cadastrar-se</a>
-                            </li>
-                        </ul>
-                    }
+                            </ul>}
+                                else
+                                {
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <h6 class="nav-link">Olá @ViewData["NomeLogin"]</h6>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Sair</a>
+                                </li>
+                            </ul>
+                                }
+                            </div>
 
-
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                    </ul>
-
+                            <!--
+    <div class="widget-header dropdown">
+        <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10" aria-expanded="false">
+            <div class="icon"><i class="fa fa-lg fa-user-circle"></i></div>
+            <div class="text">
+                <span>Cadastro/Login <i class="fa fa-caret-down"></i></span>
+            </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(140px, 46px, 0px);">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Não tem conta? Registrar-se</a>
+        </div>
+    </div>
+        -->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </section>
 
+
+        <nav class="navbar navbar-expand-lg navbar-main border-bottom">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav7" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="main_nav7">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" href="#"> <strong>Todas as categorias</strong></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Mais vendidos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Lançamentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Masculino</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Feminino</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Infantil</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais categorias</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Esporte</a>
+                                <a class="dropdown-item" href="#">Anime</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Animais</a>
+                                <a class="dropdown-item" href="#">Times</a>
+                                <a class="dropdown-item" href="#">Desenho animado</a>
+                            </div>
+                        </li>
+                        @if (ViewData["Tipo"].ToString() == "A")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="DashBoard">Dahsboard</a>
+                            </li>
+                            }
+
+                    </ul>
+                </div> 
+            </div> 
+        </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted bg-light" style="position:static;width:100%;bottom:0;">
-        <div class="container" style="display:flex;justify-content:space-around;align-items:center;color:#756a98">
-            &copy; 2021 - ECCE
-            <a href="" style="color: #756a98">Quem somos</a>
-            <a href="" style="color: #756a98">Contato</a>
-            <p>Siga nossas redes sociais</p>
-        </div>
+    <footer class="section-footer border-top" style="background-color:#fff;padding-bottom:1px;">
+        <div class="container">
+            <section class="footer-top" style="padding-top:1em">
+                <div class="row">
+                    <aside class="col-md-3">
+                        <article class="mr-3">
+                            <img src="~/img/em_casa_logo_v.png" style="width:50px" alt="Em Casa Com Estilo" class="logo-footer">
+                            <p class="mt-3"></p>
+                        </article>
+                    </aside>
+                    <aside class="col-sm-4 col-md-3">
+                        <h6 class="title">Sobre nós</h6>
+                        <ul class="list-unstyled">
+                            <li> <a href="#">História</a></li>
+                            <li> <a href="#">Termos e Compromissos</a></li>
+                            <li> <a href="#"></a></li>
+                            <li> <a href="#">Blog</a></li>
+                        </ul>
+                    </aside>
+                    <aside class="col-sm-4 col-md-3">
+                        <h6 class="title">Contato</h6>
+                        <ul class="list-unstyled">
+                            <li> <a href="#">Telefone: (11) 3400-1200</a></li>
+                            <li> <a href="#">Whatsap: (11)99991-0021</a></li>
+                            <li> <a href="#">Formulário de contato</a></li>
+
+                            <span style="font-size:.8rem; font-weight:700">Horário de atendimento: <br>  segunda à sexta das 8h às 18h</span></li>
+
+                        </ul>
+                    </aside>
+                    <aside class="col-sm-4  col-md-3">
+                        <h6 class="title">Redes Sociais</h6>
+                        <ul class="list-unstyled">
+                            <div>
+                                <a class="btn btn-icon btn-light" title="Facebook" target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-icon btn-light" title="Instagram" target="_blank" href="#"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-icon btn-light" title="Youtube" target="_blank" href="#"><i class="fab fa-youtube"></i></a>
+                                <a class="btn btn-icon btn-light" title="Twitter" target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </ul>
+                    </aside>
+
+                </div> <!-- row.// -->
+            </section>	<!-- footer-top.// -->
+
+            <section class="footer-copyright border-top">
+                <p target="_blank" class="float-right text-muted">
+                    <a href="#">Políticas de Privacidade</a> &nbsp;   &nbsp;
+                </p>
+                <p class="text-muted"> Desenvolvido por © EscolhaVirtual  </p>
+
+            </section>
+        </div><!-- //container -->
     </footer>
 
     @RenderSection("Scripts", required: false)
 </body>
+
+
 </html>
+
+    <script>
+        $(() => {
+            $("#btentrar").click(function () {
+                $(this).hide();
+                $(".clsReg").hide();
+                $(".clsErro").hide();
+                $("#loadin").html("<div class='alert alert-light text-center' role='alert'><img src='./img/loading.gif' /> Aguarde...</div>");
+            });
+        });
+    </script>

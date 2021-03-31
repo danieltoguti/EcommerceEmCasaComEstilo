@@ -6940,3 +6940,4 @@ C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\bin\Debug\net
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Net.Http.WinHttpHandler.dll
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Private.ServiceModel.dll
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\bin\Debug\netcoreapp3.1\runtimes\win7\lib\netstandard2.0\System.Private.ServiceModel.dll
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Home\ProdutoD.cshtml.g.cs

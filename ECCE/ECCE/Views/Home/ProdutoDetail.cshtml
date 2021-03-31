@@ -3,120 +3,94 @@
     @model ProdutoView;
 }
 
-<h5>@Model.tb_produto.Nome</h5>
-<hr />
 
-<link href="~/css/pdp.css" rel="stylesheet">
+<div class="card">
+    <div class="row">
+        <aside class="col-md-6">
+            <article class="gallery-wrap">
+                <div class="img-big-wrap">
+                    <a href="#"><img src="~/img/images.jpg"></a>
+                </div> <!-- img-big-wrap.// -->
+                <div class="thumbs-wrap">
+                    <a href="#" class="item-thumb"> <img src="~/img/Calca.webp"></a>
+                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/12.jpg"></a>
+                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/12.jpg"></a>
+                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/4.jpg"></a>
+                </div> <!-- thumbs-wrap.// -->
+            </article> <!-- gallery-wrap .end// -->
+        </aside>
+        <main class="col-md-6 border-left" style="padding: 2em 2em;">
+            <article class="content-body">
 
-<div class="row">
-    <div class="product-detail">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="product-detail-top">
-                        <div class="row align-items-center">
-                            <div class="col-md-5">
-                                <div class="product-slider-single normal-slider">
-                                    @foreach (var foto in Model.produtofotoModel)
-                                    {
-                                        @if (foto.Caminho != "")
-                                        {
-                                            <img  src="@foto.Descricao" alt="Product Image">
-                                        }
-                                    }
-                                </div>
-                                <div class="product-slider-single-nav normal-slider">
-                                    @foreach (var foto in Model.produtofotoModel)
-                                    {
-                                        @if (foto.Caminho != "")
-                                        {
-                                            <div class="slider-nav-img" id="foto" style="width: 45px"><img src="@foto.Descricao" alt="Product Image"></div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="product-content">
-                                    <div class="title"><h2>@Model.tb_produto.Nome</h2></div>
+                <h2 class="title">@Model.tb_produto.Nome</h2>
 
-                                    <div class="price">
-                                        <h4 id="txt_preco">@Model.tb_produto.Valor.ToString("C")</h4>
-
-                                    </div>
-                                    <div class="p-size">
-                                        <h4>Tamanho:</h4>
-                                        <select id="txt_tamanho" class="form-control" style="width:70px">
-                                            @foreach (var Tamanho in Model.produtotamanhoModel)
-                                            {
-                                                <option>@Tamanho.Descricao</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="p-size">
-                                        <h4>Cor:</h4>
-                                        <select id="txt_cor" class="form-control" style="width:130px">
-                                            @foreach (var Cor in Model.produtocorModel)
-                                            {
-                                                <option>@Cor.Descricao</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="p-size">
-                                        <h4>Quantidade</h4>
-                                        <select id="txt_quantidade" class="form-control" style="width:70px">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                        </select>
-                                    </div>
-                                    <div class="action">
-                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="#" onclick="AddCar();"><i class="fa fa-shopping-cart"></i>Adicionar ao carrinho</a>
-                                        <a class="btn cta" style="margin-right:11px;background:#28a745;color:#fff;font-size:12px;padding: 5px;" href="../Carrinho" onclick="AddCar();"><i class="fa fa-shopping-bag"></i>Comprar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="mb-3">
+                    <var class="price h4">@Model.tb_produto.Valor.ToString("C")</var>
                 </div>
-                <div class="col-lg-6">
-                    <ul class="nav nav-pills nav-justified">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="pill" href="#description">Descrição</a>
-                        </li>
 
+                <p>@Model.tb_produto.Descricao</p>
 
-                    </ul>
+                <dl class="row">
+                    <dt class="col-sm-4">Código do produto</dt>
+                    <dd class="col-sm-8">@Model.tb_produto.CodigoInterno</dd>
 
-                    <div class="tab-content">
-                        <div id="description" class="container tab-pane active">
-                            <p>
-                                @Model.tb_produto.Descricao
+                    <dt class="col-sm-4">Cor</dt>
+                    <select id="txt_cor" class="form-control col-sm-5" style="width:130px">
 
-                            </p>
-                        </div>
+                        @foreach (var Cor in Model.produtocorModel)
+                        {
+                            <option class="col-sm-8">@Cor.Descricao</option>
+                        }
+                    </select>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <br />
+                    <br />
+
+                    <dt class="col-sm-4">Tamanho</dt>
+                    <select id="txt_tamanho" class="form-control col-sm-5" style="width:70px">
+                        @foreach (var Tamanho in Model.produtotamanhoModel)
+                        {
+                            <option class="col-sm-8">@Tamanho.Descricao</option>
+                        }
+                    </select>
+
+                    <br />
+                    <br />
+
+                    <dt class="col-sm-4">Quantidade</dt>
+                    <select id="txt_quantidade" class="form-control" style="width:70px">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                    </select>
+
+                </dl>
+
+                <hr>
+
+                <a href="../Carrinho" onclick="AddCar();" class="btn  btn-primary"> Comprar agora </a>
+                <a href="#" class="btn  btn-outline-primary" onclick="AddCar();"> <span class="text">Adicionar ao carrinho</span> <i class="fas fa-shopping-cart"></i>  </a>
+            </article> <!-- product-info-aside .// -->
+        </main> <!-- col.// -->
+    </div> <!-- row.// -->
 </div>
 
 <div class="row" id="idcarrinho"></div>
 
-<script src="~/lib/slick/slick.min.js"></script>
-<script src="~/js/pdp.js"></script>
 
 <script>
+
     $(document).ready(function () {
         GetCarrinho();
     });
 
+    function formata(v) {
+        return parseFloat(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL"});
+    }
 
     function AddCar() {      
 
@@ -177,7 +151,7 @@
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
-                        tb += "<td>" + item.preco + "</td>";
+                        tb += "<td>" + formata(item.preco) + "</td>";
                         tb += "<td>" + item.cor + "</td>";
                         tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";

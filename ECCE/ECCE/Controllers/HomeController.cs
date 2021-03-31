@@ -27,6 +27,7 @@ namespace ECCE.Controllers
             _hCont = httpContextAccessor;
         }
 
+
         public IActionResult Index()
         {
 
