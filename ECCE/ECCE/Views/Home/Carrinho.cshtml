@@ -66,13 +66,12 @@
     $(document).ready(function () {
         $("#btn_Calcular").click(function () {
             Calcular($("#txt_cep").val(), $("#txt_servico").val());
-            var frete = $("#total").val() + $("#RespFrete2").val()
-            $("#ValorFinal").html(frete);
         });
 
         GetCarrinho();
 
     });
+
 
     function Calcular(_cep, _servico) {
         $("#RespFrete").html("Aguarde...");
@@ -88,6 +87,8 @@
             processData: true,
             contentType: true,
             success: function (result) {
+    
+                
                 $("#RespFrete").html(result.resposta);
                 $("#RespFrete2").html(result.resposta);
 
@@ -98,9 +99,9 @@
             },
             complete: function (jqXHR, status) {
 
-            }
-
+            },
         });
+
     }
 
     function GetCarrinho() {
