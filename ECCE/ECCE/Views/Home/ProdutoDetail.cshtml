@@ -72,7 +72,7 @@
 
                 <hr>
 
-                <a href="../Carrinho" onclick="AddCar();" class="btn  btn-primary"> Comprar agora </a>
+                <a onclick="AddCar();" href="../Carrinho"  class="btn  btn-primary"> Comprar agora </a>
                 <a href="#" class="btn  btn-outline-primary" onclick="AddCar();"> <span class="text">Adicionar ao carrinho</span> <i class="fas fa-shopping-cart"></i>  </a>
             </article> <!-- product-info-aside .// -->
         </main> <!-- col.// -->
@@ -92,8 +92,7 @@
         return parseFloat(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL"});
     }
 
-    function AddCar() {      
-
+    function AddCar() { 
         var _foto = $("#foto").val();
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
@@ -151,7 +150,7 @@
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
-                        tb += "<td>" + formata(item.preco) + "</td>";
+                        tb += "<td>" + item.preco + "</td>";
                         tb += "<td>" + item.cor + "</td>";
                         tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
