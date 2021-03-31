@@ -7,7 +7,12 @@
 }
 
 <div>
-<h4>Clientes</h4>
+    <div class="col-md-12 text-center">
+        <h5>Lista de Clientes</h5>
+    </div>
+
+<br />
+
     @if (Model.Count > 0)
     {
         <table class="table table-striped table-sm">
@@ -30,7 +35,7 @@
                         <td>@item.CodigoLogin</td>
                         <td>@item.Nome</td>
                         <td>@item.Email</td>
-                        <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/usuario/editaradmin?CodigoLogin=@item.CodigoLogin&Nome=@item.Nome&Email=@item.Email&Telefone=@item.Telefone&CPF_CNPJ=@item.CPF_CNPJ&Senha=@item.Senha&Tipo=@item.Tipo&Ativo=@item.Ativo'"><i class="fa fa-edit" style="color:white"></i></button></td>
+                        <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/usuario/editaradmin?CodigoLogin=@item.CodigoLogin&Nome=@item.Nome&Email=@item.Email&Telefone=@item.Telefone&CPF_CNPJ=@item.CPF_CNPJ&Senha=@item.Senha&Tipo=@item.Tipo&Ativo=@item.Ativo'"><i class="fa fa-edit"></i></button></td>
                         <td></td>
                         <td></td>
                     </tr>

@@ -18,29 +18,31 @@
     </table>
     @if (Model.Count > 0)
     {
-        <table class="table">
+<table class="table table-striped table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.CodigoTamanho</td>
+            <td>@item.Descricao</td>
+            <td></td>
+            <td></td>
+            <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/tamanho/editar?CodigoTamanho=@item.CodigoTamanho&Descricao=@item.Descricao'"><i class="fa fa-edit"></i></button></td>
+            <td><button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='/tamanho/excluir?CodigoTamanho=@item.CodigoTamanho'"><i class="fa fa-trash"></i></button></td>
 
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Nome</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.CodigoTamanho</td>
-                        <td>@item.Descricao</td>
-                        <td><button type="button" class="btn btn-warning" onclick="window.location.href='/tamanho/editar?CodigoTamanho=@item.CodigoTamanho&Descricao=@item.Descricao'">Editar</button></td>
-                        <td><button type="button" class="btn btn-danger" onclick="window.location.href='/tamanho/excluir?CodigoTamanho=@item.CodigoTamanho'">Excluir</button></td>
-
-                    </tr>
-                }
-            </tbody>
-        </table>
+        </tr>                }
+    </tbody>
+</table>
     }
     else
     {
