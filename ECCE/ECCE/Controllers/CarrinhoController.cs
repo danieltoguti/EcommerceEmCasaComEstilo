@@ -30,7 +30,7 @@ namespace ECCE.Controllers
             {
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore,
-                Culture = new System.Globalization.CultureInfo("pt-BR")
+                Culture = new System.Globalization.CultureInfo("pt-BR"),
             };
 
             if (GetKey()!=null)

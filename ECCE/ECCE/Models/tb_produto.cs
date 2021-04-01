@@ -55,7 +55,7 @@ namespace ECCE.Models
         public decimal Valor { get; set; }
 
         [Display(Name = "Fotos", Prompt = "")]
-        public double Foto { get; set; }
+        public string Foto { get; set; }
 
         [Display(Name = "Data Registro", Prompt = "")]
         public DateTime DataRegistro { get; set; }

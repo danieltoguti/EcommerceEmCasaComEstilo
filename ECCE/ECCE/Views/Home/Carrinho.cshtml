@@ -131,7 +131,7 @@
                         tb += "<small class='text-muted'>(" + item.preco + " cada)</small></div></td>";
                         tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
-                        Total += formata(item.preco) * item.quantidade;
+                        Total += item.preco * item.quantidade;
 
                     });
 
