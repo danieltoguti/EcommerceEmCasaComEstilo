@@ -21,6 +21,20 @@
                 </thead>
                 <tbody id="idcarrinho">
                 </tbody>
+                <tfoot class="text-muted">
+                    <tr>
+                        <th scope="col"></th>
+                        <th  scope="col" width="120"></th>
+                        <th scope="col" width="230" class="text-right">Quantidade Total de Produtos:</th>
+                        <th id="QuantidadeTotalProduto" scope="col" width="90"></th>
+                    </tr>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" width="120"></th>
+                        <th scope="col" width="230" class="text-right">Valor Total dos Produtos:</th>
+                        <th id="ValorTotalProduto" scope="col" width="90"></th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -55,13 +69,6 @@
 <hr/>
 
 
-<p>Valor Total dos Produtos: <span id="total"></span></p>
-<p>Valor do Frete: <span id="RespFrete2"></span></p>
-<p>Valor Total: <span id="ValorFinal"></span></p>
-
-
-
-
 <script>
     $(document).ready(function () {
         $("#btn_Calcular").click(function () {
@@ -89,7 +96,6 @@
     
                 
                 $("#RespFrete").html(result.resposta);
-                $("#RespFrete2").html(result.resposta);
 
             }
             ,
@@ -106,6 +112,7 @@
 
         var tb = "";
         var Total = 0;
+        var Quantidade = 0;
         $("#idcarrinho").html("");
         var _url = '@Url.Action("GetAll", "Carrinho")';
 
@@ -132,11 +139,13 @@
                         tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                         Total += item.preco * item.quantidade;
-
+                        Quantidade += item.quantidade;
+                        console.log("Valor Total:", Total);
+                        $("#ValorTotalProduto").html(Total);
+                        $("#QuantidadeTotalProduto").html(Quantidade);
                     });
 
                     $("#idcarrinho").html(tb);
-                    $("#total").html(Total);
 
 
                 }
