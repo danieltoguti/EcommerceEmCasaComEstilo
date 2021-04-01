@@ -72,10 +72,6 @@
 
     });
 
-    function formata(v) {
-        return parseFloat(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    }
-
     function Calcular(_cep, _servico) {
         $("#RespFrete").html("Aguarde...");
         var _url = '@Url.Action("GetCalculo", "CalculaFrete")';
@@ -132,7 +128,7 @@
                         tb += "</figcaption></figure ></td>";
                         tb += "<td>" + item.quantidade + " </td>";
                         tb += "<td><div class='price-wrap'><var class='price'>" + item.quantidade * item.preco + "</var>";
-                        tb += "<small class='text-muted'>(" + formata(item.preco) + " cada)</small></div></td>";
+                        tb += "<small class='text-muted'>(" + item.preco + " cada)</small></div></td>";
                         tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                         Total += formata(item.preco) * item.quantidade;

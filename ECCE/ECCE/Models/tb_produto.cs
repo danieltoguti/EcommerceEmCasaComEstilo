@@ -52,7 +52,7 @@ namespace ECCE.Models
         public string Descricao { get; set; }
 
         [Display(Name = "Valor", Prompt = "")]
-        public double Valor { get; set; }
+        public decimal Valor { get; set; }
 
         [Display(Name = "Fotos", Prompt = "")]
         public double Foto { get; set; }

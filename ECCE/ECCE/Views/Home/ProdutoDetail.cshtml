@@ -28,7 +28,7 @@
                 <h2 class="title">@Model.tb_produto.Nome</h2>
 
                 <div class="mb-3">
-                    <var class="price h4">@Model.tb_produto.Valor.ToString("C")</var>
+                    <var id="txt_preco" class="price h4">@Model.tb_produto.Valor.ToString("C")</var>
                 </div>
 
                 <p>@Model.tb_produto.Descricao</p>
@@ -91,17 +91,17 @@
 
     $(document).ready(function () {
         GetCarrinho();
-    });
 
-    function formata(v) {
-        return parseFloat(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL"});
-    }
+        console.log("ttt é", ttt);
+    });
 
     function AddCar() {
         var _foto = $("#foto").val();
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
         var _quantidade = $("#txt_quantidade option:selected").val();
+        var _preco = '@Model.tb_produto.Valor.ToString("C")';
+        console.log("_preco é: ", _preco);
 
         var _url = '@Url.Action("AddCar", "Carrinho")';
 
@@ -113,11 +113,12 @@
                 Nome: '@Model.tb_produto.Nome',
                 Peso: '@Model.tb_produto.Peso',
                 Tamanho: _tamanho,
-                Preco: '@Model.tb_produto.Valor',
+                Preco: _preco,
                 Cor: _cor,
                 Foto: _foto,
                 Quantidade: _quantidade,
             },
+
             processData: true,
             contentType: true,
             success: function (result) {
@@ -137,7 +138,6 @@
     function GetCarrinho() {
 
         var tb ="";
-
         $("#idcarrinho").html("");
         var _url = '@Url.Action("GetAll", "Carrinho")';
 
@@ -156,12 +156,13 @@
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
                         tb += "<td>" + item.preco + "</td>";
+                        console.log("Esse está dentro do ajax " + item.preco);
                         tb += "<td>" + item.cor + "</td>";
                         tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                     });
                     tb += "</table>";
-                    //$("#idcarrinho").html(tb);
+                    $("#idcarrinho").html(tb);
                 }
 
              }
@@ -172,8 +173,9 @@
             complete: function (jqXHR, status) {
 
             }
-
         });
+        console.log("Depois", '@Model.tb_produto.Valor.ToString("C")');
+
     }
 
 

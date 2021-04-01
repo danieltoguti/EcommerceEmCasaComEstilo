@@ -16,7 +16,7 @@ namespace ECCE.Models
         public string Cor { get; set; }
         public string Tamanho { get; set; }
 
-        public double Preco { get; set; }
+        public decimal Preco { get; set; }
         public string Foto { get; set; }
     }
 }
