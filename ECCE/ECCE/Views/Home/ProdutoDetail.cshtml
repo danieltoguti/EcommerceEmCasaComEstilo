@@ -10,12 +10,16 @@
         <aside class="col-md-6">
             <article class="gallery-wrap">
                 <div class="product-slider-single normal-slider">
+                    @{ 
+                        var iCont = 1;
+                    }
                     @foreach (var foto in Model.produtofotoModel)
                     {
                         @if (foto.Caminho != "")
                         {
-                            <img id="foto" src="@foto.Descricao" alt="Product Image">
+                            <img id="foto_@iCont" src="@foto.Descricao" alt="Product Image">
                         }
+                        iCont++;
                     }
                 </div>
                 <div class="product-slider-single-nav normal-slider">
@@ -101,14 +105,14 @@
     });
 
     function AddCar() {
-        var _foto = $("#foto").attr("src");
+
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
         var _quantidade = $("#txt_quantidade option:selected").val();
-        //var _preco = '@Model.tb_produto.Valor.ToString("C")';
-        //console.log("_preco é: ", _preco);
+        var _preco = '@Model.tb_produto.Valor.ToString("C")';
 
         var _url = '@Url.Action("AddCar", "Carrinho")';
+
 
         $.ajax({
             url: _url,
@@ -118,9 +122,8 @@
                 Nome: '@Model.tb_produto.Nome',
                 Peso: '@Model.tb_produto.Peso',
                 Tamanho: _tamanho,
-                Preco: '@Convert.ToDecimal(Model.tb_produto.Valor)',
+                Preco: '@Model.tb_produto.Valor',
                 Cor: _cor,
-                Foto: _foto,
                 Quantidade: _quantidade,
             },
 
@@ -153,14 +156,16 @@
             contentType: true,
             success: function (result) {
                 if (result.success) {
+
                     tb = "<table class='table'>";
                     $.each(result.resp, function (i, item) {
+                        var f2 = item.preco.toLocaleString('pt-br', { minimumFractionDigits: 2 });
                         tb += "<tr>";
                         tb += "<div class='img-wrap'><img src='' class='img-thumbnail img-sm'></div>";
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
-                        tb += "<td>" + item.preco + "</td>";
+                        tb += "<td>" + f2 + "</td>";
                         //console.log("Esse está dentro do ajax " + item.preco);
                         tb += "<td>" + item.cor + "</td>";
                         tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
@@ -182,6 +187,9 @@
         //console.log("Depois", '@Model.tb_produto.Valor.ToString("C")');
 
     }
+
+
+
 
 
     function RemoveItem(codigo) {

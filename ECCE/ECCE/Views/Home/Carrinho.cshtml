@@ -95,14 +95,8 @@
         });
 
         GetCarrinho();
-        Total();
-      
-    })
 
-    function Total() {
-        var TotalProdutos = $("#ValorTotalProduto").text();
-        console.log(TotalProdutos);
-    }
+    })
 
     function Calcular(_cep, _servico) {
         $("#RespFrete").html("Aguarde...");
@@ -121,7 +115,7 @@
 
                 $("#RespFrete").html(result.resposta);
                 $("#RespFrete2").html(result.resposta);
-                var frete = result.resposta;
+                SomaValorFreteProduto();
 
             }
             ,
@@ -134,7 +128,34 @@
         });
 
     }
+        function GetFoto(_CodigoProduto) {
 
+        var _url = '@Url.Action("GetFoto", "Carrinho")';
+
+        $.ajax({
+            url: _url,
+            type: 'GET',
+            processData: true,
+            contentType: true,
+            data: { CodigoProduto: _CodigoProduto },            
+            success: function (result) {
+                if (result.success) {
+                    $(".f_" + _CodigoProduto).attr("src", result.caminho);                    
+                }
+                else {
+                    return "Caminho IMG";
+                }
+
+             }
+            ,
+            error: function (jqXHR) {
+
+            },
+            complete: function (jqXHR, status) {
+
+            }
+        });
+    }
     function GetCarrinho() {
 
         var tb = "";
@@ -147,14 +168,14 @@
             url: _url,
             type: 'GET',
             processData: true,
-            contentType: true,
+            contentType: true,         
             success: function (result) {
                 if (result.success) {
                     tb = "<tr>";
-                    $.each(result.resp, function (i, item) {
-
+                    $.each(result.resp, function (i, item) {    
+                        var f2 = item.preco.toLocaleString('pt-br', { minimumFractionDigits: 2 });
                         tb += "<td><figure class='media'>";
-                        tb += "<div class='img-wrap'><img src='~/img/em_casa_logo_v.png'class='img-thumbnail img-sm'></div>";
+                        tb += "<div class='img-wrap'><img class='f_" + item.codigoProduto + "' src=''class='img-thumbnail img-sm'></div>";
                         tb += "<figcaption class='media-body'>";
                         tb += "<h6 class='title text-truncate'>" + item.nome + "</h6>";
                         tb += "<dl class='dlist-inline small'><dt>Tamanho: </dt><dd>" + item.tamanho + "</dd></dl>";
@@ -162,7 +183,7 @@
                         tb += "</figcaption></figure ></td>";
                         tb += "<td>" + item.quantidade + " </td>";
                         tb += "<td><div class='price-wrap'><var class='price'>" + item.quantidade * item.preco + "</var>";
-                        tb += "<small class='text-muted'>" + item.preco + " cada</small></div></td>";
+                        tb += "<small class='text-muted'>" + f2 + " cada</small></div></td>";
                         tb += "<td class='text-right'><a href='##' class='btn btn-light' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                         Total += item.preco * item.quantidade;
@@ -170,9 +191,13 @@
                         //console.log("Valor Total:", Total);
                         $("#ValorTotalProduto").html(Total);
                         $("#QuantidadeTotalProduto").html(Quantidade);
+
+                        $("#idcarrinho").append(tb);
+
+                        GetFoto(item.codigoProduto);
                     });
 
-                    $("#idcarrinho").html(tb);
+                  
 
 
                 }
@@ -187,6 +212,15 @@
 
         });
 
+    }
+
+
+    function SomaValorFreteProduto() {
+        var Frete = parseFloat($("#RespFrete").html());
+        var TotalFinal = parseFloat($("#ValorTotalProduto").html());
+        var Total = Frete + TotalFinal;
+        Total = Total.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+        $("#ValorFinal").html(Total);
     }
 
       function RemoveItem(codigo) {

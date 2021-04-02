@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECCE.Classes;
 using ECCE.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 
 namespace ECCE.Controllers
@@ -20,8 +22,8 @@ namespace ECCE.Controllers
             _hCont = httpContextAccessor;
         }
 
-        [HttpGet]
-        public void AddCar(int CodigoProduto, string Nome, string Tamanho, decimal Preco, string Cor, int Quantidade, string Foto)
+        [HttpGet]        
+        public void AddCar(int CodigoProduto, string Nome, string Tamanho, string Preco, string Cor, int Quantidade, string Foto)
         {
             List<CarrinhoModel> Car=null;
             CarrinhoModel item = new CarrinhoModel();
@@ -45,7 +47,7 @@ namespace ECCE.Controllers
             item.CodigoProduto = CodigoProduto;
             item.Nome = Nome;
             item.Tamanho = Tamanho;
-            item.Preco = Preco;
+            item.Preco = Convert.ToDouble(Preco);
             item.Cor = Cor;
             item.Quantidade = Quantidade;
             item.Foto = Foto;
@@ -95,6 +97,30 @@ namespace ECCE.Controllers
             return _hCont.HttpContext.Request.Cookies[_Key];
         }
 
+
+        public IActionResult GetFoto(int CodigoProduto) {
+
+            string sSQL = "";
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+            cn.Open();
+            cmd.Connection = cn;
+
+            sSQL = "SELECT caminho FROM tb_produto_foto where CodigoProduto=" + CodigoProduto + " order by codigofoto limit 1";
+            cmd.CommandText = sSQL;
+            var Dr = cmd.ExecuteReader();
+            Dr.Read();
+            
+            string _Caminho = "CAMINHO";
+
+            if (Dr.HasRows) {
+                _Caminho = Dr["caminho"].ToString();
+            }
+
+            return Json(new { success = true, caminho = _Caminho });  
+            
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -115,7 +141,7 @@ namespace ECCE.Controllers
                 foreach (var itemC in Car)
                 {
                     ids++;
-                    itemC.Id = ids;
+                    itemC.Id = ids;                   
                 }
 
                 Set(_Key, JsonConvert.SerializeObject(Car, settings), 10);
