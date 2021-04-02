@@ -95,13 +95,18 @@
         });
 
         GetCarrinho();
+        Total();
+      
+    })
 
-    });
+    function Total() {
+        var TotalProdutos = $("#ValorTotalProduto").text();
+        console.log(TotalProdutos);
+    }
 
     function Calcular(_cep, _servico) {
         $("#RespFrete").html("Aguarde...");
         var _url = '@Url.Action("GetCalculo", "CalculaFrete")';
-
         $.ajax({
             url: _url,
             type: 'GET',
@@ -116,6 +121,7 @@
 
                 $("#RespFrete").html(result.resposta);
                 $("#RespFrete2").html(result.resposta);
+                var frete = result.resposta;
 
             }
             ,
@@ -126,6 +132,7 @@
 
             },
         });
+
     }
 
     function GetCarrinho() {
@@ -160,7 +167,7 @@
                         tb += "</tr>";
                         Total += item.preco * item.quantidade;
                         Quantidade += item.quantidade;
-                        console.log("Valor Total:", Total);
+                        //console.log("Valor Total:", Total);
                         $("#ValorTotalProduto").html(Total);
                         $("#QuantidadeTotalProduto").html(Quantidade);
                     });

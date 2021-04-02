@@ -14,7 +14,7 @@
                     {
                         @if (foto.Caminho != "")
                         {
-                            <img src="@foto.Descricao" alt="Product Image">
+                            <img id="foto" src="@foto.Descricao" alt="Product Image">
                         }
                     }
                 </div>
@@ -101,7 +101,7 @@
     });
 
     function AddCar() {
-        var _foto = $("#foto").val();
+        var _foto = $("#foto").attr("src");
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
         var _quantidade = $("#txt_quantidade option:selected").val();
@@ -120,7 +120,7 @@
                 Tamanho: _tamanho,
                 Preco: '@Convert.ToDecimal(Model.tb_produto.Valor)',
                 Cor: _cor,
-                Foto: '@Model.tb_produto.Foto',
+                Foto: _foto,
                 Quantidade: _quantidade,
             },
 
@@ -156,7 +156,7 @@
                     tb = "<table class='table'>";
                     $.each(result.resp, function (i, item) {
                         tb += "<tr>";
-                        //tb += "<div class='img-wrap'><img src='~/img/em_casa_logo_v.png' class='img-thumbnail img-sm'></div>";
+                        tb += "<div class='img-wrap'><img src='' class='img-thumbnail img-sm'></div>";
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
