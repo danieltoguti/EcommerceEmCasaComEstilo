@@ -1,10 +1,8 @@
 ﻿
 @{
-    @model LoginAcesso;
-    ViewData["Title"] = "Login";
-    Layout = "_LayoutLogin";
-}
-
+                @model LoginAcesso;
+                ViewData["Title"] = "Login"; }
+<!--
 <style>
     .card {
         margin: 0 auto; /* Added */
@@ -12,29 +10,9 @@
         margin-bottom: 10px; /* Added */
         margin-top: 30px;
     }
-
-    @@media (max-width: 575.98px) {
-
-        .imgLogo {
-            height: 150px !important;
-            width: 150px !important;
-        }
-
-        .border-success {
-            border-color: #ffffff !important;
-        }
-    }
-
-    body {
-        color: #678912;
-    }
-
-    .border-success {
-        border-color: #678912 !important;
-    }
 </style>
 <div class="text-center">
-    <h6>Faça o login</h6>
+    <h6>Entre</h6>
     <form asp-action="Logar">
         <div class="card border-success col-md-6">
             <div class="card-body">
@@ -59,6 +37,69 @@
         </div>
     </form>
 </div>
+
+-->
+
+<div class="login-form" style="margin-top:150px">
+    <form asp-action="Logar">
+        <h2 class="text-center">Entrar</h2>
+
+        <div class="form-group">
+            <input type="email" class="form-control" asp-for="Email" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" asp-for="Senha" placeholder="Senha" required="required">
+        </div>
+        <div class="form-group">
+            <button id="btentrar" type="submit" class="btn btn-primary btn-block">Entrar</button>
+        </div>
+        <div id="loadin"></div>
+        <div class="col-md-12 text-center clsErro" style="margin-top:15px;color:red;">
+            @ViewData["erro"]
+        </div>
+    </form>
+</div>
+
+
+<style type="text/css">
+
+    .login-form {
+        width: 340px;
+        margin: auto;
+        font-size: 15px;
+    }
+
+        .login-form form {
+            margin-bottom: 100px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        .login-form h2 {
+            margin: 0 0 15px;
+        }
+
+
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+</style>
+
+
+
+
+
+
+
+
 @section Scripts {
     <script>
         $(() => {

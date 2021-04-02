@@ -53,15 +53,15 @@
     <header class="section-header" style="background-color: #fff; margin-bottom: 1em">
         <section class="header-main border-bottom">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-4 col-sm-4">
+                <div class="row align-items-center d-flex justify-content-around">
+                    <div class="">
                         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                             <img src="~/img/em_casa_logo_v.png" style="width:80px" alt="Em Casa Com Estilo">
                         </a> <!-- Pesquisar -->
                     </div>
-                    <div class="col-lg-6 col-sm-8 col-8">
+                    <div class="">
                         <form action="#" class="search">
-                            <div class="input-group">
+                            <div class="input-group search-main">
                                 <input type="text" class="form-control" placeholder="Procurar">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary searchme" type="submit">
@@ -71,10 +71,10 @@
                             </div>
                         </form>
                     </div> <!-- carrinho link -->
-                    <div class="col-lg-3 col-12 col-sm-12">
+                    <div class="">
                         <div class="widgets-wrap d-flex justify-content-end">
                             <div class="widget-header">
-                                <a class="icontext" asp-area="" asp-controller="Home" asp-action="Carrinho">
+                                <a class="icontext mr-2" asp-area="" asp-controller="Home" asp-action="Carrinho">
                                     <div class="icon"><i class="fa fa-lg fa-shopping-cart"></i></div>
                                     <div class="text">
                                         <span>Meu carrinho</span>
@@ -83,43 +83,52 @@
 
                                 @if (ViewData["NomeLogin"] == "")
                                 {
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Registrar-se</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
-                                </li>
-
-                            </ul>}
+                                    <a class="icontext mr-2" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">
+                                        <div class="icon"><i class="fa fa-lg fa-sign-in-alt"></i></div>
+                                        <div class="text">
+                                            <span>Registrar-se</span>
+                                        </div>
+                                    </a>
+                                    <a class="icontext" asp-area="" asp-controller="Login" asp-action="Index">
+                                        <div class="icon"><i class="fa fa-lg fa-user-circle"></i></div>
+                                        <div class="text">
+                                            <span>Login</span>
+                                        </div>
+                                    </a>
+                                }
                                 else
                                 {
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <h6 class="nav-link">Olá @ViewData["NomeLogin"]</h6>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Sair</a>
-                                </li>
-                            </ul>
+
+                                    <a class="icontext">
+                                        <div class="text">
+                                            <span style="font-size:1em">Olá,</span>
+                                            <span class="name-user">@ViewData["NomeLogin"]</span>
+                                        </div>
+                                    </a>
+                                    <a class="icontext" asp-area="" asp-controller="Home" asp-action="Logout">
+                                        <div class="icon"><i class="fa fa-lg fa-sign-out-alt"></i></div>
+                                        <div class="text">
+                                            <span>Sair</span>
+                                        </div>
+                                    </a>
                                 }
                             </div>
 
                             <!--
-    <div class="widget-header dropdown">
-        <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10" aria-expanded="false">
-            <div class="icon"><i class="fa fa-lg fa-user-circle"></i></div>
-            <div class="text">
-                <span>Cadastro/Login <i class="fa fa-caret-down"></i></span>
-            </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(140px, 46px, 0px);">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
-            <hr class="dropdown-divider">
-            <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Não tem conta? Registrar-se</a>
-        </div>
-    </div>
-        -->
+                            <div class="widget-header dropdown">
+                                <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10" aria-expanded="false">
+                                    <div class="icon"><i class="fa fa-lg fa-user-circle"></i></div>
+                                    <div class="text">
+                                        <span>Cadastro/Login <i class="fa fa-caret-down"></i></span>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(140px, 46px, 0px);">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Não tem conta? Registrar-se</a>
+                                </div>
+                            </div>
+                                -->
                         </div>
                     </div>
                 </div>
@@ -168,11 +177,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="DashBoard">Dahsboard</a>
                             </li>
-                            }
+                        }
 
                     </ul>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -243,13 +252,13 @@
 
 </html>
 
-    <script>
-        $(() => {
-            $("#btentrar").click(function () {
-                $(this).hide();
-                $(".clsReg").hide();
-                $(".clsErro").hide();
-                $("#loadin").html("<div class='alert alert-light text-center' role='alert'><img src='./img/loading.gif' /> Aguarde...</div>");
-            });
+<script>
+    $(() => {
+        $("#btentrar").click(function () {
+            $(this).hide();
+            $(".clsReg").hide();
+            $(".clsErro").hide();
+            $("#loadin").html("<div class='alert alert-light text-center' role='alert'><img src='./img/loading.gif' /> Aguarde...</div>");
         });
-    </script>
+    });
+</script>

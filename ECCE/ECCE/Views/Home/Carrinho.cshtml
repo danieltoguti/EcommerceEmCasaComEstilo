@@ -7,67 +7,86 @@
 
 
 
-<section class="container" id="order" style="margin-top: 50px">
-    <div id="code_cart">
-        <div class="card">
-            <table class="table table-hover shopping-cart-wrap">
-                <thead class="text-muted">
-                    <tr>
-                        <th scope="col">Produto</th>
-                        <th scope="col" width="120">Quantidade</th>
-                        <th scope="col" width="120">Preço</th>
-                        <th scope="col" width="200" class="text-right"></th>
-                    </tr>
-                </thead>
-                <tbody id="idcarrinho">
-                </tbody>
-                <tfoot class="text-muted">
-                    <tr>
-                        <th scope="col"></th>
-                        <th  scope="col" width="120"></th>
-                        <th scope="col" width="230" class="text-right">Quantidade Total de Produtos:</th>
-                        <th id="QuantidadeTotalProduto" scope="col" width="90"></th>
-                    </tr>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col" width="120"></th>
-                        <th scope="col" width="230" class="text-right">Valor Total dos Produtos:</th>
-                        <th id="ValorTotalProduto" scope="col" width="90"></th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-</section>
-<br />
-<br />
-
-
-<h6>Calculo de frete</h6>
-
 <div class="row">
-    <div class="col-md-2">
-        <label>CEP: </label>
-        <input id="txt_cep" type="text" name="CEP"><br><br>
-    </div>
-    <div class="col-md-2">
-        <label>Escolha o tipo de envio:</label>
-        <select id="txt_servico" type="text" class="form-control">
-            <option value="04510">PAC</option>
-            <option value="04014">SEDEX</option>
-        </select>
-    </div>
-    <div>
-        <button id="btn_Calcular" type="button" class="btn btn-primary btn-sm">Calcular</button>
-    </div>
+    <aside class="col-lg-9">
+        <div id="code_cart">
+            <div class="card">
+                <table class="table table-borderless shopping-cart-wrap">
+                    <thead class="text-muted">
+                        <tr class="small text-uppercase">
+                            <th scope="col">Produto</th>
+                            <th scope="col" width="100">Quantidade</th>
+                            <th scope="col" width="100">Preço</th>
+                            <th scope="col" width="120" class="text-right"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="idcarrinho">
+                    </tbody>
+                    <tfoot class="text-muted">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" width="120"></th>
+                            <th scope="col" width="230" class="text-right">Quantidade Total de Produtos:</th>
+                            <th id="QuantidadeTotalProduto" scope="col" width="90"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </aside>
+    <br />
+    <br />
+    <aside class="col-lg-3">
 
+        <div class="card mb-3">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label>Calculo de frete</label>
+                        <div class="input-group">
+                            <select id="txt_servico" type="text" class="form-control">
+                                <option value="04510">PAC</option>
+                                <option value="04014">SEDEX</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <input id="txt_cep" type="text" class="form-control" name="CEP" placeholder="CEP">
+                            <span class="input-group-append">
+                                <button id="btn_Calcular" type="button" class="btn btn-primary">Calcular</button>
+                            </span>
+                        </div>
+                        <br>
+                        <p>Valor do frete: <span id="RespFrete"></span></p>
+
+                    </div>
+                </form>
+            </div> <!-- card-body.// -->
+        </div> <!-- card.// -->
+
+        <div class="card">
+            <div class="card-body">
+                <dl class="dlist-align">
+                    <dt>Valor total dos produtos:</dt>
+                    <dd id="ValorTotalProduto"  class="text-right"></dd>
+                </dl>
+                <br><br>
+                <dl class="dlist-align">
+                    <dt>Frete:</dt>
+                    <dd id="RespFrete2" class="text-right text-danger"></dd>
+                </dl>
+                <br>
+                <dl class="dlist-align">
+                    <dt>Total do pedido:</dt>
+                    <dd id="ValorFinal" class="text-right text-dark b"><strong></strong></dd>
+                </dl>
+
+                <button type="submit" class="btn btn-primary" style="width:100%">Finalizar</button>
+            </div> <!-- card-body.// -->
+        </div> <!-- card.// -->
+
+    </aside>
 </div>
-<hr />
-<p>Valor total: <span id="RespFrete"></span></p>
-<hr />
-<button type="submit" class="btn btn-primary">Finalizar</button>
-<hr/>
-
 
 <script>
     $(document).ready(function () {
@@ -93,9 +112,10 @@
             processData: true,
             contentType: true,
             success: function (result) {
-    
-                
+
+
                 $("#RespFrete").html(result.resposta);
+                $("#RespFrete2").html(result.resposta);
 
             }
             ,
@@ -135,8 +155,8 @@
                         tb += "</figcaption></figure ></td>";
                         tb += "<td>" + item.quantidade + " </td>";
                         tb += "<td><div class='price-wrap'><var class='price'>" + item.quantidade * item.preco + "</var>";
-                        tb += "<small class='text-muted'>(" + item.preco + " cada)</small></div></td>";
-                        tb += "<td class='text-right'><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
+                        tb += "<small class='text-muted'>" + item.preco + " cada</small></div></td>";
+                        tb += "<td class='text-right'><a href='##' class='btn btn-light' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                         Total += item.preco * item.quantidade;
                         Quantidade += item.quantidade;
@@ -190,4 +210,3 @@
 
 </script>
 
-    

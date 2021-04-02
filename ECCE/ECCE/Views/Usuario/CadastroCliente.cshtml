@@ -1,127 +1,155 @@
 ﻿
 @{
-                @model CadastroLogin;
-                ViewData["Title"] = "Cadastro"; }
+    @model CadastroLogin;
+    ViewData["Title"] = "Cadastro";
+}
 <script type="text/javascript" src="~/js/viacep.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
-<h1>Cadastro</h1>
 
 <form id="FormCadastro" asp-action="Salvar" asp-controller="Usuario">
-    <div class="form-group row">
-        <div class="form-group col-md-3">
-            <label asp-for="tb_login.Nome"></label>
-            <input type="text" class="form-control" asp-for="tb_login.Nome">
-        </div>
-        <div class="form-group col-md-1"></div>
-        <div class="form-group col-md-3">
-            <label asp-for="tb_login.Email"></label>
-            <input type="email" class="form-control" asp-for="tb_login.Email">
-        </div>
-        <div class="form-group col-md-1"></div>
-        <div class="form-group col-md-3">
-            <label asp-for="tb_login.Telefone"></label>
-            <input type="text" class="form-control" asp-for="tb_login.Telefone">
-        </div>
-        <div class="form-group col-md-1"></div>
-        <div class="form-group col-md-3">
-            <label asp-for="tb_login.CPF_CNPJ"></label>
-            <input type="text" class="form-control" asp-for="tb_login.CPF_CNPJ">
-        </div>
-        <div class="form-group col-md-1"></div>
-        <div class="form-group col-md-3">
-            <label asp-for="tb_login.Senha"></label>
-            <input type="password" class="form-control" asp-for="tb_login.Senha">
-        </div>
-        @if (ViewData["Tipo"].ToString() == "A")
-        {
-<div class="form-group col-md-3">
-    <label asp-for="tb_login.Tipo"></label>
-    <select type="text" class="form-control" asp-for="tb_login.Tipo">
-        <option value="A">Admininistrador</option>
-        <option value="C">Cliente</option>
-        <option value="F">Funcionário</option>
-        <option value="G">Gerente</option>
-    </select>
-</div>
-                <div class="form-group col-md-3">
-                    <label asp-for="tb_login.Ativo"></label>
-                    <select type="text" class="form-control" asp-for="tb_login.Ativo">
-                        <option value="1">Ativo</option>
-                        <option value="0">Inativo</option>
-                    </select>
-                </div>}
+    <div class="row">
+        <aside class="col-md-12">
+            <div class="card">
+                <article class="card-body">
+                    <header class="mb-4">
+                        <h4 class="card-title">Cadastro</h4>
+                    </header>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label asp-for="tb_login.Nome"></label>
+                            <input type="text" class="form-control" asp-for="tb_login.Nome">
+                        </div>
+                        <!--
+                        <div class="col form-group">
+                            <label>Sobrenome</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div> -->
+                    </div> <!-- form-row end.// -->
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label asp-for="tb_login.CPF_CNPJ"></label>
+                            <input type="text" class="form-control" asp-for="tb_login.CPF_CNPJ">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label asp-for="tb_login.Telefone"></label>
+                            <input type="text" class="form-control" asp-for="tb_login.Telefone">
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row end.// -->
+                    <div class="form-group">
+                        <label asp-for="tb_login.Email"></label>
+                        <input type="email" class="form-control" asp-for="tb_login.Email">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="tb_login.Senha"></label>
+                            <input type="password" class="form-control" asp-for="tb_login.Senha">
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group col-md-6">
+                            <label>Repetir Senha</label>
+                            <input type="password" class="form-control" asp-for="tb_login.Senha">
+                        </div> <!-- form-group end.// -->
+                    </div>
 
 
-        <input type="hidden" asp-for="tb_login.CodigoLogin">
-        <input type="hidden" asp-for="JsonLTEDR">
+                    @if (ViewData["Tipo"].ToString() == "A")
+                    {
+                        <div class="form-group col-md-3">
+                            <label asp-for="tb_login.Tipo"></label>
+                            <select type="text" class="form-control" asp-for="tb_login.Tipo">
+                                <option value="A">Admininistrador</option>
+                                <option value="C">Cliente</option>
+                                <option value="F">Funcionário</option>
+                                <option value="G">Gerente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label asp-for="tb_login.Ativo"></label>
+                            <select type="text" class="form-control" asp-for="tb_login.Ativo">
+                                <option value="1">Ativo</option>
+                                <option value="0">Inativo</option>
+                            </select>
+                        </div>
+                    }
+
+                    <input type="hidden" asp-for="tb_login.CodigoLogin">
+                    <input type="hidden" asp-for="JsonLTEDR">
+
+                    <div>
+                        <h6>Endereço</h6>
+                        <hr />
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="txt_ender_descricao">Tipo</label>
+                                <input type="text" class="form-control" id="txt_ender_descricao" placeholder="casa, escritório, casa de praia">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txt_ender_cep">Cep</label>
+                                <input type="text" class="form-control" id="txt_ender_cep">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="txt_ender_endereco">Logradouro</label>
+                                <input type="text" class="form-control" id="txt_ender_endereco">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="txt_ender_numero">Número</label>
+                                <input type="text" class="form-control" id="txt_ender_numero">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="txt_ender_bairro">Bairro</label>
+                                <input type="text" class="form-control" id="txt_ender_bairro">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="txt_ender_cidade">Cidade</label>
+                                <input type="text" class="form-control" id="txt_ender_cidade">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txt_ender_uf">UF</label>
+                                <input type="text" class="form-control" id="txt_ender_uf">
+                            </div>
+                            <div class="form-group col-md-4" style=" margin-top: -25px;">
+                                <button type="button" class="btn btn-success" style="margin-top:30px;" onclick="AddEndereco();">Adicionar Endereço</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="tb_endereco" class="table bg-white">
+
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                    <div class="form-group mt-3">
+                        @Html.Raw(ViewData["Valida"])
+                        <button type="submit" class="btn btn-primary btn-block" style="width:10%"> Registrar  </button>
+                        @if (ViewData["Tipo"].ToString() == "A")
+                        {
+                            <br />
+                            <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='../Home/DashBoard'">Dashboard</button>
+
+                        }
+                    </div>
+                    <p class="text-muted">Ao clicar no botão 'Registrar', você confirma que aceita nossos <strong>Termos de uso</strong> e <strong>Política de Privacidade</strong>.</p>
+                    <hr>
+                    <p class="text-center">Já tem conta? <a asp-area="" asp-controller="Login" asp-action="Index">Faça login</a></p>
+                </article>
+
+
+            </div>
+        </aside>
 
     </div>
 
-    <div>
-        <h6>Endereço</h6>
-        <hr />
 
-        <div class="row">
-            <div class="form-group col-md-3">
-                <label for="txt_ender_descricao">Descrição</label>
-                <input type="text" class="form-control" id="txt_ender_descricao">
-            </div>
-            <div class="form-group col-md-1"></div>
-            <div class="form-group col-md-3">
-                <label for="txt_ender_cep">Cep</label>
-                <input type="text" class="form-control" id="txt_ender_cep">
-            </div>
-            <div class="form-group col-md-1"></div>
-            <div class="form-group col-md-3">
-                <label for="txt_ender_endereco">Logradouro</label>
-                <input type="text" class="form-control" id="txt_ender_endereco">
-            </div>
-            <div class="form-group col-md-1"></div>
-            <div class="form-group col-md-3">
-                <label for="txt_ender_numero">Número</label>
-                <input type="text" class="form-control" id="txt_ender_numero">
-            </div>
-            <div class="form-group col-md-1"></div>
-            <div class="form-group col-md-3">
-                <label for="txt_ender_bairro">Bairro</label>
-                <input type="text" class="form-control" id="txt_ender_bairro">
-            </div>
-            <div class="form-group col-md-1"></div>
-            <div class="form-group col-md-3">
-                <label for="txt_ender_cidade">Cidade</label>
-                <input type="text" class="form-control" id="txt_ender_cidade">
-            </div>
-            <div class="form-group col-md-1"></div>
-            <div class="form-group col-md-3">
-                <label for="txt_ender_uf">UF</label>
-                <input type="text" class="form-control" id="txt_ender_uf">
-            </div>
-            <div class="form-group col-md-1"></div>
-            <div class="form-group col-md-3">
-                <button type="button" class="btn btn-success" style="margin-top:30px;" onclick="AddEndereco();">Adicionar Endereço</button>
-            </div>
-        </div>
-
-
-        <table id="tb_endereco" class="table bg-white">
-
-            <tbody>
-            </tbody>
-        </table>
-
-    </div>
-
-    @Html.Raw(ViewData["Valida"])
-
-    <button type="submit" class="btn btn-primary">Registrar</button>
 
 </form>
-@if (ViewData["Tipo"].ToString() == "A")
-{
-<br />
-    <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='../Home/DashBoard'">Dashboard</button>
 
-}
 
 
 <script>
