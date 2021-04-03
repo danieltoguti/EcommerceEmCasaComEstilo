@@ -109,8 +109,6 @@
         var _tamanho = $("#txt_tamanho option:selected").val();
         var _cor = $("#txt_cor option:selected").val();
         var _quantidade = $("#txt_quantidade option:selected").val();
-        var _preco = '@Model.tb_produto.Valor.ToString("C")';
-
         var _url = '@Url.Action("AddCar", "Carrinho")';
 
 
@@ -159,14 +157,13 @@
 
                     tb = "<table class='table'>";
                     $.each(result.resp, function (i, item) {
-                        var f2 = item.preco.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+                        var f2 = item.preco.toLocaleString('pt-br', { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
                         tb += "<tr>";
                         tb += "<div class='img-wrap'><img src='' class='img-thumbnail img-sm'></div>";
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
                         tb += "<td>" + f2 + "</td>";
-                        //console.log("Esse está dentro do ajax " + item.preco);
                         tb += "<td>" + item.cor + "</td>";
                         tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";

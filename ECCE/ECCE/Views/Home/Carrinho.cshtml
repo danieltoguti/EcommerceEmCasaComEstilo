@@ -57,7 +57,7 @@
                             </span>
                         </div>
                         <br>
-                        <p>Valor do frete: <span id="RespFrete"></span></p>
+                        <p>Valor do frete:  R$ <span id="RespFrete"></span></p>
 
                     </div>
                 </form>
@@ -67,7 +67,7 @@
         <div class="card">
             <div class="card-body">
                 <dl class="dlist-align">
-                    <dt>Valor total dos produtos:</dt>
+                    <dt>Produtos:</dt>
                     <dd id="ValorTotalProduto"  class="text-right"></dd>
                 </dl>
                 <br><br>
@@ -77,7 +77,7 @@
                 </dl>
                 <br>
                 <dl class="dlist-align">
-                    <dt>Total do pedido:</dt>
+                    <dt>Total:</dt>
                     <dd id="ValorFinal" class="text-right text-dark b"><strong></strong></dd>
                 </dl>
 
@@ -98,6 +98,10 @@
 
     })
 
+    function formata(v) {
+        return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
+    }
+
     function Calcular(_cep, _servico) {
         $("#RespFrete").html("Aguarde...");
         var _url = '@Url.Action("GetCalculo", "CalculaFrete")';
@@ -114,7 +118,7 @@
 
 
                 $("#RespFrete").html(result.resposta);
-                $("#RespFrete2").html(result.resposta);
+                $("#RespFrete2").html("R$" + " " + result.resposta);
                 SomaValorFreteProduto();
 
             }
@@ -182,21 +186,19 @@
                         tb += "<dl class='dlist-inline small'><dt>Cor: </dt><dd>" + item.cor + "</dd></dl>";
                         tb += "</figcaption></figure ></td>";
                         tb += "<td>" + item.quantidade + " </td>";
-                        tb += "<td><div class='price-wrap'><var class='price'>" + item.quantidade * item.preco + "</var>";
+                        tb += "<td><div class='price-wrap'><var class='price'>" + formata(item.quantidade * item.preco) + "</var>";
                         tb += "<small class='text-muted'>" + f2 + " cada</small></div></td>";
                         tb += "<td class='text-right'><a href='##' class='btn btn-light' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                         Total += item.preco * item.quantidade;
                         Quantidade += item.quantidade;
-                        //console.log("Valor Total:", Total);
-                        $("#ValorTotalProduto").html(Total);
-                        $("#QuantidadeTotalProduto").html(Quantidade);
 
-                        $("#idcarrinho").append(tb);
+                        $("#ValorTotalProduto").html(Total.toLocaleString('pt-br', { minimumFractionDigits: 2 }));
+                        $("#QuantidadeTotalProduto").html(Quantidade);
+                        $("#idcarrinho").html(tb);
 
                         GetFoto(item.codigoProduto);
                     });
-
                   
 
 
@@ -218,8 +220,7 @@
     function SomaValorFreteProduto() {
         var Frete = parseFloat($("#RespFrete").html());
         var TotalFinal = parseFloat($("#ValorTotalProduto").html());
-        var Total = Frete + TotalFinal;
-        Total = Total.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+        var Total = (Frete + TotalFinal).toLocaleString('pt-br', { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
         $("#ValorFinal").html(Total);
     }
 
