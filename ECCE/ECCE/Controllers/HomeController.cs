@@ -68,6 +68,19 @@ namespace ECCE.Controllers
             return View(resp);
         }
 
+
+        public IActionResult Finalizar()
+        {
+            CarrinhoController car = new CarrinhoController(_hCont);
+
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            ViewData["Carrinho"] = car.GetAll();
+
+            return View();
+        }
+
         [Authorize(Roles = "A")]
         public IActionResult Dashboard()
         {

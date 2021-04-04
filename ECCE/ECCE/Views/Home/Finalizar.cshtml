@@ -1,41 +1,18 @@
-﻿@{ ViewData["Title"] = "Carrinho"; }
-
-
-<link rel="stylesheet" href="~/lib/bootstrap-ecommerce-uikit/css/ui.css" />
-<link rel="stylesheet" href="~/lib/bootstrap-ecommerce-uikit/css/responsive.css" media="only screen and (max-width: 1200px)" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" />
+﻿@{ ViewData["Title"] = "Finalizar"; }
 
 
 
-<div class="row">
-    <aside class="col-lg-9">
-        <div id="code_cart">
-            <div class="card">
-                <table class="table table-borderless shopping-cart-wrap">
-                    <thead class="text-muted">
-                        <tr class="small text-uppercase">
-                            <th scope="col">Produto</th>
-                            <th scope="col" width="100">Quantidade</th>
-                            <th scope="col" width="100">Preço</th>
-                            <th scope="col" width="120" class="text-right"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="idcarrinho">
-                    </tbody>
-                    <tfoot class="text-muted">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col" width="120"></th>
-                            <th scope="col" width="230" class="text-right">Quantidade Total de Produtos:</th>
-                            <th id="QuantidadeTotalProduto" scope="col" width="90"></th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </aside>
-    <br />
-    <br />
+<br />
+<br />
+
+<hr />
+<h3>Escolher endereço de entrega</h3>
+<hr />
+
+<br />
+<br />
+
+<div>
     <aside class="col-lg-3">
 
         <div class="card mb-3">
@@ -68,7 +45,7 @@
             <div class="card-body">
                 <dl class="dlist-align">
                     <dt>Produtos: R$</dt>
-                    <dd id="ValorTotalProduto"  class="text-right"></dd>
+                    <dd id="ValorTotalProduto" class="text-right"></dd>
                 </dl>
                 <br><br>
                 <dl class="dlist-align">
@@ -88,6 +65,13 @@
     </aside>
 </div>
 
+<br />
+<br />
+
+<hr />
+<h3>Escolher forma de pagamento</h3>
+
+<hr />
 <script>
     $(document).ready(function () {
         $("#btn_Calcular").click(function () {
@@ -141,10 +125,10 @@
             type: 'GET',
             processData: true,
             contentType: true,
-            data: { CodigoProduto: _CodigoProduto },            
+            data: { CodigoProduto: _CodigoProduto },
             success: function (result) {
                 if (result.success) {
-                    $(".f_" + _CodigoProduto).attr("src", result.caminho);                    
+                    $(".f_" + _CodigoProduto).attr("src", result.caminho);
                 }
                 else {
                     return "Caminho IMG";
@@ -172,11 +156,11 @@
             url: _url,
             type: 'GET',
             processData: true,
-            contentType: true,         
+            contentType: true,
             success: function (result) {
                 if (result.success) {
                     tb = "<tr>";
-                    $.each(result.resp, function (i, item) {    
+                    $.each(result.resp, function (i, item) {
                         var f2 = item.preco.toLocaleString('pt-br', { minimumFractionDigits: 2 });
                         tb += "<td><figure class='media'>";
                         tb += "<div class='img-wrap'><img class='f_" + item.codigoProduto + "' src=''class='img-thumbnail img-sm'></div>";
@@ -199,7 +183,7 @@
 
                         GetFoto(item.codigoProduto);
                     });
-                  
+
 
 
                 }
