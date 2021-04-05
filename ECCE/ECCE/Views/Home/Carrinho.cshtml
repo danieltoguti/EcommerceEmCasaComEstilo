@@ -5,7 +5,14 @@
 <link rel="stylesheet" href="~/lib/bootstrap-ecommerce-uikit/css/responsive.css" media="only screen and (max-width: 1200px)" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" />
 
-
+<style>
+    .shopping-cart-wrap img {
+        max-width: 50px;
+    }
+    .img-wrap {
+        border: 1px dashed #6c6a98;
+    }
+</style>
 
 <div class="row">
     <aside class="col-lg-9">
@@ -70,18 +77,17 @@
                     <dt>Produtos: R$</dt>
                     <dd id="ValorTotalProduto"  class="text-right"></dd>
                 </dl>
-                <br><br>
                 <dl class="dlist-align">
                     <dt>Frete: R$</dt>
                     <dd id="RespFrete2" class="text-right text-danger"></dd>
                 </dl>
-                <br>
+                <br><br>
                 <dl class="dlist-align">
                     <dt>Total: R$</dt>
                     <dd id="ValorFinal" class="text-right text-dark b"><strong></strong></dd>
                 </dl>
-
-                <button class="btn btn-primary" type="button" onclick="window.location.href ='/home/Finalizar'" style="width:100%">Finalizar</button>
+                <br>
+                <button class="btn btn-primary" type="button" onclick="window.location.href ='/home/Finalizar'" style="width:100%">Ir para pagamento</button>
             </div> <!-- card-body.// -->
         </div> <!-- card.// -->
 
@@ -188,7 +194,7 @@
                         tb += "<td>" + item.quantidade + " </td>";
                         tb += "<td><div class='price-wrap'><var class='price'>R$ " + formata(item.quantidade * item.preco) + "</var>";
                         tb += "<small class='text-muted'> R$ " + f2 + " cada</small></div></td>";
-                        tb += "<td class='text-right'><a href='##' class='btn btn-light' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
+                        tb += "<td class='text-right'><a href='##' class='btn btn-light' onclick='RemoveItem(" + item.id + ");'><i class='fas fa-trash'></i></a></td>";
                         tb += "</tr>";
                         Total += item.preco * item.quantidade;
                         Quantidade += item.quantidade;

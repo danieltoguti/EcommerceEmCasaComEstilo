@@ -33,13 +33,7 @@ h2 {
 /**********************************/
 .normal-slider .slick-prev,
 .normal-slider .slick-next {
-    width: 40px;
-    height: 40px;
-    z-index: 1;
-    opacity: 0;
-    transition: .5s;
-    background: rgba(255, 111, 97, .7);
-    border-radius: 4px;
+    display: none
 }
 
 .normal-slider .slick-prev {
@@ -388,3 +382,19 @@ h2 {
             color: #ffffff;
             background: #FF6F61;
         }
+
+.slick-next, .slick-prev {
+    display: none !important
+}
+
+.slick-track {
+    transform: none !important;
+    translate: none !important;
+    display: flex
+}
+.slider-nav-img {
+    width: 85px!important;
+    border: 1px solid;
+    margin-right: .5em
+}
+

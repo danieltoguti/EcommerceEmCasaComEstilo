@@ -10,7 +10,7 @@
         <aside class="col-md-6">
             <article class="gallery-wrap">
                 <div class="product-slider-single normal-slider">
-                    @{ 
+                    @{
                         var iCont = 1;
                     }
                     @foreach (var foto in Model.produtofotoModel)
@@ -31,7 +31,7 @@
                         }
                     }
                 </div>
-            </article> 
+            </article>
         </aside>
         <main class="col-md-6 border-left" style="padding: 2em 2em;">
             <article class="content-body">
@@ -93,7 +93,7 @@
     </div> <!-- row.// -->
 </div>
 
-<div class="row" id="idcarrinho"></div>
+<!--<div class="row" id="idcarrinho"></div>-->
 
 <script src="~/lib/slick/slick.min.js"></script>
 <script src="~/js/pdp.js"></script>
@@ -159,7 +159,6 @@
                     $.each(result.resp, function (i, item) {
                         var f2 = item.preco.toLocaleString('pt-br', { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
                         tb += "<tr>";
-                        tb += "<div class='img-wrap'><img src='' class='img-thumbnail img-sm'></div>";
                         tb += "<td>" + item.nome + "</td>";
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
