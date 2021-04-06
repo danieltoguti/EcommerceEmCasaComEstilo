@@ -1,0 +1,113 @@
+﻿@{
+    @model List<ProdutoVWList>;
+    ViewData["Title"] = "Home Page";
+
+}
+<div class="row" id="idcarrinho"></div>
+<p>Masculino</p>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="card col-md-3 text-center">
+            <div class="card-header">
+                <div>@item.tb_produto.Nome</div>
+            </div>
+            <div class="card-body">
+                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">
+                    <p><img src="@item.Foto" style="height: 200px;" /></p>
+                </a>
+            </div>
+            <div class="card-footer">
+                <p>@item.tb_produto.Valor.ToString("C")</p>
+                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">Mais Detalhes</a>
+            </div>
+
+        </div>
+
+
+        <br />
+
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        GetCarrinho();
+    });
+
+
+    function AddCar(codigo,descricao) {
+        var _url = '@Url.Action("AddCar", "Home")';
+
+        $.ajax({
+            url: _url,
+            type: 'GET',
+            data: {
+                key: codigo,
+                value: descricao
+            },
+            processData: true,
+            contentType: true,
+            success: function (result) {
+                GetCarrinho();
+            }
+            ,
+            error: function (jqXHR) {
+
+            },
+            complete: function (jqXHR, status) {
+
+            }
+
+        });
+    }
+
+    function GetCarrinho() {
+        var _url = '@Url.Action("GetAll", "Home")';
+
+        $.ajax({
+            url: _url,
+            type: 'GET',            
+            processData: true,
+            contentType: true,
+            success: function (result) {
+                $("#idcarrinho").html(result);
+               
+             }
+            ,
+            error: function (jqXHR) {
+
+            },
+            complete: function (jqXHR, status) {
+
+            }
+
+        });
+    }
+
+
+    function RemoveItem(codigo) {
+        var _url = '@Url.Action("RemoveItem", "Home")';
+
+        $.ajax({
+            url: _url,
+            type: 'GET',
+            data: {
+                key: codigo
+            },
+            processData: true,
+            contentType: true,
+            success: function (result) {
+                GetCarrinho();
+            }
+            ,
+            error: function (jqXHR) {
+
+            },
+            complete: function (jqXHR, status) {
+
+            }
+
+        });
+    }
+
+</script>

@@ -834,6 +834,158 @@ namespace ECCE.Data
         }
 
 
+        public List<ProdutoVWList> GetProdutoVWListInfantil()
+        {
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
+                        "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero = 9";
+
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+
+                var LT = new List<ProdutoVWList>();
+
+                while (Dr.Read())
+                {
+                    var item = new ProdutoVWList();
+
+                    item.tb_produto = new tb_produto
+                    {
+                        CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
+                        CodigoInterno = Dr["CodigoInterno"].ToString(),
+                        Nome = Dr["Nome"].ToString(),
+                        Descricao = Dr["Descricao"].ToString(),
+                        Valor = Convert.ToDecimal(Dr["Valor"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Peso = Convert.ToDouble(Dr["Peso"]),
+                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                    };
+
+                    item.Foto = Dr["Caminho"].ToString();
+
+                    LT.Add(item);
+                }
+
+                return LT;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+
+        }
+
+        public List<ProdutoVWList> GetProdutoVWListFeminino()
+        {
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
+                        "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero = 13";
+
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+
+                var LT = new List<ProdutoVWList>();
+
+                while (Dr.Read())
+                {
+                    var item = new ProdutoVWList();
+
+                    item.tb_produto = new tb_produto
+                    {
+                        CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
+                        CodigoInterno = Dr["CodigoInterno"].ToString(),
+                        Nome = Dr["Nome"].ToString(),
+                        Descricao = Dr["Descricao"].ToString(),
+                        Valor = Convert.ToDecimal(Dr["Valor"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Peso = Convert.ToDouble(Dr["Peso"]),
+                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                    };
+
+                    item.Foto = Dr["Caminho"].ToString();
+
+                    LT.Add(item);
+                }
+
+                return LT;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+
+        }
+
+
+        public List<ProdutoVWList> GetProdutoVWListMasculino()
+        {
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
+                        "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero=7";
+
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+
+                var LT = new List<ProdutoVWList>();
+
+                while (Dr.Read())
+                {
+                    var item = new ProdutoVWList();
+
+                    item.tb_produto = new tb_produto
+                    {
+                        CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
+                        CodigoInterno = Dr["CodigoInterno"].ToString(),
+                        Nome = Dr["Nome"].ToString(),
+                        Descricao = Dr["Descricao"].ToString(),
+                        Valor = Convert.ToDecimal(Dr["Valor"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Peso = Convert.ToDouble(Dr["Peso"]),
+                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                    };
+
+                    item.Foto = Dr["Caminho"].ToString();
+
+                    LT.Add(item);
+                }
+
+                return LT;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+
+        }
+
+
         public ProdutoView GetProdutoView(int CodigoProduto)
         {
             try
@@ -866,6 +1018,7 @@ namespace ECCE.Data
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Convert.ToInt32(Dr["Ativo"]),
+
                     };
 
                 }
