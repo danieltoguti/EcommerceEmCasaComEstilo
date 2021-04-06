@@ -13,8 +13,15 @@
         border: 1px dashed #6c6a98;
     }
 </style>
-
-<div class="row">
+<div id="tabelasemproduto" class="col-md-10 text-center">
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br />
+    <div class="icon"><span style="font-size: 38px"><i class="fa fa-lg fa-shopping-cart"></i></span></div>
+    <h3>Seu carrinho está vazio</h3>
+    <br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br />
+</div>
+<div id="tabelacomproduto" class="row">
     <aside class="col-lg-9">
         <div id="code_cart">
             <div class="card">
@@ -99,7 +106,7 @@
         $("#btn_Calcular").click(function () {
             Calcular($("#txt_cep").val(), $("#txt_servico").val());
         });
-
+        $("#tabelacomproduto").hide();
         GetCarrinho();
 
     })
@@ -147,10 +154,10 @@
             type: 'GET',
             processData: true,
             contentType: true,
-            data: { CodigoProduto: _CodigoProduto },            
+            data: { CodigoProduto: _CodigoProduto },
             success: function (result) {
                 if (result.success) {
-                    $(".f_" + _CodigoProduto).attr("src", result.caminho);                    
+                    $(".f_" + _CodigoProduto).attr("src", result.caminho);
                 }
                 else {
                     return "Caminho IMG";
@@ -178,18 +185,21 @@
             url: _url,
             type: 'GET',
             processData: true,
-            contentType: true,         
+            contentType: true,
             success: function (result) {
                 if (result.success) {
+                    $("#tabelasemproduto").hide();
+                    $("#tabelacomproduto").show();
                     tb = "<tr>";
-                    $.each(result.resp, function (i, item) {    
+                    $.each(result.resp, function (i, item) {
                         var f2 = item.preco.toLocaleString('pt-br', { minimumFractionDigits: 2 });
                         tb += "<td><figure class='media'>";
+                        tb += "<a href='produtodetail/" + item.codigoProduto + "' asp-controller='Home' asp-action='ProdutoDetail'>";
                         tb += "<div class='img-wrap'><img class='f_" + item.codigoProduto + "' src=''class='img-thumbnail img-sm'></div>";
                         tb += "<figcaption class='media-body'>";
                         tb += "<h6 class='title text-truncate'>" + item.nome + "</h6>";
                         tb += "<dl class='dlist-inline small'><dt>Tamanho: </dt><dd>" + item.tamanho + "</dd></dl>";
-                        tb += "<dl class='dlist-inline small'><dt>Cor: </dt><dd>" + item.cor + "</dd></dl>";
+                        tb += "<dl class='dlist-inline small'><dt>Cor: </dt><dd>" + item.cor + "</dd></dl></a>";
                         tb += "</figcaption></figure ></td>";
                         tb += "<td>" + item.quantidade + " </td>";
                         tb += "<td><div class='price-wrap'><var class='price'>R$ " + formata(item.quantidade * item.preco) + "</var>";
@@ -205,7 +215,7 @@
 
                         GetFoto(item.codigoProduto);
                     });
-                  
+
 
 
                 }

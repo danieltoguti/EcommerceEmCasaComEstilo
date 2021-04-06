@@ -78,7 +78,15 @@ namespace ECCE.Controllers
 
             ViewData["Carrinho"] = car.GetAll();
 
-            return View();
+            if(ViewData["NomeLogin"] == "")
+            {
+                return RedirectToAction("index", "login");
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
         [Authorize(Roles = "A")]
