@@ -60,16 +60,21 @@
                         </a> <!-- Pesquisar -->
                     </div>
                     <div class="">
-                        <form action="#" class="search">
-                            <div class="input-group search-main">
-                                <input type="text" class="form-control" placeholder="Procurar">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary searchme" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
+
+                        @{
+
+                            <form asp-action="Home" asp-controller="Procura">
+                                <div class="input-group search-main">
+                                    <input type="text" class="form-control" placeholder="Procurar">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary searchme" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+
+                        }
                     </div> <!-- carrinho link -->
                     <div class="">
                         <div class="widgets-wrap d-flex justify-content-end">
@@ -153,10 +158,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Lançamentos</a>
                         </li>
-                            
+
                         -->
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Masculino">Masculino</a>>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Masculino">Masculino</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Feminino">Feminino</a>

@@ -7844,3 +7844,4 @@ C:\Users\danie\Desktop\EcommerceEmCasaComEstilo0404\EcommerceEmCasaComEstilo\ECC
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Feminino.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Infantil.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Masculino.cshtml.g.cs
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Procura.cshtml.g.cs
