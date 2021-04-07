@@ -43,13 +43,12 @@ namespace ECCE.Controllers
         public IActionResult Procura()
         {
 
-            ProdutoDB Prod = new ProdutoDB();
-            var resp = Prod.GetProdutoVWList();
+
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
-            return View(resp);
+            return View();
         }
 
         public IActionResult Infantil()

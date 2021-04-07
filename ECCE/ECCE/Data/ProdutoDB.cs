@@ -1045,6 +1045,62 @@ namespace ECCE.Data
         }
 
 
+        public ProdutoView GetProdutoViewProcura(int CodigoProduto)
+        {
+            var obj = new tb_produto();
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "SELECT * FROM tb_produto WHERE UPPER(nome) LIKE '@nome'"; 
+                cmd.Parameters.AddWithValue("@nome", obj.Nome);
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+
+                var ProdM = new ProdutoView();
+
+                tb_produto tbPro = null;
+
+                while (Dr.Read())
+                {
+                    tbPro = new tb_produto
+                    {
+                        CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
+                        CodigoInterno = Dr["CodigoInterno"].ToString(),
+                        Nome = Dr["Nome"].ToString(),
+                        Descricao = Dr["Descricao"].ToString(),
+                        Valor = Convert.ToDecimal(Dr["Valor"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Peso = Convert.ToDouble(Dr["Peso"]),
+                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+
+                    };
+
+                }
+
+                ProdM.tb_produto = tbPro;
+                ProdM.produtocategoriaModel = GetProdutoCategoria(CodigoProduto);
+                ProdM.produtocorModel = GetProdutoCor(CodigoProduto);
+                ProdM.produtofotoModel = GetProdutoFoto(CodigoProduto);
+                ProdM.produtogeneroModel = GetProdutoGenero(CodigoProduto);
+                ProdM.produtotamanhoModel = GetProdutoTamanho(CodigoProduto);
+
+
+                return ProdM;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+
+        }
+
 
 
     }
