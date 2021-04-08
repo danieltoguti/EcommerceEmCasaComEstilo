@@ -1044,10 +1044,9 @@ namespace ECCE.Data
 
         }
 
-
-        public ProdutoView GetProdutoViewProcura(int CodigoProduto)
+        public List<ProdutoVWList> GetProdutoVWListProcura(string nome)
         {
-            var obj = new tb_produto();
+
             try
             {
                 string sSQL = "";
@@ -1055,20 +1054,23 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "SELECT * FROM tb_produto WHERE UPPER(nome) LIKE '@nome'"; 
-                cmd.Parameters.AddWithValue("@nome", obj.Nome);
+                sSQL = "select *," +
+                    "(select Caminho from tb_produto_foto where tb_produto_foto.CodigoProduto=tb_produto.CodigoProduto limit 1) as Foto" +
+                    " from tb_produto where tb_produto.nome=@nome";
+                cmd.Parameters.AddWithValue("@nome", nome);
+
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 var Dr = cmd.ExecuteReader();
 
-                var ProdM = new ProdutoView();
-
-                tb_produto tbPro = null;
+                var LT = new List<ProdutoVWList>();
 
                 while (Dr.Read())
                 {
-                    tbPro = new tb_produto
+                    var item = new ProdutoVWList();
+
+                    item.tb_produto = new tb_produto
                     {
                         CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
                         CodigoInterno = Dr["CodigoInterno"].ToString(),
@@ -1078,20 +1080,14 @@ namespace ECCE.Data
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Convert.ToInt32(Dr["Ativo"]),
-
                     };
 
+                    item.Foto = Dr["Foto"].ToString();
+
+                    LT.Add(item);
                 }
 
-                ProdM.tb_produto = tbPro;
-                ProdM.produtocategoriaModel = GetProdutoCategoria(CodigoProduto);
-                ProdM.produtocorModel = GetProdutoCor(CodigoProduto);
-                ProdM.produtofotoModel = GetProdutoFoto(CodigoProduto);
-                ProdM.produtogeneroModel = GetProdutoGenero(CodigoProduto);
-                ProdM.produtotamanhoModel = GetProdutoTamanho(CodigoProduto);
-
-
-                return ProdM;
+                return LT;
             }
             catch (Exception e)
             {

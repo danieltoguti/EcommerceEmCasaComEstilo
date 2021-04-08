@@ -94,6 +94,9 @@ namespace ECCE.Controllers
             ViewData["Valida"] = "";
             return View("CadastroCliente", model);
         }
+
+
+
         public IActionResult Salvar(CadastroLogin obj)
         {
 

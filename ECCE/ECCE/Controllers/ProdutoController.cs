@@ -163,17 +163,17 @@ namespace ECCE.Controllers
         public string Validar(ProdutoModel obj)
         {
 
-            ProdutoDB Func = new ProdutoDB();
+            ProdutoDB Produto = new ProdutoDB();
 
             if (String.IsNullOrEmpty(obj.tb_produto.Nome))
             {
                 return "Digite o nome do produto";
             }
 
-            if (Func.ValidarNome(obj.tb_produto))
-             {
-                 return "Produto já cadastrado(a)!";
-             }
+            //if (Produto.ValidarNome(obj.tb_produto))
+             //{
+             //    return "Produto já cadastrado(a)!";
+            // }
 
             return "";
         }
