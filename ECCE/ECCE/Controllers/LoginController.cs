@@ -28,6 +28,8 @@ namespace ECCE.Controllers
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+
             return View();
         }
 
@@ -36,6 +38,9 @@ namespace ECCE.Controllers
         public async Task<IActionResult> Logar(LoginAcesso obj)
         {
             var resp = await CMetodos_Autenticacao.LoginValidoAsync(obj.Email, obj.Senha,_hCont);
+
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
 
             if (resp!="")
