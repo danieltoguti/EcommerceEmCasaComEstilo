@@ -1,8 +1,8 @@
 ﻿
 @model ProdutoModel
 @{ ViewData["Title"] = "CadastroProduto";
-    var LTCategorias = (List<SelectListItem>)(@ViewData["LTCategorias"]);
-    var LTCor = (List<SelectListItem>)(@ViewData["LTCor"]);
+    //var LTCategorias = (List<SelectListItem>)(@ViewData["LTCategorias"]);
+    //var LTCor = (List<SelectListItem>)(@ViewData["LTCor"]);
     var LTGenero = (List<SelectListItem>)(@ViewData["LTGenero"]);
     var LTTam = (List<SelectListItem>)(@ViewData["LTTam"]);
 
@@ -52,8 +52,9 @@
 
         <input type="hidden" asp-for="tb_produto.CodigoProduto">
 
-        <input type="hidden" asp-for="JsonLTCategoria">
-        <input type="hidden" asp-for="JsonLTCor">
+        <!-- <input type="hidden" asp-for="JsonLTCategoria">
+         <input type="hidden" asp-for="JsonLTCor">
+         -->
         <input type="hidden" asp-for="JsonLTGenero">
         <input type="hidden" asp-for="JsonLTTamanho">
         <input type="hidden" asp-for="JsonLTFoto">
@@ -88,7 +89,7 @@
 
 
     <hr />
-
+<!--
     <h5><b>Cor</b></h5>
     <hr />
     <div class="row">
@@ -110,7 +111,7 @@
             </table>
         </div>
     </div>
-
+-->
     <h5><b>Genero</b></h5>
     <hr />
 
@@ -154,7 +155,7 @@
             </table>
         </div>
     </div>
-
+<!--
     <h5><b>Categoria</b></h5>
     <hr />
     <div class="row">
@@ -176,6 +177,8 @@
             </table>
         </div>
     </div>
+    -->
+
 
     @Html.Raw(ViewData["Valida"])
 
@@ -189,8 +192,8 @@
 <script src="~/js/compress.js"></script>
 
 <script>
-    var MtzCategoria;
-    var MtzCor;
+    //var MtzCategoria;
+    //var MtzCor;
     var MtzFoto;
     var MtzGenero;
     var MtzTamanho;
@@ -201,14 +204,14 @@
 
         SetSubmit();
 
-        MtzCor = StartMTZ(MtzCor, "JsonLTCor");
-        MtzCategoria = StartMTZ(MtzCategoria, "JsonLTCategoria");
+        //MtzCor = StartMTZ(MtzCor, "JsonLTCor");
+       // MtzCategoria = StartMTZ(MtzCategoria, "JsonLTCategoria");
         MtzGenero = StartMTZ(MtzGenero, "JsonLTGenero");
         MtzTamanho = StartMTZ(MtzTamanho, "JsonLTTamanho");
         MtzFoto = StartMTZ(MtzFoto, "JsonLTFoto");
 
-        Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", "CO");
-        Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", "C");
+        //Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", "CO");
+        //Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", "C");
         Get_Mtzs("JsonLTGenero", MtzGenero, "tb_genero", "G");
         Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", "T");
         Get_Mtzs("JsonLTFoto", MtzFoto, "tb_Foto", "F");
@@ -233,12 +236,12 @@
         var Codigo = $("#" + obj + " option:selected").val();
 
         switch (Tipo) {
-            case "CO":
+            /*case "CO":
                 AddMTZ(MtzCor, Codigo, Descricao, "JsonLTCor", "tb_cor", Tipo);
                 break;
             case "C":
                 AddMTZ(MtzCategoria, Codigo, Descricao, "JsonLTCategoria", "tb_cat", Tipo);
-                break;
+                break;*/
             case "G":
                 AddMTZ(MtzGenero, Codigo, Descricao, "JsonLTGenero", "tb_genero", Tipo);
                 break;
@@ -291,7 +294,7 @@
         $(obj).closest('tr').remove();
 
         switch (Tipo) {
-            case "CO":
+            /*case "CO":
                 delete MtzCor[index];
                 MtzCor.splice(index, 1);
                 Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", Tipo);
@@ -301,7 +304,7 @@
                 delete MtzCategoria[index];
                 MtzCategoria.splice(index, 1);
                 Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", Tipo);
-                break;
+                break;  */
 
             case "G":
                 delete MtzGenero[index];

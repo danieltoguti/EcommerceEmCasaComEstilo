@@ -32,15 +32,15 @@ namespace ECCE.Data
 
                 
                 obj.JsonLTFoto = obj.JsonLTFoto.Replace("Descricao", "Caminho");
-                obj.JsonLTCor = obj.JsonLTCor.Replace("Codigo", "CodigoCor");
-                obj.JsonLTCategoria = obj.JsonLTCategoria.Replace("Codigo", "CodigoCategoria");
+                //obj.JsonLTCor = obj.JsonLTCor.Replace("Codigo", "CodigoCor");
+                //obj.JsonLTCategoria = obj.JsonLTCategoria.Replace("Codigo", "CodigoCategoria");
                 obj.JsonLTGenero = obj.JsonLTGenero.Replace("Codigo", "CodigoGenero");
                 obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
 
 
                 var prodFotos = JsonConvert.DeserializeObject<List<tb_produto_foto>>(obj.JsonLTFoto, settings);
-                var proCores = JsonConvert.DeserializeObject<List<tb_produto_cor>>(obj.JsonLTCor, settings);
-                var proCategorias = JsonConvert.DeserializeObject<List<tb_produto_categoria>>(obj.JsonLTCategoria, settings);
+                //var proCores = JsonConvert.DeserializeObject<List<tb_produto_cor>>(obj.JsonLTCor, settings);
+                //var proCategorias = JsonConvert.DeserializeObject<List<tb_produto_categoria>>(obj.JsonLTCategoria, settings);
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
                 var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho , settings);
 
@@ -88,7 +88,7 @@ namespace ECCE.Data
                     string Tabela = "";
                     string Coluna = "";
                     int Codigo = 0;
-
+                    /*
                     //Cores                                 
                     foreach (var item in proCores)
                     {
@@ -121,7 +121,7 @@ namespace ECCE.Data
                         cmd.CommandText = sSQL;
                         cmd.ExecuteNonQuery();
                     }
-
+                    */
                     //Generos                    
                     foreach (var item in proGeneros)
                     {
@@ -186,15 +186,15 @@ namespace ECCE.Data
 
 
                 obj.JsonLTFoto = obj.JsonLTFoto.Replace("Descricao", "Caminho");
-                obj.JsonLTCor = obj.JsonLTCor.Replace("Codigo", "CodigoCor");
-                obj.JsonLTCategoria = obj.JsonLTCategoria.Replace("Codigo", "CodigoCategoria");
+                //obj.JsonLTCor = obj.JsonLTCor.Replace("Codigo", "CodigoCor");
+                //obj.JsonLTCategoria = obj.JsonLTCategoria.Replace("Codigo", "CodigoCategoria");
                 obj.JsonLTGenero = obj.JsonLTGenero.Replace("Codigo", "CodigoGenero");
                 obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
 
 
                 var prodFotos = JsonConvert.DeserializeObject<List<tb_produto_foto>>(obj.JsonLTFoto, settings);
-                var proCores = JsonConvert.DeserializeObject<List<tb_produto_cor>>(obj.JsonLTCor, settings);
-                var proCategorias = JsonConvert.DeserializeObject<List<tb_produto_categoria>>(obj.JsonLTCategoria, settings);
+                //var proCores = JsonConvert.DeserializeObject<List<tb_produto_cor>>(obj.JsonLTCor, settings);
+                //var proCategorias = JsonConvert.DeserializeObject<List<tb_produto_categoria>>(obj.JsonLTCategoria, settings);
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
                 var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho, settings);
 
@@ -240,7 +240,7 @@ namespace ECCE.Data
                     string Tabela = "";
                     string Coluna = "";
                     int Codigo = 0;
-
+                    /*
                     //Cores                                 
                     foreach (var item in proCores)
                     {
@@ -273,7 +273,7 @@ namespace ECCE.Data
                         cmd.CommandText = sSQL;
                         cmd.ExecuteNonQuery();
                     }
-
+                    */
                     //Generos                    
                     foreach (var item in proGeneros)
                     {

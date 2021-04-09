@@ -47,16 +47,16 @@
                 <dl class="row">
                     <dt class="col-sm-4">Código do produto</dt>
                     <dd class="col-sm-8">@Model.tb_produto.CodigoInterno</dd>
-
+                    <!--
                     <dt class="col-sm-4">Cor</dt>
                     <select id="txt_cor" class="form-control col-sm-5" style="width:130px">
 
-                        @foreach (var Cor in Model.produtocorModel)
+                        foreach (var Cor in Model.produtocorModel)
                         {
-                            <option class="col-sm-8">@Cor.Descricao</option>
+                            <option class="col-sm-8">Cor.Descricao</option>
                         }
                     </select>
-
+                    -->
                     <br />
                     <br />
 
@@ -105,7 +105,7 @@
     function AddCar() {
 
         var _tamanho = $("#txt_tamanho option:selected").val();
-        var _cor = $("#txt_cor option:selected").val();
+        //var _cor = $("#txt_cor option:selected").val();
         var _quantidade = $("#txt_quantidade option:selected").val();
         var _url = '@Url.Action("AddCar", "Carrinho")';
 
@@ -119,7 +119,7 @@
                 Peso: '@Model.tb_produto.Peso',
                 Tamanho: _tamanho,
                 Preco: '@Model.tb_produto.Valor',
-                Cor: _cor,
+                //Cor: _cor,
                 Quantidade: _quantidade,
             },
 
@@ -161,7 +161,7 @@
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
                         tb += "<td>" + f2 + "</td>";
-                        tb += "<td>" + item.cor + "</td>";
+                        //tb += "<td>" + item.cor + "</td>";
                         tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                     });
