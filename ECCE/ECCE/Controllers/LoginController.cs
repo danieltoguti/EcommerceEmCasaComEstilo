@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI;
 
 namespace ECCE.Controllers
 {
@@ -21,21 +22,24 @@ namespace ECCE.Controllers
             _hCont = httpContextAccessor;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string redirect)
         {
+            if (redirect !=null)
+            {
+                HttpContext.Session.SetString("redirect", redirect);
+            }
 
             await _hCont.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
-
             return View();
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Logar(LoginAcesso obj)
+        public async Task<IActionResult> Logar(LoginAcesso obj, string redirect)
         {
             var resp = await CMetodos_Autenticacao.LoginValidoAsync(obj.Email, obj.Senha,_hCont);
 
@@ -45,6 +49,12 @@ namespace ECCE.Controllers
 
             if (resp!="")
             {
+                var Redirect = HttpContext.Session.GetString("redirect");
+                if (!String.IsNullOrEmpty(Redirect))
+                {
+                    HttpContext.Session.Clear();
+                    return RedirectToAction(Redirect, "Home");
+                }
 
                 if (resp == "A") {
                     return RedirectToAction("Index", "Home");

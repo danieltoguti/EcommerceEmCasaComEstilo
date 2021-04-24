@@ -256,4 +256,8 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="API\PagSeguro\" />
+  </ItemGroup>
+
 </Project>

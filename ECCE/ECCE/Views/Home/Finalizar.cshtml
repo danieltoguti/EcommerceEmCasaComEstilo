@@ -1,4 +1,7 @@
-﻿@{ ViewData["Title"] = "Finalizar"; }
+﻿@{
+    ViewData["Title"] = "Finalizar";
+    var LTEnderecos = (List<SelectListItem>)(ViewData["Enderecos"]);
+}
 
 
 
@@ -6,16 +9,17 @@
 <br />
 
 <hr />
-<h3>Escolher endereço de entrega</h3>
+<h3 style="text-align:center">Escolher endereço de entrega</h3>
 <hr />
 
 <br />
 <br />
 
-<div>
-    <aside class="col-lg-8">
-
-        <div class="card mb-8">
+<div class="align-content-lg-end">
+    <input type="hidden" id="SessionPG" class="form-control" value="@ViewData["TK"]" />
+    <input type="hidden" id="BandeiraSel" class="form-control" />
+    <div class="row" style="justify-content:center">
+        <div class="card col-md-5" >
             <div class="card-body">
                 <form>
                     <div class="form-group">
@@ -28,21 +32,21 @@
                         </div>
                         <br>
                         <div class="input-group">
-                            <input id="txt_cep" type="text" class="form-control" name="CEP" placeholder="CEP">
-                            <span class="input-group-append">
-                                <button id="btn_Calcular" type="button" class="btn btn-primary">Calcular</button>
-                            </span>
+                            @*<input id="txt_cep" type="text" class="form-control" name="CEP" placeholder="CEP">*@
+                            <select id="txt_cep" class="form-control txt" asp-items="LTEnderecos"></select>
+
+                            @*<span class="input-group-append">
+                                    <button id="btn_Calcular" type="button" class="btn btn-primary">Calcular</button>
+                                </span>*@
                         </div>
                         <br>
                         <p>Valor do frete:  R$ <span id="RespFrete"></span></p>
-
                     </div>
                 </form>
             </div> <!-- card-body.// -->
         </div> <!-- card.// -->
-        <br />
-        <br />
-        <div class="card mb-8">
+        <div class="col-md-1"></div>
+        <div class="card col-md-3">
             <div class="card-body">
                 <dl class="dlist-align">
                     <dt>Produtos: R$</dt>
@@ -61,48 +65,147 @@
 
             </div> <!-- card-body.// -->
         </div> <!-- card.// -->
-
-    </aside>
+        </div>
 </div>
 
 <br />
 <br />
 
 <hr />
-<h3>Escolher forma de pagamento</h3>
+<h3 style="text-align:center">Escolher forma de pagamento</h3>
 
 <div>
     <aside class="col-lg-8">
         <div class="card mb-8">
             <div class="card-body">
-                    <div class="form-group">
-                        <label>Selecione a forma de pagamento</label>
-                        <div class="input-group">
-                            <select id="txt_pagamento" type="text" class="form-control">
-                                <option value="">Cartão</option>
-                                <option value="">Boleto</option>
-                            </select>
-                        </div>
+                <div class="form-group">
+                    <label>Selecione a forma de pagamento</label>
+                    <div class="input-group">
+                        <select id="FormaPagamento" type="text" class="form-control">                           
+                        </select>
                     </div>
+                </div>
+                <div class="row clsCard">
+                    <div class="form-group col-10">
+                        <label for="NumeroCartao" class="control-label">Numero do Cartão:</label>
+                        <input type="number" id="NumeroCartao" class="form-control" />
+                    </div>
+                    <div class="form-group col-2 text-left">
+                        <div id="dvBCC" style="margin-top:30px;margin-left:-35px;"></div>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="Validade" class="control-label">Validade</label>
+                        <input type="text" id="Validade" class="form-control" />
+                        <small>MM/AA</small>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="CVV" class="control-label">CVV</label>
+                        <input type="number" id="CVV" class="form-control" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <div id="dvCardNumberCC"></div>
+                        <label for="NomeCartao" class="control-label">Nome Impresso no Cartão:</label>
+                        <input type="text" id="NomeCartao" class="form-control" />
+                    </div>
+
+                    <div id="dvParcelamento" class="form-group col-md-12" style="display:none;">
+                        <div id="dvParceLoading"></div>
+                        <label for="Parcelamento" class="control-label">Parcelamento</label>
+                        <select id="Parcelamento" class="form-control"></select>
+                    </div>
+
+                </div>
+
+
             </div> <!-- card-body.// -->
+
+
+
+
         </div> <!-- card.// -->
         <br />
         <br />
 
     </aside>
 </div>
-                <button class="btn btn-primary text-right" type="button" href ="##">Efetuar Pagamento</button>
+
+<button class="btn btn-primary text-right" type="button" href="##">Efetuar Pagamento</button>
 
 <hr />
+@Html.Raw(ViewData["JsBPG"])
+<script src="~/js/jsPagSeg.js"></script>
+<script src="~/js/jquery.mask.js"></script>
 <script>
     $(document).ready(function () {
+      
+        PagSeguroDirectPayment.setSessionId($("#SessionPG").val());        
+
+        SetsFuncsPagSeguro();
+
+        $("#Validade").mask("99/99");
+        $("#CPF").mask("999.999.999-99");
+
+
+
         $("#btn_Calcular").click(function () {
-            Calcular($("#txt_cep").val(), $("#txt_servico").val());
+            CalcularFrete();
+        });
+
+        $("#txt_servico").change(function () {
+            CalcularFrete();
+        });
+
+        $("#txt_cep").change(function () {
+            CalcularFrete();
         });
 
         GetCarrinho();
 
+        setTimeout(function () {
+            CalcularFrete();
+        }, 1000);
+        
+
     })
+
+    function SetsFuncsPagSeguro() {
+
+        $("#ValorFinal").blur(function () {
+            GetMetodosPag($(this).html(), $("#FormaPagamento"), $("#dvFormPagLoading"));
+        });
+
+
+        $("#NumeroCartao").blur(function () {
+            GetBandeiraCC($(this).val(), $("#dvBCC"), $("#BandeiraSel"));          
+            setTimeout(function () {
+                GetParcelamento($("#ValorFinal").html(), $("#BandeiraSel").val(), $("#Parcelamento"), $("#dvParceLoading"));
+                $("#dvCardNumberCC").html("");
+            }, 1000);
+
+        });
+
+        $("#FormaPagamento").change(function () {
+            $("#dvbanco").hide();
+            $("#dvParcelamento").hide();
+
+            if ($(this).val() == 3) {
+                $("#dvbanco").show();
+            }
+
+            else if ($(this).val() == 1) {
+                $("#dvParcelamento").show();
+            }
+
+
+        });
+
+    }
+
+
+    function CalcularFrete() {
+        Calcular($("#txt_cep").val(), $("#txt_servico").val());        
+    }
 
     function formata(v) {
         return v.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
@@ -224,10 +327,11 @@
 
 
     function SomaValorFreteProduto() {
-        var Frete = parseFloat($("#RespFrete").html());
-        var TotalFinal = parseFloat($("#ValorTotalProduto").html());
+        var Frete = parseFloat($("#RespFrete").html().replace(',', '.'));
+        var TotalFinal = parseFloat($("#ValorTotalProduto").html().replace(',', '.'));
         var Total = (Frete + TotalFinal).toLocaleString('pt-br', { minimumFractionDigits: 2 });
         $("#ValorFinal").html(Total);
+        $("#ValorFinal").blur();
     }
 
       function RemoveItem(codigo) {

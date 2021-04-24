@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using MSAP.Classes;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -119,25 +123,67 @@ namespace ECCE.Controllers
         }
 
 
-        public IActionResult Finalizar()
-        {
+        public async Task<IActionResult> Finalizar()
+        {            
+
             CarrinhoController car = new CarrinhoController(_hCont);
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
             ViewData["Carrinho"] = car.GetAll();
-
-            if(ViewData["NomeLogin"] == "")
+            
+            if (ViewData["NomeLogin"] == "")
             {
-                return RedirectToAction("index", "login");
+                return RedirectToAction("index", "login",new { redirect = "finalizar" });
             }
             else
             {
+                var email = "danieltoguti@gmail.com";
+                var token = "e9549b52-15d2-4480-a4c1-d90b6ccbe1e3c126bb8c4302ace8b8436074e1488fa01737-1e74-4786-872b-4f17c3861fcb";
+                var PagSeg = new CPagSeguro(email, token, CPagSeguro.eAmbiente.Producao);
+
+                var resp = await PagSeg.GetSessaoAsync();
+                ViewData["JsBPG"] = PagSeg.GetBiblioTecaJS();
+                ViewData["TK"] = resp;
+
+                ViewData["Enderecos"] = GetEnderecos();
                 return View();
             }
 
         }
+
+        public List<SelectListItem>  GetEnderecos() {            
+            string sSQL = "";
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+            cn.Open();
+
+            sSQL = "SELECT * FROM tb_endereco where CodigoLogin=@CodigoLogin";
+            cmd.Parameters.AddWithValue("@CodigoLogin", CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
+            cmd.CommandText = sSQL;
+            cmd.Connection = cn;
+            var Dr = cmd.ExecuteReader();
+            
+            List<SelectListItem> LT = new List<SelectListItem>();
+            
+            while (Dr.Read())
+            {
+                var Item = new SelectListItem()
+                {
+                    Value = Dr["CEP"].ToString(),
+                    Text = Dr["Descricao"].ToString()+ " - "+
+                           Dr["Endereco"].ToString()+ "," +
+                           Dr["Numero"].ToString() +
+                           " | CEP: " + Dr["CEP"].ToString()
+                };
+
+                LT.Add(Item);                
+            }
+            
+            return LT;
+        }
+
 
         [Authorize(Roles = "A")]
         public IActionResult Dashboard()

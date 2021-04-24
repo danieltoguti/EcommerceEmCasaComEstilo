@@ -234,8 +234,8 @@
 
 
     function SomaValorFreteProduto() {
-        var Frete = parseFloat($("#RespFrete").html());
-        var TotalFinal = parseFloat($("#ValorTotalProduto").html());
+        var Frete = parseFloat($("#RespFrete").html().replace(',', '.'));
+        var TotalFinal = parseFloat($("#ValorTotalProduto").html().replace(',','.'));                        
         var Total = (Frete + TotalFinal).toLocaleString('pt-br', { minimumFractionDigits: 2 });
         $("#ValorFinal").html(Total);
     }
@@ -252,7 +252,8 @@
             processData: true,
             contentType: true,
             success: function (result) {
-                GetCarrinho();
+               // GetCarrinho();
+                document.location.reload(true);
             }
             ,
             error: function (jqXHR) {

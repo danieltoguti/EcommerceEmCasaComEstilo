@@ -17,15 +17,15 @@ namespace ECCE.Controllers
 
         private string _Key = "Carrinho";
 
-        public CarrinhoController( IHttpContextAccessor httpContextAccessor)
-        {            
+        public CarrinhoController(IHttpContextAccessor httpContextAccessor)
+        {
             _hCont = httpContextAccessor;
         }
 
-        [HttpGet]        
+        [HttpGet]
         public void AddCar(int CodigoProduto, string Nome, string Tamanho, string Preco, int Quantidade, string Foto)
         {
-            List<CarrinhoModel> Car=null;
+            List<CarrinhoModel> Car = null;
             CarrinhoModel item = new CarrinhoModel();
 
             var settings = new JsonSerializerSettings
@@ -35,15 +35,15 @@ namespace ECCE.Controllers
                 Culture = new System.Globalization.CultureInfo("pt-BR"),
             };
 
-            if (GetKey()!=null)
+            if (GetKey() != null)
             {
-               
                 Car = JsonConvert.DeserializeObject<List<CarrinhoModel>>(GetKey(), settings);
             }
-            else {
+            else
+            {
                 Car = new List<CarrinhoModel>();
             }
-           
+
             item.CodigoProduto = CodigoProduto;
             item.Nome = Nome;
             item.Tamanho = Tamanho;
@@ -51,7 +51,22 @@ namespace ECCE.Controllers
             item.Quantidade = Quantidade;
             item.Foto = Foto;
 
-            Car.Add(item);
+            bool NewProdLista = true;
+
+            foreach (var prod in Car)
+            {
+                if (prod.CodigoProduto == item.CodigoProduto && prod.Tamanho == item.Tamanho)
+                {
+                    prod.Quantidade += item.Quantidade;
+                    NewProdLista = false;
+                }
+            }
+
+            if (NewProdLista)
+            {
+                Car.Add(item);
+            }
+
 
             Set(_Key, JsonConvert.SerializeObject(Car, settings), 10);
         }
@@ -97,7 +112,8 @@ namespace ECCE.Controllers
         }
 
 
-        public IActionResult GetFoto(int CodigoProduto) {
+        public IActionResult GetFoto(int CodigoProduto)
+        {
 
             string sSQL = "";
             MySqlCommand cmd = new MySqlCommand();
@@ -109,15 +125,16 @@ namespace ECCE.Controllers
             cmd.CommandText = sSQL;
             var Dr = cmd.ExecuteReader();
             Dr.Read();
-            
+
             string _Caminho = "CAMINHO";
 
-            if (Dr.HasRows) {
+            if (Dr.HasRows)
+            {
                 _Caminho = Dr["caminho"].ToString();
             }
 
-            return Json(new { success = true, caminho = _Caminho });  
-            
+            return Json(new { success = true, caminho = _Caminho });
+
         }
 
         [HttpGet]
@@ -140,7 +157,7 @@ namespace ECCE.Controllers
                 foreach (var itemC in Car)
                 {
                     ids++;
-                    itemC.Id = ids;                   
+                    itemC.Id = ids;
                 }
 
                 Set(_Key, JsonConvert.SerializeObject(Car, settings), 10);
