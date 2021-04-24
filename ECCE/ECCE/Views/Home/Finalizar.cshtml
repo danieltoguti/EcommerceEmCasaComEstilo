@@ -19,11 +19,16 @@
     <input type="hidden" id="SessionPG" class="form-control" value="@ViewData["TK"]" />
     <input type="hidden" id="BandeiraSel" class="form-control" />
     <div class="row" style="justify-content:center">
-        <div class="card col-md-5" >
+        <div class="card col-md-9" style="height:240px" >
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <label>Calculo de frete</label>
+                        <label>Selecione o endereço de entrega</label>
+                        <div class="input-group">
+                            <select id="txt_cep" class="form-control txt" asp-items="LTEnderecos"></select>
+                        </div>
+                        <br />
+                        <label>Tipo de envio</label>
                         <div class="input-group">
                             <select id="txt_servico" type="text" class="form-control">
                                 <option value="04510">PAC</option>
@@ -31,22 +36,12 @@
                             </select>
                         </div>
                         <br>
-                        <div class="input-group">
-                            @*<input id="txt_cep" type="text" class="form-control" name="CEP" placeholder="CEP">*@
-                            <select id="txt_cep" class="form-control txt" asp-items="LTEnderecos"></select>
-
-                            @*<span class="input-group-append">
-                                    <button id="btn_Calcular" type="button" class="btn btn-primary">Calcular</button>
-                                </span>*@
-                        </div>
-                        <br>
                         <p>Valor do frete:  R$ <span id="RespFrete"></span></p>
                     </div>
                 </form>
             </div> <!-- card-body.// -->
         </div> <!-- card.// -->
-        <div class="col-md-1"></div>
-        <div class="card col-md-3">
+        <div class="card col-md-3" style="height:240px">
             <div class="card-body">
                 <dl class="dlist-align">
                     <dt>Produtos: R$</dt>
