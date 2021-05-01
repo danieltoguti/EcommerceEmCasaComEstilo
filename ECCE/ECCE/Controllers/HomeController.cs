@@ -139,8 +139,8 @@ namespace ECCE.Controllers
             }
             else
             {
-                var email = "danieltoguti@gmail.com";
-                var token = "e9549b52-15d2-4480-a4c1-d90b6ccbe1e3c126bb8c4302ace8b8436074e1488fa01737-1e74-4786-872b-4f17c3861fcb";
+                var email = "";
+                var token = "";
                 var PagSeg = new CPagSeguro(email, token, CPagSeguro.eAmbiente.Producao);
 
                 var resp = await PagSeg.GetSessaoAsync();
