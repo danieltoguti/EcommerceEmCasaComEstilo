@@ -136,6 +136,37 @@ namespace ECCE.Data
         }
 
 
+        public bool UpDateTipoUsuario(tb_login obj)
+        {
+            {
+                try
+                {
+                    string sSQL = "";
+                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                    cn.Open();
+
+                    sSQL = "UPDATE tb_login SET Tipo=@tipo where CodigoLogin=@codigologin";
+                    cmd.Parameters.AddWithValue("@tipo", obj.Tipo);
+                    cmd.Parameters.AddWithValue("@ativo", obj.Ativo);
+                    cmd.Parameters.AddWithValue("@codigologin", obj.CodigoLogin);
+
+
+                    cmd.CommandText = sSQL;
+                    cmd.Connection = cn;
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string msg = e.Message;
+                    return false;
+                }
+            }
+
+        }
+
+
         public bool ValidarComoFuncionario(int id)
         {
             {
@@ -163,7 +194,7 @@ namespace ECCE.Data
 
         }
 
-        public bool ValidarNome(tb_login obj)
+        public bool ValidarEmail(tb_login obj)
         {
 
             try
@@ -173,8 +204,8 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "select * from tb_login where nome=@nome";
-                cmd.Parameters.AddWithValue("@nome", obj.Nome);
+                sSQL = "select * from tb_login where email=@email";
+                cmd.Parameters.AddWithValue("@email", obj.Email);
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;

@@ -107,9 +107,6 @@ namespace ECCE.Controllers
 
             var resp = Prod.GetProduto(CodigoProduto);
 
-
-            resp.JsonLTCategoria = resp.JsonLTCategoria.Replace("CodigoCategoria", "Codigo");
-            resp.JsonLTCor = resp.JsonLTCor.Replace("CodigoCor", "Codigo");
             resp.JsonLTGenero = resp.JsonLTGenero.Replace("CodigoGenero", "Codigo");
             resp.JsonLTTamanho = resp.JsonLTTamanho.Replace("CodigoTamanho", "Codigo");
 
