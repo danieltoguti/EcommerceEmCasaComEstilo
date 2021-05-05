@@ -135,6 +135,34 @@ namespace ECCE.Data
 
         }
 
+
+        public bool ValidarComoFuncionario(int id)
+        {
+            {
+                try
+                {
+                    string sSQL = "";
+                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                    cn.Open();
+
+                    sSQL = "update tb_login Set tipo='A' where CodigoLogin=@id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.CommandText = sSQL;
+                    cmd.Connection = cn;
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string msg = e.Message;
+                    return false;
+                }
+            }
+
+        }
+
         public bool ValidarNome(tb_login obj)
         {
 

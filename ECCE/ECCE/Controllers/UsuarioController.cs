@@ -53,6 +53,19 @@ namespace ECCE.Controllers
         }
 
 
+        public IActionResult Validarcomofuncionario(int id)
+        {
+            UsuarioDB Usuario = new UsuarioDB();
+            Usuario.ValidarComoFuncionario(id);
+
+
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            return RedirectToAction("Cliente", "usuario");
+        }
+
+
         public IActionResult CadastroCliente()
         {
             ViewData["Valida"] = "";

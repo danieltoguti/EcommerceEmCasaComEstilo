@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="web.config" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\lib\bootstrap-ecommerce-uikit\.DS_Store" />
     <None Include="wwwroot\lib\bootstrap-ecommerce-uikit\css\.DS_Store" />
     <None Include="wwwroot\lib\bootstrap-ecommerce-uikit\css\bootstrap.css.map" />

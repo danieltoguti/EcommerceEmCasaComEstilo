@@ -9,26 +9,22 @@
 <br />
 
 <hr />
-<h3 style="text-align:center">Escolher endereço de entrega</h3>
+<h3>Escolher endereço de entrega</h3>
 <hr />
 
 <br />
 <br />
 
-<div class="align-content-lg-end">
+<div>
     <input type="hidden" id="SessionPG" class="form-control" value="@ViewData["TK"]" />
     <input type="hidden" id="BandeiraSel" class="form-control" />
-    <div class="row" style="justify-content:center">
-        <div class="card col-md-9" style="height:240px" >
+    <aside class="col-lg-8">
+
+        <div class="card mb-8">
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <label>Selecione o endereço de entrega</label>
-                        <div class="input-group">
-                            <select id="txt_cep" class="form-control txt" asp-items="LTEnderecos"></select>
-                        </div>
-                        <br />
-                        <label>Tipo de envio</label>
+                        <label>Calculo de frete</label>
                         <div class="input-group">
                             <select id="txt_servico" type="text" class="form-control">
                                 <option value="04510">PAC</option>
@@ -36,12 +32,24 @@
                             </select>
                         </div>
                         <br>
+                        <div class="input-group">
+                            @*<input id="txt_cep" type="text" class="form-control" name="CEP" placeholder="CEP">*@
+                            <select id="txt_cep" class="form-control txt" asp-items="LTEnderecos"></select>
+
+                            @*<span class="input-group-append">
+                                    <button id="btn_Calcular" type="button" class="btn btn-primary">Calcular</button>
+                                </span>*@
+                        </div>
+                        <br>
                         <p>Valor do frete:  R$ <span id="RespFrete"></span></p>
+
                     </div>
                 </form>
             </div> <!-- card-body.// -->
         </div> <!-- card.// -->
-        <div class="card col-md-3" style="height:240px">
+        <br />
+        <br />
+        <div class="card mb-8">
             <div class="card-body">
                 <dl class="dlist-align">
                     <dt>Produtos: R$</dt>
@@ -60,14 +68,15 @@
 
             </div> <!-- card-body.// -->
         </div> <!-- card.// -->
-        </div>
+
+    </aside>
 </div>
 
 <br />
 <br />
 
 <hr />
-<h3 style="text-align:center">Escolher forma de pagamento</h3>
+<h3>Escolher forma de pagamento</h3>
 
 <div>
     <aside class="col-lg-8">

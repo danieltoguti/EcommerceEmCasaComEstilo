@@ -1,8 +1,7 @@
 ﻿
 @model ProdutoModel
 @{ ViewData["Title"] = "CadastroProduto";
-    //var LTCategorias = (List<SelectListItem>)(@ViewData["LTCategorias"]);
-    //var LTCor = (List<SelectListItem>)(@ViewData["LTCor"]);
+
     var LTGenero = (List<SelectListItem>)(@ViewData["LTGenero"]);
     var LTTam = (List<SelectListItem>)(@ViewData["LTTam"]);
 
@@ -52,9 +51,6 @@
 
         <input type="hidden" asp-for="tb_produto.CodigoProduto">
 
-        <!-- <input type="hidden" asp-for="JsonLTCategoria">
-         <input type="hidden" asp-for="JsonLTCor">
-         -->
         <input type="hidden" asp-for="JsonLTGenero">
         <input type="hidden" asp-for="JsonLTTamanho">
         <input type="hidden" asp-for="JsonLTFoto">
@@ -89,29 +85,7 @@
 
 
     <hr />
-<!--
-    <h5><b>Cor</b></h5>
-    <hr />
-    <div class="row">
-        <div class="form-group col-md-4">
-            <select id="txt_Cor" asp-items="LTCor" class="form-control"></select>
-        </div>
-        <div class="form-group col-md-4">
-            <button type="button" class="btn btn-success" onclick="Add('CO', 'txt_Cor');">Adicionar Cor</button>
-        </div>
-        <div>
-            <table id="tb_cor" class="table">
-                <thead>
-                    <tr>
-                        <th>Cor Selecionada</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
--->
+
     <h5><b>Genero</b></h5>
     <hr />
 
@@ -155,29 +129,6 @@
             </table>
         </div>
     </div>
-<!--
-    <h5><b>Categoria</b></h5>
-    <hr />
-    <div class="row">
-        <div class="form-group col-md-4">
-            <select asp-items="LTCategorias" class="form-control" id="txt_cat_descricao"></select>
-        </div>
-        <div class="form-group col-md-4">
-            <button type="button" class="btn btn-success" onclick="Add('C','txt_cat_descricao');">Adicionar Categoria</button>
-        </div>
-        <div>
-            <table id="tb_cat" class="table">
-                <thead>
-                    <tr>
-                        <th>Categoria Selecionada</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    -->
 
 
     @Html.Raw(ViewData["Valida"])
@@ -192,8 +143,7 @@
 <script src="~/js/compress.js"></script>
 
 <script>
-    //var MtzCategoria;
-    //var MtzCor;
+
     var MtzFoto;
     var MtzGenero;
     var MtzTamanho;
@@ -204,14 +154,10 @@
 
         SetSubmit();
 
-        //MtzCor = StartMTZ(MtzCor, "JsonLTCor");
-       // MtzCategoria = StartMTZ(MtzCategoria, "JsonLTCategoria");
         MtzGenero = StartMTZ(MtzGenero, "JsonLTGenero");
         MtzTamanho = StartMTZ(MtzTamanho, "JsonLTTamanho");
         MtzFoto = StartMTZ(MtzFoto, "JsonLTFoto");
 
-        //Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", "CO");
-        //Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", "C");
         Get_Mtzs("JsonLTGenero", MtzGenero, "tb_genero", "G");
         Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", "T");
         Get_Mtzs("JsonLTFoto", MtzFoto, "tb_Foto", "F");
@@ -236,12 +182,7 @@
         var Codigo = $("#" + obj + " option:selected").val();
 
         switch (Tipo) {
-            /*case "CO":
-                AddMTZ(MtzCor, Codigo, Descricao, "JsonLTCor", "tb_cor", Tipo);
-                break;
-            case "C":
-                AddMTZ(MtzCategoria, Codigo, Descricao, "JsonLTCategoria", "tb_cat", Tipo);
-                break;*/
+
             case "G":
                 AddMTZ(MtzGenero, Codigo, Descricao, "JsonLTGenero", "tb_genero", Tipo);
                 break;
@@ -294,17 +235,6 @@
         $(obj).closest('tr').remove();
 
         switch (Tipo) {
-            /*case "CO":
-                delete MtzCor[index];
-                MtzCor.splice(index, 1);
-                Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", Tipo);
-                break;
-
-            case "C":
-                delete MtzCategoria[index];
-                MtzCategoria.splice(index, 1);
-                Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", Tipo);
-                break;  */
 
             case "G":
                 delete MtzGenero[index];
