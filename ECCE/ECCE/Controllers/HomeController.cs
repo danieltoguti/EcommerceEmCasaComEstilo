@@ -139,8 +139,8 @@ namespace ECCE.Controllers
             }
             else
             {
-                var email = "eccestilo@gmail.com";
-                var token = "62A76D44F5EA4092A9A64F161032DE7E";
+                var email = "emaildopagseguro";
+                var token = "D733CD16597B4931A9F01E432BF718A9";
                 var PagSeg = new CPagSeguro(email, token, CPagSeguro.eAmbiente.Producao);
 
                 var resp = await PagSeg.GetSessaoAsync();
@@ -188,14 +188,9 @@ namespace ECCE.Controllers
         [Authorize(Roles = "A")]
         public IActionResult Dashboard()
         {
-            ProdutoDB Produto = new ProdutoDB();
-            var MLista = Produto.GetAllProduto();
-
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-
-            return View(MLista);
+            return View();
         }
 
         public async Task<IActionResult> Logout()

@@ -49,7 +49,8 @@
                         Bem vindo,
                         @if (ViewData["NomeLogin"] != "")
                         {
-            <span class="user-role">@ViewData["NomeLogin"] </span><br />}
+                            <span class="user-role">@ViewData["NomeLogin"] </span><br />
+                        }
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
@@ -92,7 +93,14 @@
                                     <li>
                                         <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Produto" asp-action="Index">Produto</a>
                                     </li>
-
+                                    <!--
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Categoria" asp-action="Index">Categoria</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Cor" asp-action="Index">Cor</a>
+                                    </li>
+                                        -->
                                     <li>
                                         <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Tamanho" asp-action="Index">Tamanho</a>
                                     </li>
@@ -102,10 +110,18 @@
                                 </ul>
                             </div>
                         </li>
-                        <li>
-                            <a asp-area="" asp-controller="Usuario" asp-action="index">
-                                <i class="far fa-user"></i><span class="menu-text">Colaboradores</span>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="far fa-user"></i>
+                                <span class="menu-text">Colaboradores</span>
                             </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Usuario" asp-action="index">Colaborador</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li>
                             <a asp-area="" asp-controller="Usuario" asp-action="Cliente">

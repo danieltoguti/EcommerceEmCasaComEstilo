@@ -1,50 +1,26 @@
 ﻿@{
-                @model List<tb_produto>;
-                ViewData["Title"] = "Produto";
+    ViewData["Title"] = "Home Page";
 
-                Layout = "_Layout_dashboard"; }
+    Layout = "_Layout_dashboard";
 
-
-<div>
-    <table class="table">
-        <tr>
-            <th><h4>Produtos</h4></th>
-            <th></th>
-            <th class="text-sm-right"><button class="btn btn-primary" type="button" onclick="window.location.href ='/produto/cadastroproduto'">Novo Produto</button>
-            <th>
-        </tr>
-    </table>
-    @if (Model.Count > 0)
-    {
-<table class="table table-striped table-sm">
-    <thead class="thead-dark">
-        <tr>
-            <th>Código Interno</th>
-            <th>Nome</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-<tr>
-    <td>@item.CodigoProduto</td>
-    <td></td>
-    <td>@item.Nome</td>
-    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/produto/editar?CodigoProduto=@item.CodigoProduto&CodigoInterno=@item.CodigoInterno&Descricao=@item.Descricao'"><i class="fa fa-edit"></i></button></td>
-</tr>
 }
-    </tbody>
-</table> }
-else
-{
-<div class="alert alert-primary" role="alert">
-    Sem Registros!
-</div>}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="~/js/charts.js"></script>
 
+<div class="text-center col-md-12">
+    <p>Seja Bem Vindo(a) ao Dashboard ECCE 5.0 by Escolha Virtual Developer</p>
+    <p>Soluções em tecnologia para sua empresa</p>
 </div>
-
-
+<div class="row">
+    <div>
+        <p><h4>Tamanho</h4></p>
+        <div id="Column"></div>
+    </div>
+    <div class="col-md-1"></div>
+    <div>
+        <p><h4>Gráfico de Vendas</h4></p>
+        <div id="Donuts"></div>
+    </div>
+</div>
 
 

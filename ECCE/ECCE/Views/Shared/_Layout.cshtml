@@ -61,21 +61,19 @@
                     </div>
                     <div class="">
 
-                       
-                        <!--
-                                        <form asp-action="Procura" asp-controller="Home">
-                                            <div class="input-group search-main">
-                                                <input type="text" class="form-control" placeholder="Procurar">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary searchme" type="submit">
-                                                        <i class="fa fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form> 
-                        -->
+                        @{
+                            <form asp-action="Procura" asp-controller="Home">
+                                <div class="input-group search-main">
+                                    <input type="text" class="form-control" placeholder="Procurar">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary searchme" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
 
-
+                        }
                     </div> <!-- carrinho link -->
                     <div class="">
                         <div class="widgets-wrap d-flex justify-content-end">
@@ -89,20 +87,21 @@
 
                                 @if (ViewData["NomeLogin"] == "")
                                 {
-                    <a class="icontext mr-2" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">
-                        <div class="icon"><i class="fa fa-lg fa-sign-in-alt"></i></div>
-                        <div class="text">
-                            <span>Registrar-se</span>
-                        </div>
-                    </a>
+                                    <a class="icontext mr-2" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">
+                                        <div class="icon"><i class="fa fa-lg fa-sign-in-alt"></i></div>
+                                        <div class="text">
+                                            <span>Registrar-se</span>
+                                        </div>
+                                    </a>
                                     <a class="icontext" asp-area="" asp-controller="Login" asp-action="Index">
                                         <div class="icon"><i class="fa fa-lg fa-user-circle"></i></div>
                                         <div class="text">
                                             <span>Login</span>
                                         </div>
-                                    </a> }
-                                                else
-                                                {
+                                    </a>
+                                }
+                                else
+                                {
 
                                     <a class="icontext">
                                         <div class="text">
@@ -110,27 +109,30 @@
                                             <span class="name-user">@ViewData["NomeLogin"]</span>
                                         </div>
                                     </a>
-                                                    <a class="icontext" asp-area="" asp-controller="Home" asp-action="Logout">
-                                                        <div class="icon"><i class="fa fa-lg fa-sign-out-alt"></i></div>
-                                                        <div class="text">
-                                                            <span>Sair</span>
-                                                        </div>
-                                                    </a>
+                                    <a class="icontext" asp-area="" asp-controller="Home" asp-action="Logout">
+                                        <div class="icon"><i class="fa fa-lg fa-sign-out-alt"></i></div>
+                                        <div class="text">
+                                            <span>Sair</span>
+                                        </div>
+                                    </a>
+                                }
+                            </div>
+
+                            <!--
                             <div class="widget-header dropdown">
                                 <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10" aria-expanded="false">
                                     <div class="icon"><i class="fa fa-lg fa-user-circle"></i></div>
                                     <div class="text">
-                                        <span>Minha Conta <i class="fa fa-caret-down"></i></span>
+                                        <span>Cadastro/Login <i class="fa fa-caret-down"></i></span>
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(140px, 46px, 0px);">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Meus Dados</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
                                     <hr class="dropdown-divider">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Meus Pedidos</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="CadastroCliente">Não tem conta? Registrar-se</a>
                                 </div>
                             </div>
-                                }
-
+                                -->
                         </div>
                     </div>
                 </div>
@@ -179,9 +181,10 @@
                         -->
                         @if (ViewData["Tipo"].ToString() == "A")
                         {
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="DashBoard">Dahsboard</a>
-            </li>}
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="DashBoard">Dahsboard</a>
+                            </li>
+                        }
 
                     </ul>
                 </div>
@@ -221,7 +224,7 @@
                         </ul>
                     </aside>
                     <aside class="col-sm-4  col-md-3">
-                        <span style="font-size:.8rem; font-weight:700">Horário de atendimento: <br>  segunda à sexta das 8h às 18h</span>
+                                <span style="font-size:.8rem; font-weight:700">Horário de atendimento: <br>  segunda à sexta das 8h às 18h</span>
                     </aside>
 
                 </div> <!-- row.// -->

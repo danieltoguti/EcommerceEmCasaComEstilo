@@ -52,22 +52,12 @@ namespace ECCE.Controllers
             return View(MLista);
         }
 
+
         public IActionResult CadastroCliente()
         {
             ViewData["Valida"] = "";
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-            return View();
-        }
-
-        public IActionResult UpDateUsuario(tb_login obj)
-        {
-            UsuarioDB Usuario = new UsuarioDB();
-            Usuario.UpDateTipoUsuario(obj);
-
-             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
             return View();
@@ -102,7 +92,7 @@ namespace ECCE.Controllers
             model.JsonLTEDR = JsonConvert.SerializeObject(model.tb_endereco);
           
             ViewData["Valida"] = "";
-            return View("UpDateUsuario", model);
+            return View("CadastroCliente", model);
         }
 
 
@@ -165,27 +155,7 @@ namespace ECCE.Controllers
 
         }
 
-        public IActionResult SalvarUpdate(tb_login obj)
-        {
-
-            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-            UsuarioDB Usu = new UsuarioDB();
-
-                if (Usu.UpDateTipoUsuario(obj))
-                {
-                    ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Registro atualizado com sucesso!</div>";
-                }
-                else
-                {
-                    ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Registro!</div>";
-                }
-            return View("UpDateUsuario");
-
-        }
-
-            public string Validar(tb_login obj)
+        public string Validar(tb_login obj)
         {
 
             UsuarioDB Usu = new UsuarioDB();
@@ -197,9 +167,9 @@ namespace ECCE.Controllers
 
             if (obj.CodigoLogin == 0)
             {
-                if (Usu.ValidarEmail(obj))
+                if (Usu.ValidarNome(obj))
                 {
-                    return "<div class='alert alert-warning text-center' role='alert'>Email já cadastrado no banco!</div>";
+                    return "<div class='alert alert-warning text-center' role='alert'>Nome já cadastrado no banco!</div>";
                 }
             }
 

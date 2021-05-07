@@ -3824,7 +3824,13 @@ C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\net
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.TagHelpers.input.cache
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.TagHelpers.output.cache
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.RazorCoreGenerate.cache
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Categoria\CadastroCategoria.cshtml.g.cs
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Categoria\Index.cshtml.g.cs
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Cor\CadastroCor.cshtml.g.cs
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Cor\Index.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Endereco\CadastroEndereco.cshtml.g.cs
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Funcao\CadastroFuncao.cshtml.g.cs
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Funcao\Index.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Genero\CadastroGenero.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Genero\Index.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Dashboard.cshtml.g.cs
@@ -8747,4 +8753,3 @@ C:\Users\danie\Downloads\EcommerceEmCasaComEstilo-main\EcommerceEmCasaComEstilo-
 C:\Users\danie\Downloads\EcommerceEmCasaComEstilo-main\EcommerceEmCasaComEstilo-main\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.dll
 C:\Users\danie\Downloads\EcommerceEmCasaComEstilo-main\EcommerceEmCasaComEstilo-main\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.pdb
 C:\Users\danie\Downloads\EcommerceEmCasaComEstilo-main\EcommerceEmCasaComEstilo-main\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.genruntimeconfig.cache
-C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\UpDateUsuario.cshtml.g.cs
