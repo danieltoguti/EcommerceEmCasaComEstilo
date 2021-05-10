@@ -105,6 +105,22 @@ namespace ECCE.Controllers
             }
         }
 
+
+        public void RemoveAll()
+        {
+            List<CarrinhoModel> Car = new List<CarrinhoModel>();
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                Culture = new System.Globalization.CultureInfo("pt-BR")
+            };
+
+            Set(_Key, JsonConvert.SerializeObject(Car, settings), 10);
+
+        }
+
         [HttpGet] //AQUIE SE QUISER UM ITEM ESPECÍFICO 
         public string GetKey()
         {
@@ -167,5 +183,37 @@ namespace ECCE.Controllers
             return Json(new { success = (Car.Count > 0) ? true : false, resp = Car });
 
         }
+
+
+        public List<CarrinhoModel> GetAllDB()
+        {
+            List<CarrinhoModel> Car = new List<CarrinhoModel>();
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                Culture = new System.Globalization.CultureInfo("pt-BR")
+            };
+
+            if (GetKey() != null)
+            {
+                Car = JsonConvert.DeserializeObject<List<CarrinhoModel>>(GetKey(), settings);
+
+                int ids = 0;
+                foreach (var itemC in Car)
+                {
+                    ids++;
+                    itemC.Id = ids;
+                }
+
+
+                return Car;
+            }
+
+            return null;
+
+        }
+
     }
 }

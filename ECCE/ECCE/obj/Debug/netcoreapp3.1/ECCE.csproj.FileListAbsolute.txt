@@ -3824,10 +3824,6 @@ C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\net
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.TagHelpers.input.cache
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.TagHelpers.output.cache
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\ECCE.RazorCoreGenerate.cache
-C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Categoria\CadastroCategoria.cshtml.g.cs
-C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Categoria\Index.cshtml.g.cs
-C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Cor\CadastroCor.cshtml.g.cs
-C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Cor\Index.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Endereco\CadastroEndereco.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Funcao\CadastroFuncao.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Funcao\Index.cshtml.g.cs
@@ -3838,7 +3834,6 @@ C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\net
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Produto\CadastroProduto.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Index.cshtml.g.cs
-C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Produto.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutLogin.cshtml.g.cs

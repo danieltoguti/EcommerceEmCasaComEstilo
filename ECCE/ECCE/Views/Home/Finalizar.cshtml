@@ -1,4 +1,5 @@
 ﻿@{
+    @model FinalizarPedidoVM;
     ViewData["Title"] = "Finalizar";
     var LTEnderecos = (List<SelectListItem>)(ViewData["Enderecos"]);
 }
@@ -15,14 +16,24 @@
 <br />
 <br />
 
-<div>
-    <input type="hidden" id="SessionPG" class="form-control" value="@ViewData["TK"]" />
-    <input type="hidden" id="BandeiraSel" class="form-control" />
-    <aside class="col-lg-8">
 
-        <div class="card mb-8">
-            <div class="card-body">
-                <form>
+<form id="formPagamento" asp-action="FinalizarPedido" asp-controller="Home">
+
+    <input type="hidden" asp-for="CEP" />
+    <input type="hidden" asp-for="TotalPedido" />
+
+
+    <div>
+        <input type="hidden" id="SessionPG" class="form-control" value="@ViewData["TK"]" />
+        <input type="hidden" id="BandeiraSel" class="form-control" />
+
+
+
+
+        <aside class="col-lg-8">
+
+            <div class="card mb-8">
+                <div class="card-body">
                     <div class="form-group">
                         <label>Calculo de frete</label>
                         <div class="input-group">
@@ -44,112 +55,114 @@
                         <p>Valor do frete:  R$ <span id="RespFrete"></span></p>
 
                     </div>
-                </form>
-            </div> <!-- card-body.// -->
-        </div> <!-- card.// -->
-        <br />
-        <br />
-        <div class="card mb-8">
-            <div class="card-body">
-                <dl class="dlist-align">
-                    <dt>Produtos: R$</dt>
-                    <dd id="ValorTotalProduto" class="text-right"></dd>
-                </dl>
-                <br><br>
-                <dl class="dlist-align">
-                    <dt>Frete: R$</dt>
-                    <dd id="RespFrete2" class="text-right text-danger"></dd>
-                </dl>
-                <br>
-                <dl class="dlist-align">
-                    <dt>Total: R$</dt>
-                    <dd id="ValorFinal" class="text-right text-dark b"><strong></strong></dd>
-                </dl>
+                </div> <!-- card-body.// -->
+            </div> <!-- card.// -->
+            <br />
+            <br />
+            <div class="card mb-8">
+                <div class="card-body">
+                    <dl class="dlist-align">
+                        <dt>Produtos: R$</dt>
+                        <dd id="ValorTotalProduto" class="text-right"></dd>
+                    </dl>
+                    <br><br>
+                    <dl class="dlist-align">
+                        <dt>Frete: R$</dt>
+                        <dd id="RespFrete2" class="text-right text-danger"></dd>
+                    </dl>
+                    <br>
+                    <dl class="dlist-align">
+                        <dt>Total: R$</dt>
+                        <dd id="ValorFinal" class="text-right text-dark b"><strong></strong></dd>
+                    </dl>
 
-            </div> <!-- card-body.// -->
-        </div> <!-- card.// -->
+                </div> <!-- card-body.// -->
+            </div> <!-- card.// -->
 
-    </aside>
-</div>
+        </aside>
+    </div>
 
-<br />
-<br />
+    <br />
+    <br />
 
-<hr />
-<h3>Escolher forma de pagamento</h3>
+    <hr />
+    <h3>Escolher forma de pagamento</h3>
 
-<div>
-    <aside class="col-lg-8">
-        <div class="card mb-8">
-            <div class="card-body">
-                <div class="form-group">
-                    <label>Selecione a forma de pagamento</label>
-                    <div class="input-group">
-                        <select id="FormaPagamento" type="text" class="form-control">                           
-                        </select>
+    <div>
+        <aside class="col-lg-8">
+            <div class="card mb-8">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Selecione a forma de pagamento</label>
+                        <div class="input-group">
+                            <select id="FormaPagamento" type="text" class="form-control">
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row clsCard">
-                    <div class="form-group col-10">
-                        <label for="NumeroCartao" class="control-label">Numero do Cartão:</label>
-                        <input type="number" id="NumeroCartao" class="form-control" />
+                    <div class="row clsCard">
+                        <div class="form-group col-10">
+                            <label for="NumeroCartao" class="control-label">Numero do Cartão:</label>
+                            <input type="number" id="NumeroCartao" class="form-control" />
+                        </div>
+                        <div class="form-group col-2 text-left">
+                            <div id="dvBCC" style="margin-top:30px;margin-left:-35px;"></div>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="Validade" class="control-label">Validade</label>
+                            <input type="text" id="Validade" class="form-control" />
+                            <small>MM/AA</small>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="CVV" class="control-label">CVV</label>
+                            <input type="number" id="CVV" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <div id="dvCardNumberCC"></div>
+                            <label for="NomeCartao" class="control-label">Nome Impresso no Cartão:</label>
+                            <input type="text" id="NomeCartao" class="form-control" />
+                        </div>
+
+                        <div id="dvParcelamento" class="form-group col-md-12" style="display:none;">
+                            <div id="dvParceLoading"></div>
+                            <label for="Parcelamento" class="control-label">Parcelamento</label>
+                            <select id="Parcelamento" class="form-control"></select>
+                        </div>
+
                     </div>
-                    <div class="form-group col-2 text-left">
-                        <div id="dvBCC" style="margin-top:30px;margin-left:-35px;"></div>
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="Validade" class="control-label">Validade</label>
-                        <input type="text" id="Validade" class="form-control" />
-                        <small>MM/AA</small>
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="CVV" class="control-label">CVV</label>
-                        <input type="number" id="CVV" class="form-control" />
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <div id="dvCardNumberCC"></div>
-                        <label for="NomeCartao" class="control-label">Nome Impresso no Cartão:</label>
-                        <input type="text" id="NomeCartao" class="form-control" />
-                    </div>
-
-                    <div id="dvParcelamento" class="form-group col-md-12" style="display:none;">
-                        <div id="dvParceLoading"></div>
-                        <label for="Parcelamento" class="control-label">Parcelamento</label>
-                        <select id="Parcelamento" class="form-control"></select>
-                    </div>
-
-                </div>
 
 
-            </div> <!-- card-body.// -->
+                </div> <!-- card-body.// -->
 
 
 
 
-        </div> <!-- card.// -->
-        <br />
-        <br />
+            </div> <!-- card.// -->
+            <br />
+            <br />
 
-    </aside>
-</div>
+        </aside>
+    </div>
 
-<button class="btn btn-primary text-right" type="button" href="##">Efetuar Pagamento</button>
+    <button class="btn btn-primary text-right" type="submit" href="##">Efetuar Pagamento</button>
 
-<hr />
+    <hr />
+
+</form>
 @Html.Raw(ViewData["JsBPG"])
 <script src="~/js/jsPagSeg.js"></script>
 <script src="~/js/jquery.mask.js"></script>
 <script>
     $(document).ready(function () {
-      
-        PagSeguroDirectPayment.setSessionId($("#SessionPG").val());        
+
+        PagSeguroDirectPayment.setSessionId($("#SessionPG").val());
 
         SetsFuncsPagSeguro();
 
+        SetSubmit();
+
         $("#Validade").mask("99/99");
         $("#CPF").mask("999.999.999-99");
-
 
 
         $("#btn_Calcular").click(function () {
@@ -169,7 +182,7 @@
         setTimeout(function () {
             CalcularFrete();
         }, 1000);
-        
+
 
     })
 
@@ -181,7 +194,7 @@
 
 
         $("#NumeroCartao").blur(function () {
-            GetBandeiraCC($(this).val(), $("#dvBCC"), $("#BandeiraSel"));          
+            GetBandeiraCC($(this).val(), $("#dvBCC"), $("#BandeiraSel"));
             setTimeout(function () {
                 GetParcelamento($("#ValorFinal").html(), $("#BandeiraSel").val(), $("#Parcelamento"), $("#dvParceLoading"));
                 $("#dvCardNumberCC").html("");
@@ -208,7 +221,7 @@
 
 
     function CalcularFrete() {
-        Calcular($("#txt_cep").val(), $("#txt_servico").val());        
+        Calcular($("#txt_cep").val(), $("#txt_servico").val());
     }
 
     function formata(v) {
@@ -334,6 +347,11 @@
         var Frete = parseFloat($("#RespFrete").html().replace(',', '.'));
         var TotalFinal = parseFloat($("#ValorTotalProduto").html().replace(',', '.'));
         var Total = (Frete + TotalFinal).toLocaleString('pt-br', { minimumFractionDigits: 2 });
+
+        $("#TotalPedido").val(Total);
+        $("#CEP").val($("#txt_cep").val());
+
+
         $("#ValorFinal").html(Total);
         $("#ValorFinal").blur();
     }
@@ -363,6 +381,38 @@
         });
       }
 
+
+    function SetSubmit() {
+        $('#formPagamento').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        alertSucesso(data.msg);
+
+                        setTimeout(function () {
+                            window.location.href = data.redirect;
+                        }, 3000);
+
+                    } else {
+
+                        if (data.msg.indexOf("Erro") > -1) {
+                            alertErro(data.msg);
+                        }
+                        else {
+                            alertInformacao(data.msg);
+                        }
+                    }
+                }
+            });
+
+        });
+    }
 
 </script>
 

@@ -12,8 +12,6 @@ namespace ECCE.Models
     public class ProdutoModel
     {
         public tb_produto tb_produto { get; set; }        
-        public string JsonLTCategoria { get; set; }
-        public string JsonLTCor { get; set; }
         public string JsonLTFoto { get; set; }
         public string JsonLTGenero { get; set; }
         public string JsonLTTamanho { get; set; }
@@ -22,10 +20,8 @@ namespace ECCE.Models
     public class ProdutoView
     {
         public tb_produto tb_produto { get; set; }
-        public List<produtocorModel> produtocorModel { get; set; }
         public List<produtogeneroModel> produtogeneroModel { get; set; }
         public List<produtotamanhoModel> produtotamanhoModel { get; set; }
-        public List<produtocategoriaModel> produtocategoriaModel { get; set; }
         public List<produtofotoModel> produtofotoModel { get; set; }
 
 
