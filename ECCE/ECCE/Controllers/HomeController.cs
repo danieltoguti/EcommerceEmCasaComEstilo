@@ -176,27 +176,20 @@ namespace ECCE.Controllers
 
         }
 
-        public IActionResult FinalizarPedido(FinalizarPedidoVM obj)
+        public IActionResult FinalizarPedido()
         {
-
-            FinalizarPedidoDB fPed = new FinalizarPedidoDB(_hCont);
-
-            var Resp = fPed.FinalizarPedido(obj);
-
-            if (Resp)
+            try
             {
                 var CodigoLogin = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin);
-                var CodigoPedido = fPed.GetPedidoVenda(Convert.ToInt32(CodigoLogin));
 
 
-                return Json(new { success = true, msg = "Pedido Nº " + CodigoPedido + " Finalizado!", redirect = "/home/PedidoConcluido" });
+                return Json(new { success = true, msg = "Pedido Nº Finalizado!"});
 
             }
-            else
+            catch (Exception)
             {
                 return Json(new { success = false, msg = "Erro ao Cadastrar!" });
             }
-
         }
 
         public List<SelectListItem> GetEnderecos()
@@ -231,13 +224,17 @@ namespace ECCE.Controllers
             return LT;
         }
 
-
         [Authorize(Roles = "A")]
         public IActionResult Dashboard()
         {
+            ProdutoDB Produto = new ProdutoDB();
+            var MLista = Produto.GetAllProduto();
+
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-            return View();
+
+
+            return View(MLista);
         }
 
         public async Task<IActionResult> Logout()

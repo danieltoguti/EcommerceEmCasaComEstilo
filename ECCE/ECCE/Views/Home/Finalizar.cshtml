@@ -395,10 +395,6 @@
                     if (data.success) {
                         alertSucesso(data.msg);
 
-                        setTimeout(function () {
-                            window.location.href = data.redirect;
-                        }, 3000);
-
                     } else {
 
                         if (data.msg.indexOf("Erro") > -1) {

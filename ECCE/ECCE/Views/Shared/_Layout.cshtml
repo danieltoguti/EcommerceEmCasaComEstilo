@@ -25,7 +25,7 @@
 </head>
 <style>
     <style type="text/css" >
-    output {
+    .output {
         display: block;
         width: 100%
     }
@@ -61,7 +61,7 @@
                     </div>
                     <div class="">
 
-                        @{
+                        @*@{
                             <form asp-action="Procura" asp-controller="Home">
                                 <div class="input-group search-main">
                                     <input type="text" class="form-control" placeholder="Procurar">
@@ -73,7 +73,7 @@
                                 </div>
                             </form>
 
-                        }
+                        }*@
                     </div> <!-- carrinho link -->
                     <div class="">
                         <div class="widgets-wrap d-flex justify-content-end">
@@ -211,8 +211,8 @@
                     <aside class="col-sm-4 col-md-3">
                         <h6 class="title">Sobre nós</h6>
                         <ul class="list-unstyled">
-                            <li> <a href="#">História</a></li>
-                            <li> <a href="#">Termos e Compromissos</a></li>
+                            <li><a asp-area="" asp-controller="Estatico" asp-action="Historia">História</a></li>
+                            <li><a asp-area="" asp-controller="Estatico" asp-action="Termo">Termos e Compromissos</a></li>
                         </ul>
                     </aside>
                     <aside class="col-sm-4 col-md-3">
@@ -232,7 +232,7 @@
 
             <section class="footer-copyright border-top">
                 <p target="_blank" class="float-right text-muted">
-                    <a href="#">Políticas de Privacidade</a> &nbsp;   &nbsp;
+                    <a asp-area="" asp-controller="Estatico" asp-action="Politica">Políticas de Privacidade</a> &nbsp;   &nbsp;
                 </p>
                 <p class="text-muted"> Desenvolvido por © EscolhaVirtual  </p>
 
