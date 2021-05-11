@@ -392,8 +392,11 @@
                 url: url,
                 data: form.serialize(),
                 success: function (data) {
-                    if (data.success) {
-                        alertSucesso(data.msg);
+                    if (data.success) 
+                    {
+                        setTimeout(function () {
+                            alertSucesso(data.msg);
+                        }, 6000);
 
                     } else {
 
