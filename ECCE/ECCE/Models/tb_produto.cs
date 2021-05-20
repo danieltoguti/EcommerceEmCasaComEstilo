@@ -14,14 +14,12 @@ namespace ECCE.Models
         public tb_produto tb_produto { get; set; }        
         public string JsonLTFoto { get; set; }
         public string JsonLTGenero { get; set; }
-        public string JsonLTTamanho { get; set; }
     }
 
     public class ProdutoView
     {
         public tb_produto tb_produto { get; set; }
         public List<produtogeneroModel> produtogeneroModel { get; set; }
-        public List<produtotamanhoModel> produtotamanhoModel { get; set; }
         public List<produtofotoModel> produtofotoModel { get; set; }
 
 
@@ -59,7 +57,13 @@ namespace ECCE.Models
         [Display(Name = "Peso", Prompt = "")]
         public double Peso { get; set; }
 
-        [Display(Name = "Status", Prompt = "Digite 1 para ativo e 0 para inativo")]
-        public double Ativo { get; set; }
+        [Display(Name = "Quantidade", Prompt = "")]
+        public int Quantidade { get; set; }
+
+        [Display(Name = "Ativo", Prompt = "Sim / Não")]
+        public string Ativo { get; set; }
+
+        [Display(Name = "Tamanho", Prompt = "")]
+        public string Tamanho { get; set; }
     }
 }

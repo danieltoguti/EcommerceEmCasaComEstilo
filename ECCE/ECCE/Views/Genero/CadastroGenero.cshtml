@@ -1,13 +1,14 @@
 ﻿
 @{
-    @model tb_genero;
-    ViewData["Title"] = "Generos";
+                @model tb_genero;
+                ViewData["Title"] = "Generos";
 
-    Layout = "_Layout_dashboard";
-}
+                Layout = "_Layout_dashboard"; 
+    }
 
-<h4>Cadastro de Gênero</h4>
-
+<hr />
+<h4 class="font-weight-bold">Cadastro de Gêneros</h4>
+<hr />
 <form asp-action="Salvar" asp-controller="Genero">
     <div class="form-group">
         <label asp-for="Descricao"></label>

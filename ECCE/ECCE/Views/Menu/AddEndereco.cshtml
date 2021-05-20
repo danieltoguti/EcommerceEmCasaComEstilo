@@ -1,0 +1,177 @@
+﻿
+@{
+                @model CadastroLogin;
+                ViewData["Title"] = "Atualizão de Cadastro"; }
+<script type="text/javascript" src="~/js/viacep.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>
+@Html.Raw(ViewData["Valida"])
+<form id="FormCadastro" asp-action="SalvarEnd" asp-controller="Menu">
+
+    <input type="hidden" asp-for="tb_login.CodigoLogin" id="cod">
+    <input type="hidden" asp-for="JsonLTEDR">
+    <div class="row">
+        <aside class="col-md-12">
+            <div class="card">
+                <article class="card-body">
+                    <h6>Endereço</h6>
+                    <hr />
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="txt_ender_descricao">Tipo</label>
+                            <input type="text" class="form-control" id="txt_ender_descricao" placeholder="casa, escritório, casa de praia">
+                        </div>
+                        <div class="form-group col">
+                            <label for="txt_ender_cep">Cep</label>
+                            <input type="text" class="form-control" id="txt_ender_cep">
+                        </div>
+                        <div class="form-group col">
+                            <label for="txt_ender_endereco">Logradouro</label>
+                            <input type="text" class="form-control" id="txt_ender_endereco">
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label for="txt_ender_numero">Número</label>
+                            <input type="text" class="form-control" id="txt_ender_numero">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="txt_ender_bairro">Bairro</label>
+                            <input type="text" class="form-control" id="txt_ender_bairro">
+                        </div>
+                        <div class="form-group col">
+                            <label for="txt_ender_cidade">Cidade</label>
+                            <input type="text" class="form-control" id="txt_ender_cidade">
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label for="txt_ender_uf">UF</label>
+                            <input type="text" class="form-control" id="txt_ender_uf">
+                        </div>
+                        <div class="form-group col">
+                            <button type="button" class="btn btn-success" style="margin-top:30px;" onclick="AddEndereco();">Adicionar Endereço</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </aside>
+    </div>
+    <table id="tb_endereco" class="table bg-light">
+        <tbody>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary btn-block" style="width:10%">Salvar</button>
+    <br />
+    <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='../Menu/EditaSSenha'">Voltar</button>
+
+</form>
+
+
+
+<script>
+    var MtzEndereco;
+
+
+
+    $(document).ready(function () {
+
+        if ($("#JsonLTEDR").val() != "") {
+            MtzEndereco = JSON.parse($("#JsonLTEDR").val());
+        }
+        else {
+            MtzEndereco = [];
+        }
+
+        GetTabela();
+    });
+
+
+    function AddEndereco() {
+        if ($("#txt_ender_descricao").val() == "") {
+            alert("Digite a Descrição");
+            $("#txt_ender_descricao").focus();
+            return;
+        }
+
+        MtzEndereco.push(
+            {
+                CodigoLogin: $("#cod").val(),
+                CodigoEndereco: 0,
+                Descricao: $("#txt_ender_descricao").val(),
+                Cep: $("#txt_ender_cep").val(),
+                Endereco: $("#txt_ender_endereco").val(),
+                Numero: $("#txt_ender_numero").val(),
+                Bairro: $("#txt_ender_bairro").val(),
+                Cidade: $("#txt_ender_cidade").val(),
+                UF: $("#txt_ender_uf").val(),
+            }
+        );
+        GetTabela();
+        $("#txt_ender_descricao").val("");
+        $("#txt_ender_cep").val("");
+        $("#txt_ender_endereco").val("");
+        $("#txt_ender_numero").val("");
+        $("#txt_ender_bairro").val("");
+        $("#txt_ender_cidade").val("");
+        $("#txt_ender_uf").val("");
+        $("#txt_ender_descricao").focus();
+
+    }
+
+    function GetTabela() {
+        $("#JsonLTEDR").val(JSON.stringify(MtzEndereco));
+        $("#tb_endereco > tbody ").html("");
+        var sHtml = "";
+        for (var x = 0; x <= MtzEndereco.length - 1; x++) {
+            sHtml = "<tr>";
+            sHtml += "<td>Descrição: " + MtzEndereco[x].Descricao + "</td>";
+            sHtml += "<td>CEP: " + MtzEndereco[x].Cep + "</td>";
+            sHtml += "<td>Logradouro: " + MtzEndereco[x].Endereco + "</td>";
+            sHtml += "<tr/>";
+            sHtml += "<tr>";
+            sHtml += "<td>Número: " + MtzEndereco[x].Numero + "</td>";
+            sHtml += "<td>Bairro: " + MtzEndereco[x].Bairro + "</td>";
+            sHtml += "<td>Cidade: " + MtzEndereco[x].Cidade + "</td>";
+            sHtml += "<td>UF: " + MtzEndereco[x].UF + "</td>";
+            sHtml += "</tr>";
+            sHtml += "<tr>";
+            sHtml += "<td><a href='##' onclick='ExcluirEnder(" + x + ")'>Excluir</a></td>";
+            sHtml += "</tr>";
+            $("#tb_endereco > tbody ").append(sHtml);
+        }
+    }
+
+    function ExcluirEnder(x) {
+        delete MtzEndereco[x];
+        MtzEndereco.splice(x, 1);
+        GetTabela();
+    }
+    function SetSubmit() {
+        $('#FormCadastro').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        alertSucesso(data.msg);
+                    } else {
+
+                        if (data.msg.indexOf("Erro") > -1) {
+                            alertErro(data.msg);
+                        }
+                        else {
+                            alertInformacao(data.msg);
+                        }
+                    }
+                }
+            });
+
+        });
+    }
+
+
+</script>

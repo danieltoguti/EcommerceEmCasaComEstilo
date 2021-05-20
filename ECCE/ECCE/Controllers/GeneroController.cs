@@ -7,6 +7,7 @@ using ECCE.Data;
 using ECCE.Models;
 using Microsoft.AspNetCore.Http;
 using ECCE.Classes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECCE.Controllers
 {
@@ -19,6 +20,8 @@ namespace ECCE.Controllers
         {
             _hCont = httpContextAccessor;
         }
+
+        [Authorize(Roles = "A")]
         public IActionResult Index()
         {
             GeneroDB Genero = new GeneroDB();
@@ -30,6 +33,8 @@ namespace ECCE.Controllers
             return View(MLista);
         }
 
+
+        [Authorize(Roles = "A")]
         public IActionResult CadastroGenero()
         {
             ViewData["Valida"] = "";
@@ -40,6 +45,7 @@ namespace ECCE.Controllers
             return View();
         }
 
+        [Authorize(Roles = "A")]
         public IActionResult Excluir(int CodigoGenero)
         {
             GeneroDB Genero = new GeneroDB();
@@ -47,6 +53,7 @@ namespace ECCE.Controllers
             return RedirectToAction("index", "genero");
         }
 
+        [Authorize(Roles = "A")]
         public IActionResult Editar(int CodigoGenero, string Descricao)
         {
             var model = new tb_genero();
@@ -56,6 +63,7 @@ namespace ECCE.Controllers
             return View("CadastroGenero", model);
         }
 
+        [Authorize(Roles = "A")]
         public IActionResult Salvar(tb_genero obj)
         {
             string smgvalida = Validar(obj);

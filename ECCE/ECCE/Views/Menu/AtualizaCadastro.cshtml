@@ -1,0 +1,165 @@
+﻿
+@{
+                @model CadastroLogin;
+                ViewData["Title"] = "Atualizão de Cadastro"; }
+<script type="text/javascript" src="~/js/viacep.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>
+@Html.Raw(ViewData["Valida"])
+<form id="FormCadastro" asp-action="SalvarSemSenha" asp-controller="Menu">
+    <div class="row">
+        <aside class="col-md-12">
+            <div class="card">
+                <article class="card-body">
+                    <header class="mb-4">
+                        <h4 class="card-title">Meus Dados</h4>
+                    </header>
+                    <div class="col form-row">
+                        <div class="col form-group">
+                            <label asp-for="tb_login.Nome"></label>
+                            <input type="text" class="form-control" asp-for="tb_login.Nome">
+                        </div>
+                        <div class="col form-group">
+                            <label asp-for="tb_login.CPF_CNPJ"></label>
+                            <input type="text" class="form-control" asp-for="tb_login.CPF_CNPJ">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label asp-for="tb_login.Telefone"></label>
+                            <input type="text" class="form-control" asp-for="tb_login.Telefone">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label asp-for="tb_login.Email"></label>
+                            <input type="email" class="form-control" asp-for="tb_login.Email">
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="tb_login.CodigoLogin" id="cod">
+                    <input type="hidden" asp-for="JsonLTEDR">
+                    <hr />
+                    <p>*Se fizer alguma alteração nos dados, clique em Salvar!</p>
+                    <button type="submit" class="btn btn-primary btn-block" style="width:10%">Salvar</button>
+                    <div>
+                    </div>
+                </article>
+            </div>
+            <div class="card">
+                <article class="card-body">
+                    <header class="mb-4">
+                        <h4 class="card-title">Meus Endereços</h4>
+                        <button type="button" class="btn btn-success" style="margin-top:30px;" onclick="window.location.href='AddEndereco'">Novo Endereço</button>
+                    </header>
+                    <table id="tb_endereco" class="table bg-light">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+
+        </aside>
+    </div>
+</form>
+
+
+
+<script>
+    var MtzEndereco;
+
+
+
+    $(document).ready(function () {
+
+        if ($("#JsonLTEDR").val() != "") {
+            MtzEndereco = JSON.parse($("#JsonLTEDR").val());
+        }
+        else {
+            MtzEndereco = [];
+        }
+
+        GetTabela();
+    });
+
+
+    function AddEndereco() {
+        if ($("#txt_ender_descricao").val() == "") {
+            alert("Digite a Descrição");
+            $("#txt_ender_descricao").focus();
+            return;
+        }
+
+        MtzEndereco.push(
+            {
+                CodigoLogin: $("#cod").val(),
+                CodigoEndereco: 0,
+                Descricao: $("#txt_ender_descricao").val(),
+                Cep: $("#txt_ender_cep").val(),
+                Endereco: $("#txt_ender_endereco").val(),
+                Numero: $("#txt_ender_numero").val(),
+                Bairro: $("#txt_ender_bairro").val(),
+                Cidade: $("#txt_ender_cidade").val(),
+                UF: $("#txt_ender_uf").val(),
+            }
+        );
+        GetTabela();
+        $("#txt_ender_descricao").val("");
+        $("#txt_ender_cep").val("");
+        $("#txt_ender_endereco").val("");
+        $("#txt_ender_numero").val("");
+        $("#txt_ender_bairro").val("");
+        $("#txt_ender_cidade").val("");
+        $("#txt_ender_uf").val("");
+        $("#txt_ender_descricao").focus();
+
+    }
+
+    function GetTabela() {
+        $("#JsonLTEDR").val(JSON.stringify(MtzEndereco));
+        $("#tb_endereco > tbody ").html("");
+        var sHtml = "";
+        for (var x = 0; x <= MtzEndereco.length - 1; x++) {
+            sHtml = "<tr>";
+            sHtml += "<td class='font-weight-bold'>Descrição: " + MtzEndereco[x].Descricao + "</td>";
+            sHtml += "<td>CEP: " + MtzEndereco[x].Cep + "</td>";
+            sHtml += "<td>Logradouro: " + MtzEndereco[x].Endereco + "</td>";
+            sHtml += "<tr/>";
+            sHtml += "<tr>";
+            sHtml += "<td>Número: " + MtzEndereco[x].Numero + "</td>";
+            sHtml += "<td>Bairro: " + MtzEndereco[x].Bairro + "</td>";
+            sHtml += "<td>Cidade: " + MtzEndereco[x].Cidade + "</td>";
+            sHtml += "<td>UF: " + MtzEndereco[x].UF + "</td>";
+            sHtml += "</tr>";
+            $("#tb_endereco > tbody ").append(sHtml);
+        }
+    }
+
+    function ExcluirEnder(x) {
+        delete MtzEndereco[x];
+        MtzEndereco.splice(x, 1);
+        GetTabela();
+    }
+    function SetSubmit() {
+        $('#FormCadastro').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        alertSucesso(data.msg);
+                    } else {
+
+                        if (data.msg.indexOf("Erro") > -1) {
+                            alertErro(data.msg);
+                        }
+                        else {
+                            alertInformacao(data.msg);
+                        }
+                    }
+                }
+            });
+
+        });
+    }
+
+
+</script>

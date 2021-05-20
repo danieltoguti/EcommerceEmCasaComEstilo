@@ -24,7 +24,7 @@ namespace ECCE.Data
                 cn.Open();
 
                 sSQL = "insert into tb_login(nome, email, telefone, cpf_cnpj, senha, tipo, datacadastro, ativo) values " +
-                    "(@nome, @email, @telefone, @cpf_cnpj, MD5(@senha), 'C', Now(), 1)";
+                    "(@nome, @email, @telefone, @cpf_cnpj, MD5(@senha), 'C', Now(), 'Sim')";
 
                 cmd.Parameters.AddWithValue("@nome", obj.tb_login.Nome);
                 cmd.Parameters.AddWithValue("@email", obj.tb_login.Email);
@@ -135,7 +135,161 @@ namespace ECCE.Data
 
         }
 
-        public bool ValidarNome(tb_login obj)
+        public bool UpDateDadosUsuarioSemSenha(CadastroLogin obj)
+        {
+            {
+                try
+                {
+                    string sSQL = "";
+                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                    cn.Open();
+
+                    sSQL = "update tb_login set nome=@nome, email=@email, telefone=@telefone, cpf_cnpj=@cpf_cnpj, " +
+                        "tipo=@tipo, Ativo=@ativo where CodigoLogin=@codigologin";
+                    cmd.Parameters.AddWithValue("@nome", obj.tb_login.Nome);
+                    cmd.Parameters.AddWithValue("@email", obj.tb_login.Email);
+                    cmd.Parameters.AddWithValue("@telefone", obj.tb_login.Telefone);
+                    cmd.Parameters.AddWithValue("@cpf_cnpj", obj.tb_login.CPF_CNPJ);
+                    cmd.Parameters.AddWithValue("@tipo", obj.tb_login.Tipo);
+                    cmd.Parameters.AddWithValue("@Ativo", obj.tb_login.Ativo);
+                    cmd.Parameters.AddWithValue("@codigologin", obj.tb_login.CodigoLogin);
+
+
+                    cmd.CommandText = sSQL;
+                    cmd.Connection = cn;
+                    cmd.ExecuteNonQuery();
+                    ADDEndereco(obj);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string msg = e.Message;
+                    return false;
+                }
+            }
+
+        }
+
+
+        public bool UpDateDadosSemSenhaMenu(CadastroLogin obj, int cod)
+        {
+            {
+                try
+                {
+                    string sSQL = "";
+                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                    cn.Open();
+
+                    sSQL = "update tb_login set nome=@nome, email=@email, telefone=@telefone, cpf_cnpj=@cpf_cnpj " +
+                        "where CodigoLogin=@codigologin";
+                    cmd.Parameters.AddWithValue("@nome", obj.tb_login.Nome);
+                    cmd.Parameters.AddWithValue("@email", obj.tb_login.Email);
+                    cmd.Parameters.AddWithValue("@telefone", obj.tb_login.Telefone);
+                    cmd.Parameters.AddWithValue("@cpf_cnpj", obj.tb_login.CPF_CNPJ);
+                    cmd.Parameters.AddWithValue("@codigologin", cod);
+
+
+                    cmd.CommandText = sSQL;
+                    cmd.Connection = cn;
+                    cmd.ExecuteNonQuery();
+                    ADDEnd(obj, cod);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string msg = e.Message;
+                    return false;
+                }
+            }
+
+        }
+
+        public bool ADDEnd(CadastroLogin obj, int cod)
+        {
+
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+                cmd.Connection = cn;
+
+                var CodigoLogin = obj.tb_login.CodigoLogin;
+                if (obj.tb_login.CodigoLogin == 0)
+                {
+                    sSQL = "select CodigoLogin from tb_login order by Codigologin desc limit 1 ";
+                    cmd.CommandText = sSQL;
+                    var Dr = cmd.ExecuteReader();
+                    Dr.Read();
+                    CodigoLogin = Convert.ToInt32(Dr["CodigoLogin"].ToString());
+                    Dr.Dispose();
+                }
+
+                //Deletando Registros antes do insert caso for update
+                cmd.Parameters.Clear();
+                sSQL = "delete from tb_endereco where CodigoLogin=" + CodigoLogin;
+                cmd.CommandText = sSQL;
+                cmd.ExecuteNonQuery();
+
+
+                foreach (var item in obj.tb_endereco)
+                {
+                    cmd.Parameters.Clear();
+                    sSQL = "insert into tb_endereco (CodigoLogin, Descricao, CEP, Endereco, Numero,  Bairro, Cidade, UF)";
+                    sSQL += "values(@CodigoLogin, @Descricao, @CEP, @Endereco, @Numero,  @Bairro, @Cidade, @UF)";
+                    cmd.Parameters.AddWithValue("@CodigoLogin", cod);
+                    cmd.Parameters.AddWithValue("@Descricao", item.Descricao);
+                    cmd.Parameters.AddWithValue("@CEP", item.Cep);
+                    cmd.Parameters.AddWithValue("@Endereco", item.Endereco);
+                    cmd.Parameters.AddWithValue("@Numero", item.Numero);
+
+                    cmd.Parameters.AddWithValue("@Bairro", item.Bairro);
+                    cmd.Parameters.AddWithValue("@Cidade", item.Cidade);
+                    cmd.Parameters.AddWithValue("UF", item.UF);
+                    cmd.CommandText = sSQL;
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool UpDateSenha(CadastroLogin obj)
+        {
+            {
+                try
+                {
+                    string sSQL = "";
+                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                    cn.Open();
+
+                    sSQL = "update tb_login set senha=MD5(@senha) where CodigoLogin=@codigologin";
+                    cmd.Parameters.AddWithValue("@senha", obj.tb_login.Senha);
+                    cmd.Parameters.AddWithValue("@codigologin", obj.tb_login.CodigoLogin);
+
+
+                    cmd.CommandText = sSQL;
+                    cmd.Connection = cn;
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string msg = e.Message;
+                    return false;
+                }
+            }
+
+        }
+
+        public bool ValidarEmail(tb_login obj)
         {
 
             try
@@ -145,8 +299,8 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "select * from tb_login where nome=@nome";
-                cmd.Parameters.AddWithValue("@nome", obj.Nome);
+                sSQL = "select * from tb_login where email=@email";
+                cmd.Parameters.AddWithValue("@email", obj.Email);
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -258,6 +412,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Email = Dr["Email"].ToString(),
                         Telefone = Dr["Telefone"].ToString(),
+                        CPF_CNPJ = Dr["CPF_CNPJ"].ToString(),
                         Tipo = Dr["Tipo"].ToString()
                     };
                     Lista.Add(item);
@@ -297,7 +452,10 @@ namespace ECCE.Data
                         CodigoLogin = Convert.ToInt32(Dr["CodigoLogin"]),
                         Nome = Dr["Nome"].ToString(),
                         Email = Dr["Email"].ToString(),
-                        Telefone = Dr["Telefone"].ToString()
+                        Telefone = Dr["Telefone"].ToString(),
+                        CPF_CNPJ = Dr["CPF_CNPJ"].ToString(),
+                        Tipo = Dr["Tipo"].ToString(),
+                        Ativo = Dr["Ativo"].ToString()
                     };
                     Lista.Add(item);
                 }

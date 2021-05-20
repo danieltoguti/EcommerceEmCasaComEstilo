@@ -1,0 +1,26 @@
+﻿
+@{
+                @model tb_venda;
+                ViewData["Title"] = "Editar Status";
+
+                Layout = "_Layout_dashboard"; 
+    }
+
+<hr />
+<h4 class="font-weight-bold">Atualização de Status</h4>
+<hr />
+<form asp-action="Salvar" asp-controller="Pedido">
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <input type="text" class="form-control" asp-for="Status">
+        <input type="hidden" asp-for="CodigoVenda">
+    </div>
+
+    @Html.Raw(ViewData["Valida"])
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+
+</form>
+<br />
+
+<button type="button" class="btn btn-info btn-sm" onclick="window.location.href='/Pedido'">Voltar</button>

@@ -1,33 +1,31 @@
 ﻿@{
-    @model List<ProdutoVWList>;
-    ViewData["Title"] = "Home Page";
-
-}
+                @model List<ProdutoVWList>;
+                ViewData["Title"] = "Home Page"; }
 <div class="row" id="idcarrinho"></div>
-<p>Masculino</p>
+<hr />
+<h6 class="font-weight-bold" style="color:#7876a1">Masculino</h6>
+<hr />
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="card col-md-3 text-center">
-            <div class="card-header">
-                <div>@item.tb_produto.Nome</div>
-            </div>
-            <div class="card-body">
-                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">
-                    <p><img src="@item.Foto" style="height: 200px;" /></p>
-                </a>
-            </div>
-            <div class="card-footer">
-                <p>@item.tb_produto.Valor.ToString("C")</p>
-                <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">Mais Detalhes</a>
-            </div>
+<div class="card col-md-3 text-center">
+    <div class="card-header">
+        <div>@item.tb_produto.Nome</div>
+    </div>
+    <div class="card-body">
+        <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">
+            <p><img src="@item.Foto" style="height: 200px;" /></p>
+        </a>
+    </div>
+    <div class="card-footer">
+        <p>@item.tb_produto.Valor.ToString("C")</p>
+        <a asp-route-id="@item.tb_produto.CodigoProduto" asp-controller="Home" asp-action="ProdutoDetail">Mais Detalhes</a>
+    </div>
 
-        </div>
+</div>
 
 
-        <br />
-
-    }
+                <br />}
 </div>
 <script>
     $(document).ready(function () {
@@ -66,12 +64,12 @@
 
         $.ajax({
             url: _url,
-            type: 'GET',            
+            type: 'GET',
             processData: true,
             contentType: true,
             success: function (result) {
                 $("#idcarrinho").html(result);
-               
+
              }
             ,
             error: function (jqXHR) {

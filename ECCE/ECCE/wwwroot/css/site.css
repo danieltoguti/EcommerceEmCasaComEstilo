@@ -62,7 +62,14 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
 footer {
+    margin-top: auto;
     position: fixed;
     bottom: 0;
     width: 100%;

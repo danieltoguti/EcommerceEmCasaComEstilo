@@ -4,17 +4,9 @@
     var LTEnderecos = (List<SelectListItem>)(ViewData["Enderecos"]);
 }
 
-
-
-<br />
-<br />
-
 <hr />
-<h3>Escolher endereço de entrega</h3>
+<h3 class="font-weight-bold">Escolher endereço de entrega</h3>
 <hr />
-
-<br />
-<br />
 
 
 <form id="formPagamento" asp-action="FinalizarPedido" asp-controller="Home">
@@ -30,7 +22,7 @@
 
 
 
-        <aside class="col-lg-8">
+        <aside class="col-lg-12" style="padding: 0">
 
             <div class="card mb-8">
                 <div class="card-body">
@@ -57,9 +49,10 @@
                     </div>
                 </div> <!-- card-body.// -->
             </div> <!-- card.// -->
-            <br />
-            <br />
-            <div class="card mb-8">
+            <hr />
+            <h3 class="font-weight-bold">Resumo do pedido</h3>
+            <hr />
+            <div class="card mb-5">
                 <div class="card-body">
                     <dl class="dlist-align">
                         <dt>Produtos: R$</dt>
@@ -82,14 +75,13 @@
         </aside>
     </div>
 
-    <br />
-    <br />
 
     <hr />
-    <h3>Escolher forma de pagamento</h3>
+    <h3 class="font-weight-bold">Escolher forma de pagamento</h3>
+    <hr />
 
     <div>
-        <aside class="col-lg-8">
+        <aside class="col-lg-12" style="padding: 0">
             <div class="card mb-8">
                 <div class="card-body">
                     <div class="form-group">
@@ -392,19 +384,26 @@
                 url: url,
                 data: form.serialize(),
                 success: function (data) {
-                    if (data.success) 
-                    {
+                    if (data.success) {
+                        alertSucesso(data.msg);
+
                         setTimeout(function () {
-                            alertSucesso(data.msg);
-                        }, 6000);
+                            window.location.href = data.redirect;
+                        }, 4000);
 
                     } else {
 
                         if (data.msg.indexOf("Erro") > -1) {
                             alertErro(data.msg);
+                            setTimeout(function () {
+                                window.location.href = data.redirect;
+                            },10000);
                         }
                         else {
                             alertInformacao(data.msg);
+                            setTimeout(function () {
+                                window.location.href = data.redirect;
+                            },10000);
                         }
                     }
                 }

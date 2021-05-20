@@ -1,6 +1,8 @@
 ﻿
 @{
-    @model ProdutoView;
+                @model ProdutoView;
+
+                var ListTamanhoProd = (List<SelectListItem>)(ViewData["ListTamanhoProd"]);
 }
 
 <link href="~/css/pdp.css" rel="stylesheet">
@@ -10,26 +12,20 @@
         <aside class="col-md-6">
             <article class="gallery-wrap">
                 <div class="product-slider-single normal-slider">
-                    @{
-                        var iCont = 1;
-                    }
+                    @{ var iCont = 1; }
                     @foreach (var foto in Model.produtofotoModel)
                     {
-                        @if (foto.Caminho != "")
-                        {
-                            <img id="foto_@iCont" src="@foto.Descricao" alt="Product Image">
-                        }
-                        iCont++;
+        @if (foto.Caminho != "")
+        {
+<img id="foto_@iCont" src="@foto.Descricao" alt="Product Image">}iCont++;
                     }
                 </div>
                 <div class="product-slider-single-nav normal-slider">
                     @foreach (var foto in Model.produtofotoModel)
                     {
-                        @if (foto.Caminho != "")
-                        {
-                            <div class="slider-nav-img"><img class="img-sm" src="@foto.Descricao" alt="Product Image"></div>
-                        }
-                    }
+        @if (foto.Caminho != "")
+        {
+<div class="slider-nav-img"><img class="img-sm" src="@foto.Descricao" alt="Product Image"></div>}}
                 </div>
             </article>
         </aside>
@@ -47,47 +43,22 @@
                 <dl class="row">
                     <dt class="col-sm-4">Código do produto</dt>
                     <dd class="col-sm-8">@Model.tb_produto.CodigoInterno</dd>
-                    <!--
-                    <dt class="col-sm-4">Cor</dt>
-                    <select id="txt_cor" class="form-control col-sm-5" style="width:130px">
-
-                        foreach (var Cor in Model.produtocorModel)
-                        {
-                            <option class="col-sm-8">Cor.Descricao</option>
-                        }
-                    </select>
-                    -->
                     <br />
                     <br />
 
                     <dt class="col-sm-4">Tamanho</dt>
-                    <select id="txt_tamanho" class="form-control col-sm-5" style="width:70px">
-                        @foreach (var Tamanho in Model.produtotamanhoModel)
-                        {
-                            <option class="col-sm-8">@Tamanho.Descricao</option>
-                        }
+                    <select id="txt_tamanho" onchange="GetQuantidadeProduto();" asp-items="ListTamanhoProd" class="form-control col-sm-5" style="width:70px">
                     </select>
-
                     <br />
                     <br />
-
-                    <dt class="col-sm-4">Quantidade</dt>
-                    <select id="txt_quantidade" class="form-control" style="width:70px">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
+                    <dt class="col-sm-4 dvQtd">Quantidade</dt>
+                    <select id="txt_quantidade" class="form-control dvQtd" style="width:70px">
                     </select>
-
+                    <dt id="dvIndisponivel" style="display:none;color:red;">Produto Indisponível</dt>
                 </dl>
-
                 <hr>
-
-                <a  href="../Carrinho" class="btn  btn-outline-primary"> Carrinho </a>
-                <a href="#" class="btn  btn-outline-primary" onclick="AddCar();"> <span class="text">Adicionar ao carrinho</span> <i class="fas fa-shopping-cart"></i>  </a>
+                <a href="../Carrinho" class="btn  btn-outline-primary"> Carrinho </a>
+                <a href="#" class="btn  btn-outline-primary addcarrinho" onclick="AddCar();"> <span class="text">Adicionar ao carrinho</span> <i class="fas fa-shopping-cart"></i>  </a>
             </article> <!-- product-info-aside .// -->
         </main> <!-- col.// -->
     </div> <!-- row.// -->
@@ -100,26 +71,24 @@
 
     $(document).ready(function () {
         GetCarrinho();
+        GetQuantidadeProduto();
     });
 
     function AddCar() {
-
-        var _tamanho = $("#txt_tamanho option:selected").val();
-        //var _cor = $("#txt_cor option:selected").val();
+        var _tamanho = $("#txt_tamanho option:selected").text();
+        var CodigoProd = $("#txt_tamanho option:selected").val();
         var _quantidade = $("#txt_quantidade option:selected").val();
         var _url = '@Url.Action("AddCar", "Carrinho")';
-
 
         $.ajax({
             url: _url,
             type: 'GET',
             data: {
-                CodigoProduto: '@Model.tb_produto.CodigoProduto',
+                CodigoProduto: CodigoProd,
                 Nome: '@Model.tb_produto.Nome',
                 Peso: '@Model.tb_produto.Peso',
                 Tamanho: _tamanho,
                 Preco: '@Model.tb_produto.Valor',
-                //Cor: _cor,
                 Quantidade: _quantidade,
             },
 
@@ -162,14 +131,12 @@
                         tb += "<td>" + item.quantidade + "</td>";
                         tb += "<td>" + item.tamanho + "</td>";
                         tb += "<td>" + f2 + "</td>";
-                        //tb += "<td>" + item.cor + "</td>";
                         tb += "<td><a href='##' onclick='RemoveItem(" + item.id + ");'>Remover</a></td>";
                         tb += "</tr>";
                     });
                     tb += "</table>";
                     $("#idcarrinho").html(tb);
                 }
-
              }
             ,
             error: function (jqXHR) {
@@ -179,13 +146,37 @@
 
             }
         });
-        //console.log("Depois", '@Model.tb_produto.Valor.ToString("C")');
-
     }
 
+    function GetQuantidadeProduto() {
+        $("#dvIndisponivel").hide();
 
+        var _url = '@Url.Action("GetQuantidadeProduto", "Home")';
+        $.ajax({
+            type: "GET",
+            url: _url,
+            data: { id: $("#txt_tamanho option:selected").val()},
+            success: function (data) {
+                $("#txt_quantidade").empty();
 
-
+                for (var i = 1; i <= data.result; i++) {
+                    $('#txt_quantidade').append($('<option>', {
+                        value: i,
+                        text: i
+                    }));
+                }
+                if (data.result === 0) {
+                    $("#dvIndisponivel").show();
+                    $(".addcarrinho").hide();
+                    $(".dvQtd").hide();
+                }
+                else {
+                    $(".dvQtd").show();
+                    $(".addcarrinho").show();
+                }
+            }
+        });
+    }
 
     function RemoveItem(codigo) {
         var _url = '@Url.Action("RemoveItem", "Carrinho")';
@@ -208,7 +199,6 @@
             complete: function (jqXHR, status) {
 
             }
-
         });
     }
 

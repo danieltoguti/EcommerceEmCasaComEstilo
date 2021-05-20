@@ -1,15 +1,14 @@
 ﻿@{
                 @model List<tb_login>;
-                ViewData["Title"] = "Produto";
+                ViewData["Title"] = "Colaborador";
 
-                Layout = "_Layout_dashboard"; }
+                Layout = "_Layout_dashboard"; 
+    }
 
+<hr />
+<h4 class="font-weight-bold">Lista de Colaboradores</h4>
+<hr />
 <div>
-    <div class="col-md-12 text-center">
-        <h5>Lista de Colaboradores</h5>
-    </div>
-<br />
-
     @if (Model.Count > 0)
     {
 
@@ -20,7 +19,10 @@
             <th>Código</th>
             <th>Nome</th>
             <th>Email</th>
-            <th></th>
+            <th>Telefone</th>
+            <th>CPF</th>
+            <th>Editar</th>
+            <th>Nova Senha</th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +33,10 @@
     <td>@item.CodigoLogin</td>
     <td>@item.Nome</td>
     <td>@item.Email</td>
-    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/usuario/editaradmin?CodigoLogin=@item.CodigoLogin&Nome=@item.Nome&Email=@item.Email&Telefone=@item.Telefone&CPF_CNPJ=@item.CPF_CNPJ&Senha=@item.Senha&Tipo=@item.Tipo&Ativo=@item.Ativo'"><i class="fa fa-edit"></i></button></td>
+    <td>@item.Telefone</td>
+    <td>@item.CPF_CNPJ</td>
+    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/usuario/EditarSemSenhaColaborador?CodigoLogin=@item.CodigoLogin'"><i class="fa fa-edit"></i></button></td>
+    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/usuario/EditarSenhaColaborador?CodigoLogin=@item.CodigoLogin'"><i class="fa fa-key"></i></button></td>
 </tr>}
     </tbody>
 </table> }

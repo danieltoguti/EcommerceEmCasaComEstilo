@@ -106,20 +106,6 @@ namespace ECCE.Controllers
         }
 
 
-        public IActionResult PedidoConcluido()
-        {
-            CarrinhoController car = new CarrinhoController(_hCont);
-
-            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-            ViewData["Carrinho"] = car.GetAll();
-
-            return View();
-
-        }
-
-
         public IActionResult ProdutoDetail(int id)
         {
             ProdutoDB Produto = new ProdutoDB();
@@ -132,22 +118,21 @@ namespace ECCE.Controllers
 
             ViewData["ListTamanhoProd"] = Produto.GetTamanhoProduto(id);
             ViewData["Carrinho"] = car.GetAll();
-
+            
 
             return View(resp);
         }
 
-        public IActionResult GetQuantidadeProduto(int id)
-        {
+        public IActionResult GetQuantidadeProduto(int id) { 
             ProdutoDB Produto = new ProdutoDB();
             var resp = Produto.GetQtdProduto(id);
-            return Json(new { result = resp });
+            return Json(new { result= resp });
         }
 
 
 
         public async Task<IActionResult> Finalizar()
-        {
+        {            
 
             CarrinhoController car = new CarrinhoController(_hCont);
 
@@ -155,10 +140,10 @@ namespace ECCE.Controllers
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
             ViewData["Carrinho"] = car.GetAll();
-
+            
             if (ViewData["NomeLogin"] == "")
             {
-                return RedirectToAction("index", "login", new { redirect = "finalizar" });
+                return RedirectToAction("index", "login",new { redirect = "finalizar" });
             }
             else
             {
@@ -176,24 +161,32 @@ namespace ECCE.Controllers
 
         }
 
-        public IActionResult FinalizarPedido()
-        {
-            try
+
+
+        public IActionResult FinalizarPedido(FinalizarPedidoVM obj) {
+
+            FinalizarPedidoDB fPed = new FinalizarPedidoDB(_hCont);
+
+            var Resp = fPed.FinalizarPedido(obj);
+
+            if (Resp)
             {
                 var CodigoLogin = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin);
+                var CodigoPedido = fPed.GetPedidoVenda(Convert.ToInt32(CodigoLogin));
 
 
-                return Json(new { success = true, msg = "Pedido Nº Finalizado!"});
+                return Json(new { success = true, msg = "Pedido Nº " + CodigoPedido +" Finalizado!",redirect= "/home/PedidoConcluido" });
 
             }
-            catch (Exception)
+            else
             {
-                return Json(new { success = false, msg = "Erro ao Cadastrar!" });
+                return Json(new { success = false, msg = "Infelizmente não temos tudo que você precisa, Refaça sua compra com a quantidade limite que aparece em cada produto, Obrigado e boa compra!", redirect = "/home/Index" });
             }
+            
         }
 
-        public List<SelectListItem> GetEnderecos()
-        {
+
+        public List<SelectListItem>  GetEnderecos() {            
             string sSQL = "";
             MySqlCommand cmd = new MySqlCommand();
             MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
@@ -204,35 +197,46 @@ namespace ECCE.Controllers
             cmd.CommandText = sSQL;
             cmd.Connection = cn;
             var Dr = cmd.ExecuteReader();
-
+            
             List<SelectListItem> LT = new List<SelectListItem>();
-
+            
             while (Dr.Read())
             {
                 var Item = new SelectListItem()
                 {
                     Value = Dr["CEP"].ToString(),
-                    Text = Dr["Descricao"].ToString() + " - " +
-                           Dr["Endereco"].ToString() + "," +
+                    Text = Dr["Descricao"].ToString()+ " - "+
+                           Dr["Endereco"].ToString()+ "," +
                            Dr["Numero"].ToString() +
                            " | CEP: " + Dr["CEP"].ToString()
                 };
 
-                LT.Add(Item);
+                LT.Add(Item);                
             }
-
+            
             return LT;
+        }
+        public IActionResult PedidoConcluido()
+        {
+            CarrinhoController car = new CarrinhoController(_hCont);
+
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            ViewData["Carrinho"] = car.GetAll();
+
+            return View();
+
         }
 
         [Authorize(Roles = "A")]
         public IActionResult Dashboard()
         {
-            ProdutoDB Produto = new ProdutoDB();
-            var MLista = Produto.GetAllProduto();
+            FinalizarPedidoDB Pedido = new FinalizarPedidoDB();
+            var MLista = Pedido.ListarPedidos();
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
 
             return View(MLista);
         }

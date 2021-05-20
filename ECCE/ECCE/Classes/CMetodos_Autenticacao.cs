@@ -31,7 +31,7 @@ namespace ECCE.Classes
                     string sSql = "";
 
                     sSql = " SELECT * FROM tb_login";
-                    sSql += " WHERE Ativo = 1";
+                    sSql += " WHERE Ativo ='Sim'";
                     sSql += " AND Email = @email";
                     sSql += " AND  Senha =md5(@senha)";
 

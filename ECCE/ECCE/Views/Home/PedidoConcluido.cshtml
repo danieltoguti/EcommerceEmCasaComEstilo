@@ -1,0 +1,27 @@
+﻿@{ ViewData["Title"] = "Parabéns"; }
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" />
+
+<style>
+    .shopping-cart-wrap img {
+        max-width: 50px;
+    }
+    .img-wrap {
+        border: 1px dashed #6c6a98;
+    }
+    #tabelasemproduto {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+    }
+</style>
+<div id="tabelasemproduto" class="col-md-12">
+    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+    <div class="icon"><span style="font-size: 38px"><i class="fa fa-lg fa-handshake-o"></i></span></div>
+    <h3>Parabéns, acompanhe o status de seu pedido em sua conta.</h3>
+
+    <h3> <a class="fas fa-home" asp-area="" asp-controller="Home" asp-action="Index">Ir para Home</a></h3>
+</div>

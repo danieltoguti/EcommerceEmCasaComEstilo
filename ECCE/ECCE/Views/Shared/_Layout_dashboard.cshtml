@@ -59,20 +59,18 @@
                         </span>
                         <br />
                         <span>
-                            <a class="fas fa-home" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="fas fa-home" asp-area="" asp-controller="Home" asp-action="Index">Home do Site</a>
                         </span>
                     </div>
                 </div>
                 <!-- sidebar-menu  -->
                 <div class=" sidebar-item sidebar-menu">
                     <ul>
-
-                        <li class="sidebar-dropdown">
-                            <a href="#">
+                        <li>
+                            <a asp-area="" asp-controller="Pedido" asp-action="index">
                                 <i class="fa fa-chart-line"></i>
                                 <span class="menu-text">Pedidos</span>
                             </a>
-
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
@@ -85,9 +83,6 @@
                                         <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Produto" asp-action="Index">Produto</a>
                                     </li>
                                     <li>
-                                        <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Tamanho" asp-action="Index">Tamanho</a>
-                                    </li>
-                                    <li>
                                         <a class="fa fa-sign-out-alt" asp-area="" asp-controller="Genero" asp-action="Index">Gênero</a>
                                     </li>
                                 </ul>
@@ -95,8 +90,8 @@
                         </li>
                         <li>
                             <a asp-area="" asp-controller="Usuario" asp-action="index">
-                                <i class="fa fa-users"></i>
-                                <span class="menu-text">Cliente</span>
+                                <i class="fa fa-briefcase"></i>
+                                <span class="menu-text">Colaborador</span>
                             </a>
                         </li>
                         <li>
@@ -107,7 +102,7 @@
                         </li>
                     </ul>
                 </div>
-                <!-- sidebar-menu -->
+                <!-- sidebar-menu  -->
             </div>
         </nav>
         <!-- page-content  -->

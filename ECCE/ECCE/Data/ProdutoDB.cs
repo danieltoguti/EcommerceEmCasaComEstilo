@@ -33,21 +33,24 @@ namespace ECCE.Data
                 
                 obj.JsonLTFoto = obj.JsonLTFoto.Replace("Descricao", "Caminho");
                 obj.JsonLTGenero = obj.JsonLTGenero.Replace("Codigo", "CodigoGenero");
-                obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
+                //obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
 
 
                 var prodFotos = JsonConvert.DeserializeObject<List<tb_produto_foto>>(obj.JsonLTFoto, settings);
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
-                var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho , settings);
+                //var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho , settings);
 
 
-                sSQL = "insert into tb_produto (CodigoInterno, Nome, Descricao, valor, dataregistro, peso, ativo)values(@codigointerno, @nome, @descricao, @valor, Now(), @peso, @ativo)";
+                sSQL = "insert into tb_produto (CodigoInterno, Nome, Descricao, valor, dataregistro, peso, quantidade, ativo, tamanho)values(@codigointerno, @nome, @descricao, @valor, Now(), @peso, @quantidade, @ativo,@tamanho)";
                 cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
                 cmd.Parameters.AddWithValue("@nome", obj.tb_produto.Nome);
                 cmd.Parameters.AddWithValue("@descricao", obj.tb_produto.Descricao);
                 cmd.Parameters.AddWithValue("@valor", obj.tb_produto.Valor);
                 cmd.Parameters.AddWithValue("@peso", obj.tb_produto.Peso);
+                cmd.Parameters.AddWithValue("@quantidade", obj.tb_produto.Quantidade);
                 cmd.Parameters.AddWithValue("@ativo", obj.tb_produto.Ativo);
+                cmd.Parameters.AddWithValue("@tamanho", obj.tb_produto.Tamanho);
+
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -101,21 +104,21 @@ namespace ECCE.Data
                         cmd.ExecuteNonQuery();
                     }
 
-                    //Tamanhos                    
-                    foreach (var item in proTamanhos)
-                    {
-                        Tabela = "tb_produto_tamanho";
-                        Coluna = "CodigoTamanho";
-                        Codigo = item.CodigoTamanho;
+                    ////Tamanhos                    
+                    //foreach (var item in proTamanhos)
+                    //{
+                    //    Tabela = "tb_produto_tamanho";
+                    //    Coluna = "CodigoTamanho";
+                    //    Codigo = item.CodigoTamanho;
 
-                        cmd.Parameters.Clear();
-                        cmd.Connection = cn;
-                        sSQL = "insert into  " + Tabela + " (" + Coluna + ",CodigoProduto)values(@Codigo,@CodigoProduto)";
-                        cmd.Parameters.AddWithValue("@CodigoProduto", CodigoProduto);
-                        cmd.Parameters.AddWithValue("@Codigo", Codigo);
-                        cmd.CommandText = sSQL;
-                        cmd.ExecuteNonQuery();
-                    }
+                    //    cmd.Parameters.Clear();
+                    //    cmd.Connection = cn;
+                    //    sSQL = "insert into  " + Tabela + " (" + Coluna + ",CodigoProduto)values(@Codigo,@CodigoProduto)";
+                    //    cmd.Parameters.AddWithValue("@CodigoProduto", CodigoProduto);
+                    //    cmd.Parameters.AddWithValue("@Codigo", Codigo);
+                    //    cmd.CommandText = sSQL;
+                    //    cmd.ExecuteNonQuery();
+                    //}
 
 
                 }
@@ -149,22 +152,23 @@ namespace ECCE.Data
 
                 obj.JsonLTFoto = obj.JsonLTFoto.Replace("Descricao", "Caminho");
                 obj.JsonLTGenero = obj.JsonLTGenero.Replace("Codigo", "CodigoGenero");
-                obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
+                //obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
 
                 var prodFotos = JsonConvert.DeserializeObject<List<tb_produto_foto>>(obj.JsonLTFoto, settings);
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
-                var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho, settings);
+                //var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho, settings);
 
-                sSQL = " update tb_produto set CodigoInterno=@codigointerno, Nome=@nome,Descricao=@descricao,valor=@valor,peso=@peso, ativo=@ativo" +
-                       " where CodigoProduto=" + obj.tb_produto.CodigoProduto;
+                sSQL = " update tb_produto set CodigoInterno=@codigointerno, Nome=@nome, Descricao=@descricao, valor=@valor, peso=@peso, quantidade=@quantidade, ativo=@ativo," +
+                       " tamanho=@tamanho where CodigoProduto=" + obj.tb_produto.CodigoProduto;
 
                 cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
                 cmd.Parameters.AddWithValue("@nome", obj.tb_produto.Nome);
                 cmd.Parameters.AddWithValue("@descricao", obj.tb_produto.Descricao);
                 cmd.Parameters.AddWithValue("@valor", obj.tb_produto.Valor);                
                 cmd.Parameters.AddWithValue("@peso", obj.tb_produto.Peso);
+                cmd.Parameters.AddWithValue("@quantidade", obj.tb_produto.Quantidade);
                 cmd.Parameters.AddWithValue("@ativo", obj.tb_produto.Ativo);
-
+                cmd.Parameters.AddWithValue("@tamanho", obj.tb_produto.Tamanho);
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 int result = cmd.ExecuteNonQuery();
@@ -211,21 +215,21 @@ namespace ECCE.Data
                         cmd.ExecuteNonQuery();
                     }
 
-                    //Tamanhos                    
-                    foreach (var item in proTamanhos)
-                    {
-                        Tabela = "tb_produto_tamanho";
-                        Coluna = "CodigoTamanho";
-                        Codigo = item.CodigoTamanho;
+                    ////Tamanhos                    
+                    //foreach (var item in proTamanhos)
+                    //{
+                    //    Tabela = "tb_produto_tamanho";
+                    //    Coluna = "CodigoTamanho";
+                    //    Codigo = item.CodigoTamanho;
 
-                        cmd.Parameters.Clear();
-                        cmd.Connection = cn;
-                        sSQL = "insert into  " + Tabela + " (" + Coluna + ",CodigoProduto)values(@Codigo,@CodigoProduto)";
-                        cmd.Parameters.AddWithValue("@CodigoProduto", obj.tb_produto.CodigoProduto);
-                        cmd.Parameters.AddWithValue("@Codigo", Codigo);
-                        cmd.CommandText = sSQL;
-                        cmd.ExecuteNonQuery();
-                    }
+                    //    cmd.Parameters.Clear();
+                    //    cmd.Connection = cn;
+                    //    sSQL = "insert into  " + Tabela + " (" + Coluna + ",CodigoProduto)values(@Codigo,@CodigoProduto)";
+                    //    cmd.Parameters.AddWithValue("@CodigoProduto", obj.tb_produto.CodigoProduto);
+                    //    cmd.Parameters.AddWithValue("@Codigo", Codigo);
+                    //    cmd.CommandText = sSQL;
+                    //    cmd.ExecuteNonQuery();
+                    //}
 
                     return true;
                 }
@@ -360,13 +364,15 @@ namespace ECCE.Data
                     var item = new tb_produto
                     {
                         CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
-
+                        CodigoInterno = Dr["CodigoInterno"].ToString(),
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Quantidade = Convert.ToInt32(Dr["Quantidade"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Ativo = Dr["Ativo"].ToString(),
+                        Tamanho = Dr["Tamanho"].ToString()
                     };
                     Lista.Add(item);
                 }
@@ -410,7 +416,9 @@ namespace ECCE.Data
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Quantidade = Convert.ToInt32(Dr["Quantidade"]),
+                        Ativo = Dr["Ativo"].ToString(),
+                        Tamanho = Dr["Tamanho"].ToString()
                         
                     };
                    
@@ -419,7 +427,7 @@ namespace ECCE.Data
                 ProdM.tb_produto = tbPro;
                 ProdM.JsonLTFoto = JsonConvert.SerializeObject(GetProdutoFoto(CodigoProduto));
                 ProdM.JsonLTGenero = JsonConvert.SerializeObject(GetProdutoGenero(CodigoProduto));
-                ProdM.JsonLTTamanho = JsonConvert.SerializeObject(GetProdutoTamanho(CodigoProduto));
+                //ProdM.JsonLTTamanho = JsonConvert.SerializeObject(GetProdutoTamanho(CodigoProduto));
 
 
                 return ProdM;
@@ -457,46 +465,6 @@ namespace ECCE.Data
                     var item = new produtogeneroModel
                     {
                         CodigoGenero = Convert.ToInt32(Dr["CodigoGenero"]),
-                        CodigoProduto = CodigoProduto,
-                        Descricao= Dr["Descricao"].ToString()
-                    };
-                    Lista.Add(item);
-                }
-
-                return Lista;
-            }
-            catch (Exception e)
-            {
-                string msg = e.Message;
-                return null;
-            }
-        }
-        public List<produtotamanhoModel> GetProdutoTamanho(int CodigoProduto)
-        {
-
-            try
-            {
-                string sSQL = "";
-                MySqlCommand cmd = new MySqlCommand();
-                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
-                cn.Open();
-
-                sSQL = " Select A.*,B.* from tb_produto_tamanho as A,tb_tamanho as B" +
-                     " WHERE A.CodigoTamanho=B.CodigoTamanho" +
-                     " AND A.CodigoProduto=" + CodigoProduto;
-                
-
-                cmd.CommandText = sSQL;
-                cmd.Connection = cn;
-                var Dr = cmd.ExecuteReader();
-
-                var Lista = new List<produtotamanhoModel>();
-
-                while (Dr.Read())
-                {
-                    var item = new produtotamanhoModel
-                    {
-                        CodigoTamanho = Convert.ToInt32(Dr["CodigoTamanho"]),
                         CodigoProduto = CodigoProduto,
                         Descricao= Dr["Descricao"].ToString()
                     };
@@ -562,7 +530,7 @@ namespace ECCE.Data
 
                 sSQL = "select *," +
                     "(select Caminho from tb_produto_foto where tb_produto_foto.CodigoProduto=tb_produto.CodigoProduto limit 1) as Foto" +
-                    " from tb_produto ";            
+                    " from tb_produto WHERE Ativo='Sim' GROUP BY tb_produto.CodigoInterno";            
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -583,7 +551,7 @@ namespace ECCE.Data
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Ativo = Dr["Ativo"].ToString(),
                     };
 
                     item.Foto = Dr["Foto"].ToString();
@@ -612,7 +580,7 @@ namespace ECCE.Data
 
                 sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
                         "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto LEFT JOIN tb_produto_foto " +
-                        "AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero = 9 GROUP BY p.CodigoProduto";
+                        "AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero =16 GROUP BY p.CodigoInterno";
 
 
                 cmd.CommandText = sSQL;
@@ -634,7 +602,7 @@ namespace ECCE.Data
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Ativo = Dr["Ativo"].ToString(),
                     };
 
                     item.Foto = Dr["Caminho"].ToString();
@@ -663,7 +631,7 @@ namespace ECCE.Data
 
                 sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
                         "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto " +
-                        "LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero = 13 GROUP BY p.CodigoProduto";
+                        "LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero =15 GROUP BY p.CodigoInterno";
 
 
                 cmd.CommandText = sSQL;
@@ -685,7 +653,7 @@ namespace ECCE.Data
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Ativo = Dr["Ativo"].ToString(),
                     };
 
                     item.Foto = Dr["Caminho"].ToString();
@@ -714,7 +682,7 @@ namespace ECCE.Data
 
                 sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
                         "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto " +
-                        "LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero=7 GROUP BY p.CodigoProduto";
+                        "LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero=14 GROUP BY p.CodigoInterno";
 
 
                 cmd.CommandText = sSQL;
@@ -736,7 +704,7 @@ namespace ECCE.Data
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Ativo = Dr["Ativo"].ToString(),
                     };
 
                     item.Foto = Dr["Caminho"].ToString();
@@ -763,7 +731,7 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "select * from tb_produto where CodigoProduto=@CodigoProduto";
+                sSQL = "select * from tb_produto where CodigoProduto=@CodigoProduto and ativo='sim'";
                 cmd.Parameters.AddWithValue("@CodigoProduto", CodigoProduto);
 
                 cmd.CommandText = sSQL;
@@ -785,7 +753,7 @@ namespace ECCE.Data
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Ativo = Dr["Ativo"].ToString(),
 
                     };
 
@@ -794,7 +762,6 @@ namespace ECCE.Data
                 ProdM.tb_produto = tbPro;
                 ProdM.produtofotoModel = GetProdutoFoto(CodigoProduto);
                 ProdM.produtogeneroModel =GetProdutoGenero(CodigoProduto);
-                ProdM.produtotamanhoModel = GetProdutoTamanho(CodigoProduto);
 
 
                 return ProdM;
@@ -820,7 +787,7 @@ namespace ECCE.Data
 
                 sSQL = " SELECT tb_produto.CodigoProduto, tb_produto.Tamanho FROM tb_produto";
                 sSQL += " WHERE tb_produto.CodigoInterno = (SELECT A.CodigoInterno FROM tb_produto AS A WHERE A.CodigoProduto = "+ CodigoProduto + ")";
-                sSQL += " GROUP BY tb_produto.CodigoProduto ,tb_produto.Tamanho ";
+                sSQL += " And Ativo='Sim' GROUP BY tb_produto.CodigoProduto ,tb_produto.Tamanho ";
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -917,7 +884,7 @@ namespace ECCE.Data
                         Valor = Convert.ToDecimal(Dr["Valor"]),
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
-                        Ativo = Convert.ToInt32(Dr["Ativo"]),
+                        Ativo = Dr["Ativo"].ToString(),
                     };
 
                     item.Foto = Dr["Foto"].ToString();

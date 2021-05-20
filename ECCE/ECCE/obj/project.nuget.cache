@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8jhP5RN3Ns6VAOk0RHuZG4LmY6E/EmmYrZkF370sUiMNecEvX0iQJz0oA/cBY9d1/y9Houxbmn1px+t0hAd4YQ==",
+  "dgSpecHash": "iPFIkaCm0hauLZLYlKcDWa8mZOCtB8GfhOeDCakg+ka3lBtVyQ0xgly+r0SzOI0rdzggd0sB9CFCys3DBCK7qA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\ECCE.csproj",
+  "projectFilePath": "C:\\Users\\danie\\Downloads\\Down\\ECCE_TOPV18.05.2\\ECCE_TOPV18.05.2\\ECCE\\ECCE\\ECCE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\google.protobuf\\3.13.0\\google.protobuf.3.13.0.nupkg.sha512",
@@ -154,8 +154,7 @@
     "C:\\Users\\danie\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\danie\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\danie\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.13\\microsoft.netcore.app.host.win-x64.3.1.13.nupkg.sha512"
+    "C:\\Users\\danie\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

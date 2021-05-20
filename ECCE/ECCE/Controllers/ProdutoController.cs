@@ -78,13 +78,11 @@ namespace ECCE.Controllers
 
         public IActionResult CadastroProduto()
         {
-
             ProdutoDB Gen = new ProdutoDB();
             ProdutoDB Tam = new ProdutoDB();
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
             ViewData["LTGenero"] = Gen.GetGenero();
             ViewData["LTTam"] = Tam.GetTamanho();
 
@@ -98,8 +96,6 @@ namespace ECCE.Controllers
             ProdutoDB Gen = new ProdutoDB();
             ProdutoDB Tam = new ProdutoDB();
 
-
-
             ViewData["LTGenero"] = Gen.GetGenero();
             ViewData["LTTam"] = Tam.GetTamanho();
 
@@ -108,7 +104,7 @@ namespace ECCE.Controllers
             var resp = Prod.GetProduto(CodigoProduto);
 
             resp.JsonLTGenero = resp.JsonLTGenero.Replace("CodigoGenero", "Codigo");
-            resp.JsonLTTamanho = resp.JsonLTTamanho.Replace("CodigoTamanho", "Codigo");
+            //resp.JsonLTTamanho = resp.JsonLTTamanho.Replace("CodigoTamanho", "Codigo");
 
             return View("CadastroProduto", resp);
         }

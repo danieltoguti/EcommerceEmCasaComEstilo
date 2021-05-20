@@ -6,9 +6,7 @@
     var LTGenero = (List<SelectListItem>)(@ViewData["LTGenero"]);
     var LTTam = (List<SelectListItem>)(@ViewData["LTTam"]);
 
-    Layout = "_Layout_dashboard";
-
-}
+    Layout = "_Layout_dashboard"; }
 
 
 <style>
@@ -26,37 +24,56 @@
         font-size: 32px;
     }
 </style>
+<hr />
+<h4 class="font-weight-bold">Cadastro de Produto</h4>
+<hr />
 
-<h1>Cadastro de Produto</h1>
 
 <form id="FormProduto" asp-action="Salvar" asp-controller="Produto">
     <div class="form-group">
-
-        <label asp-for="tb_produto.CodigoInterno"></label>
-        <input type="text" class="form-control" asp-for="tb_produto.CodigoInterno">
-
-        <label asp-for="tb_produto.Nome"></label>
-        <input type="text" class="form-control" asp-for="tb_produto.Nome">
-
-        <label asp-for="tb_produto.Descricao"></label>
-        <input type="text" class="form-control" asp-for="tb_produto.Descricao">
-
-        <label asp-for="tb_produto.Valor"></label>
-        <input type="text" class="form-control" asp-for="tb_produto.Valor">
-
-        <label asp-for="tb_produto.Peso"></label>
-        <input type="text" class="form-control" asp-for="tb_produto.Peso">
-
-        <label asp-for="tb_produto.Ativo"></label>
-        <input type="text" class="form-control" asp-for="tb_produto.Ativo">
-
+        <div class="col form-row">
+            <div class="col-md-2 form-group">
+                <label asp-for="tb_produto.CodigoInterno"></label>
+                <input type="text" class="form-control" asp-for="tb_produto.CodigoInterno">
+            </div>
+            <div class="col-md-3 form-group">
+                <label asp-for="tb_produto.Nome"></label>
+                <input type="text" class="form-control" asp-for="tb_produto.Nome">
+            </div>
+            <div class="col form-group">
+                <label asp-for="tb_produto.Descricao"></label>
+                <input type="text" class="form-control" asp-for="tb_produto.Descricao">
+            </div>
+        </div>
+    </div>
+    <div class="col form-row">
+        <div class="col-md-3 form-group">
+            <label asp-for="tb_produto.Valor"></label>
+            <input type="text" class="form-control" asp-for="tb_produto.Valor">
+        </div>
+        <div class="col-md-2 form-group">
+            <label asp-for="tb_produto.Peso"></label>
+            <input type="text" class="form-control" asp-for="tb_produto.Peso">
+        </div>
+        <div class="col-2 form-group">
+            <label asp-for="tb_produto.Quantidade"></label>
+            <input type="text" class="form-control" asp-for="tb_produto.Quantidade">
+        </div>
+        <div class="col-3 form-group">
+            <label asp-for="tb_produto.Ativo"></label>
+            <select type="text" class="form-control" asp-for="tb_produto.Ativo">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+        </div>
+        <div class="col-2 form-group">
+            <label asp-for="tb_produto.Tamanho"></label>
+            <input type="text" class="form-control" asp-for="tb_produto.Tamanho">
+        </div>
         <input type="hidden" asp-for="tb_produto.CodigoProduto">
 
-        <!-- <input type="hidden" asp-for="JsonLTCategoria">
-         <input type="hidden" asp-for="JsonLTCor">
-         -->
         <input type="hidden" asp-for="JsonLTGenero">
-        <input type="hidden" asp-for="JsonLTTamanho">
+        <!--<input type="hidden" asp-for="JsonLTTamanho">-->
         <input type="hidden" asp-for="JsonLTFoto">
     </div>
 
@@ -89,29 +106,7 @@
 
 
     <hr />
-<!--
-    <h5><b>Cor</b></h5>
-    <hr />
-    <div class="row">
-        <div class="form-group col-md-4">
-            <select id="txt_Cor" asp-items="LTCor" class="form-control"></select>
-        </div>
-        <div class="form-group col-md-4">
-            <button type="button" class="btn btn-success" onclick="Add('CO', 'txt_Cor');">Adicionar Cor</button>
-        </div>
-        <div>
-            <table id="tb_cor" class="table">
-                <thead>
-                    <tr>
-                        <th>Cor Selecionada</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
--->
+
     <h5><b>Genero</b></h5>
     <hr />
 
@@ -134,51 +129,7 @@
             </table>
         </div>
     </div>
-    <h5><b>Tamanho</b></h5>
     <hr />
-    <div class="row">
-        <div class="form-group col-md-4">
-            <select id="txt_Tamanho" asp-items="LTTam" class="form-control"></select>
-        </div>
-        <div class="form-group col-md-4">
-            <button type="button" class="btn btn-success" onclick="Add('T','txt_Tamanho');">Adicionar Tamanho</button>
-        </div>
-        <div>
-            <table id="tb_tamanho" class="table">
-                <thead>
-                    <tr>
-                        <th>Tamanho Selecionado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-<!--
-    <h5><b>Categoria</b></h5>
-    <hr />
-    <div class="row">
-        <div class="form-group col-md-4">
-            <select asp-items="LTCategorias" class="form-control" id="txt_cat_descricao"></select>
-        </div>
-        <div class="form-group col-md-4">
-            <button type="button" class="btn btn-success" onclick="Add('C','txt_cat_descricao');">Adicionar Categoria</button>
-        </div>
-        <div>
-            <table id="tb_cat" class="table">
-                <thead>
-                    <tr>
-                        <th>Categoria Selecionada</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    -->
-
 
     @Html.Raw(ViewData["Valida"])
 
@@ -192,11 +143,10 @@
 <script src="~/js/compress.js"></script>
 
 <script>
-    //var MtzCategoria;
-    //var MtzCor;
+
     var MtzFoto;
     var MtzGenero;
-    var MtzTamanho;
+    //var MtzTamanho;
 
 
 
@@ -204,16 +154,12 @@
 
         SetSubmit();
 
-        //MtzCor = StartMTZ(MtzCor, "JsonLTCor");
-       // MtzCategoria = StartMTZ(MtzCategoria, "JsonLTCategoria");
         MtzGenero = StartMTZ(MtzGenero, "JsonLTGenero");
-        MtzTamanho = StartMTZ(MtzTamanho, "JsonLTTamanho");
+        //MtzTamanho = StartMTZ(MtzTamanho, "JsonLTTamanho");
         MtzFoto = StartMTZ(MtzFoto, "JsonLTFoto");
 
-        //Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", "CO");
-        //Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", "C");
         Get_Mtzs("JsonLTGenero", MtzGenero, "tb_genero", "G");
-        Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", "T");
+        //Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", "T");
         Get_Mtzs("JsonLTFoto", MtzFoto, "tb_Foto", "F");
 
         AjustarIMG('f_Foto1', 'F1', 'txt_foto');
@@ -236,20 +182,12 @@
         var Codigo = $("#" + obj + " option:selected").val();
 
         switch (Tipo) {
-            /*case "CO":
-                AddMTZ(MtzCor, Codigo, Descricao, "JsonLTCor", "tb_cor", Tipo);
-                break;
-            case "C":
-                AddMTZ(MtzCategoria, Codigo, Descricao, "JsonLTCategoria", "tb_cat", Tipo);
-                break;*/
             case "G":
                 AddMTZ(MtzGenero, Codigo, Descricao, "JsonLTGenero", "tb_genero", Tipo);
                 break;
-            case "T":
-                AddMTZ(MtzTamanho, Codigo, Descricao, "JsonLTTamanho", "tb_tamanho", Tipo);
-                break;
-
-
+            //case "T":
+            //    AddMTZ(MtzTamanho, Codigo, Descricao, "JsonLTTamanho", "tb_tamanho", Tipo);
+            //    break;
         }
     }
 
@@ -294,17 +232,6 @@
         $(obj).closest('tr').remove();
 
         switch (Tipo) {
-            /*case "CO":
-                delete MtzCor[index];
-                MtzCor.splice(index, 1);
-                Get_Mtzs("JsonLTCor", MtzCor, "tb_cor", Tipo);
-                break;
-
-            case "C":
-                delete MtzCategoria[index];
-                MtzCategoria.splice(index, 1);
-                Get_Mtzs("JsonLTCategoria", MtzCategoria, "tb_cat", Tipo);
-                break;  */
 
             case "G":
                 delete MtzGenero[index];
@@ -312,11 +239,11 @@
                 Get_Mtzs("JsonLTGenero", MtzGenero, "tb_genero", Tipo);
                 break;
 
-            case "T":
-                delete MtzTamanho[index];
-                MtzTamanho.splice(index, 1);
-                Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", Tipo);
-                break;
+            //case "T":
+            //    delete MtzTamanho[index];
+            //    MtzTamanho.splice(index, 1);
+            //    Get_Mtzs("JsonLTTamanho", MtzTamanho, "tb_tamanho", Tipo);
+            //    break;
 
             case "F":
                 delete MtzFoto[index];

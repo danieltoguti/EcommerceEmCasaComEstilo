@@ -1,11 +1,10 @@
-﻿
-@{
-    @model CadastroLogin;
-    ViewData["Title"] = "Cadastro";
+﻿@model CadastroLogin;
+@{ ViewData["Title"] = "Cadastro";
 }
+
 <script type="text/javascript" src="~/js/viacep.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
-
+@Html.Raw(ViewData["Valida"])
 <form id="FormCadastro" asp-action="Salvar" asp-controller="Usuario">
     <div class="row">
         <aside class="col-md-12">
@@ -17,62 +16,45 @@
                     <div class="form-row">
                         <div class="col form-group">
                             <label asp-for="tb_login.Nome"></label>
-                            <input type="text" class="form-control" asp-for="tb_login.Nome">
+                            <input type="text" class="form-control" required asp-for="tb_login.Nome">
                         </div>
-                        <!--
-                        <div class="col form-group">
-                            <label>Sobrenome</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div> -->
-                    </div> <!-- form-row end.// -->
-                    <div class="form-row">
                         <div class="col form-group">
                             <label asp-for="tb_login.CPF_CNPJ"></label>
-                            <input type="text" class="form-control" asp-for="tb_login.CPF_CNPJ">
-                        </div> <!-- form-group end.// -->
-                        <div class="col form-group">
-                            <label asp-for="tb_login.Telefone"></label>
-                            <input type="text" class="form-control" asp-for="tb_login.Telefone">
-                        </div> <!-- form-group end.// -->
+                            <input type="text" class="form-control" onkeyup="mascara('###.###.###-##',this,event,false)" MaxLength="14" required asp-for="tb_login.CPF_CNPJ">
+                        </div>
                     </div> <!-- form-row end.// -->
-                    <div class="form-group">
-                        <label asp-for="tb_login.Email"></label>
-                        <input type="email" class="form-control" asp-for="tb_login.Email">
-                    </div>
-
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label asp-for="tb_login.Senha"></label>
-                            <input type="password" class="form-control" asp-for="tb_login.Senha">
+                        <div class="form-group col-md-3">
+                            <label asp-for="tb_login.Telefone"></label>
+                            <input type="text" class="form-control" onkeyup="mascara('(##)#####-####',this,event,false)" MaxLength="14" required asp-for="tb_login.Telefone">
                         </div> <!-- form-group end.// -->
-                        <div class="form-group col-md-6">
-                            <label>Repetir Senha</label>
-                            <input type="password" class="form-control" asp-for="tb_login.Senha">
+                        <div class="form-group col-md-5">
+                            <label asp-for="tb_login.Email"></label>
+                            <input type="email" class="form-control" required asp-for="tb_login.Email">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="tb_login.Senha"></label>
+                            <input type="password" class="form-control" required asp-for="tb_login.Senha">
                         </div> <!-- form-group end.// -->
                     </div>
-
 
                     @if (ViewData["Tipo"].ToString() == "A")
                     {
-                        <div class="form-group col-md-3">
-                            <label asp-for="tb_login.Tipo"></label>
-                            <select type="text" class="form-control" asp-for="tb_login.Tipo">
-                                <option value="A">Admininistrador</option>
-                                <option value="C">Cliente</option>
-                                <option value="F">Funcionário</option>
-                                <option value="G">Gerente</option>
-                            </select>
-                        </div>
-
+        <div class="form-group col-md-3">
+            <label asp-for="tb_login.Tipo"></label>
+            <select type="text" class="form-control" asp-for="tb_login.Tipo">
+                <option value="A">Admininistrador</option>
+                <option value="C">Cliente</option>
+            </select>
+        </div>
                         <div class="form-group col-md-3">
                             <label asp-for="tb_login.Ativo"></label>
                             <select type="text" class="form-control" asp-for="tb_login.Ativo">
-                                <option value="1">Ativo</option>
-                                <option value="0">Inativo</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
                             </select>
                         </div>
-                    }
-
+                     }
                     <input type="hidden" asp-for="tb_login.CodigoLogin">
                     <input type="hidden" asp-for="JsonLTEDR">
 
@@ -81,35 +63,33 @@
                         <hr />
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label for="txt_ender_descricao">Tipo</label>
                                 <input type="text" class="form-control" id="txt_ender_descricao" placeholder="casa, escritório, casa de praia">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-2">
                                 <label for="txt_ender_cep">Cep</label>
-                                <input type="text" class="form-control" id="txt_ender_cep">
+                                <input type="text" onkeyup="mascara('#####-###',this,event,false)" MaxLength="10"  class="form-control" id="txt_ender_cep">
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="txt_ender_endereco">Logradouro</label>
                                 <input type="text" class="form-control" id="txt_ender_endereco">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-1">
                                 <label for="txt_ender_numero">Número</label>
                                 <input type="text" class="form-control" id="txt_ender_numero">
                             </div>
-                            <div class="form-group col-md-4">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
                                 <label for="txt_ender_bairro">Bairro</label>
                                 <input type="text" class="form-control" id="txt_ender_bairro">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="txt_ender_cidade">Cidade</label>
                                 <input type="text" class="form-control" id="txt_ender_cidade">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-1">
                                 <label for="txt_ender_uf">UF</label>
                                 <input type="text" class="form-control" id="txt_ender_uf">
                             </div>
@@ -120,42 +100,29 @@
                     </div>
 
                     <table id="tb_endereco" class="table bg-white">
-
                         <tbody>
                         </tbody>
                     </table>
-
                     <div class="form-group mt-3">
-                        @Html.Raw(ViewData["Valida"])
                         <button type="submit" class="btn btn-primary btn-block" style="width:10%"> Registrar  </button>
                         @if (ViewData["Tipo"].ToString() == "A")
                         {
-                            <br />
-                            <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='../Home/DashBoard'">Dashboard</button>
-
-                        }
+            <br />
+                            <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='../Home/DashBoard'">Dashboard</button>}
                     </div>
                     <p class="text-muted">Ao clicar no botão 'Registrar', você confirma que aceita nossos <strong>Termos de uso</strong> e <strong>Política de Privacidade</strong>.</p>
                     <hr>
                     <p class="text-center">Já tem conta? <a asp-area="" asp-controller="Login" asp-action="Index">Faça login</a></p>
                 </article>
-
-
             </div>
         </aside>
-
     </div>
-
-
-
 </form>
 
 
 
 <script>
     var MtzEndereco;
-
-
 
     $(document).ready(function () {
 
@@ -168,6 +135,7 @@
 
         GetTabela();
     });
+
 
 
     function AddEndereco() {
@@ -202,6 +170,44 @@
 
     }
 
+    function mascara(m, t, e, c) {
+        var cursor = t.selectionStart;
+        var texto = t.value;
+        texto = texto.replace(/\D/g, '');
+        var l = texto.length;
+        var lm = m.length;
+        if (window.event) {
+            id = e.keyCode;
+        } else if (e.which) {
+            id = e.which;
+        }
+        cursorfixo = false;
+        if (cursor < l) cursorfixo = true;
+        var livre = false;
+        if (id == 16 || id == 19 || (id >= 33 && id <= 40)) livre = true;
+        ii = 0;
+        mm = 0;
+        if (!livre) {
+            if (id != 8) {
+                t.value = "";
+                j = 0;
+                for (i = 0; i < lm; i++) {
+                    if (m.substr(i, 1) == "#") {
+                        t.value += texto.substr(j, 1);
+                        j++;
+                    } else if (m.substr(i, 1) != "#") {
+                        t.value += m.substr(i, 1);
+                    }
+                    if (id != 8 && !cursorfixo) cursor++;
+                    if ((j) == l + 1) break;
+
+                }
+            }
+            if (c) coresMask(t);
+        }
+        if (cursorfixo && !livre) cursor--;
+        t.setSelectionRange(cursor, cursor);
+    }
 
     function GetTabela() {
         $("#JsonLTEDR").val(JSON.stringify(MtzEndereco));
@@ -231,25 +237,25 @@
         MtzEndereco.splice(x, 1);
         GetTabela();
     }
-    function SetSubmit() {
+    function setsubmit() {
         $('#FormCadastro').submit(function (e) {
-            e.preventDefault();
+            e.preventdefault();
             var form = $(this);
             var url = form.attr('action');
             $.ajax({
-                type: "POST",
+                type: "post",
                 url: url,
                 data: form.serialize(),
                 success: function (data) {
                     if (data.success) {
-                        alertSucesso(data.msg);
+                        alertsucesso(data.msg);
                     } else {
 
-                        if (data.msg.indexOf("Erro") > -1) {
-                            alertErro(data.msg);
+                        if (data.msg.indexof("erro") > -1) {
+                            alerterro(data.msg);
                         }
                         else {
-                            alertInformacao(data.msg);
+                            alertinformacao(data.msg);
                         }
                     }
                 }

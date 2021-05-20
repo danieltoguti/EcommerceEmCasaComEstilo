@@ -1,21 +1,17 @@
 ﻿@{
-    @model List<tb_genero>;
-    ViewData["Title"] = "Genero";
+                @model List<tb_genero>;
+                ViewData["Title"] = "Genero";
 
-    Layout = "_Layout_dashboard";
-
-}
-
-<div >
-    <table class="table">
-        <tr>
-            <th><h4>Gêneros</h4></th>
-            <th></th>
-            <th></th>
-            <th class="text-sm-right"><button class="btn btn-primary" type="button" onclick="window.location.href ='/genero/cadastrogenero'">Novo Gênero</button>
-            <th>
-        </tr>
-    </table>
+                Layout = "_Layout_dashboard"; }
+<hr />
+<div class="row">
+    <div class="col-md-10"><h4 class="font-weight-bold">Lista de Gêneros</h4></div>
+    <div class=" col-md-2">
+        <button class="btn btn-primary" type="button" onclick="window.location.href ='/genero/cadastrogenero'">Novo Gênero</button>
+    </div>
+</div>
+<hr />
+<div>
     @if (Model.Count > 0)
     {
 <table class="table table-striped table-sm">
@@ -32,23 +28,23 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>@item.CodigoGenero</td>
-            <td>@item.Descricao</td>
-            <td></td>
-            <td></td>
-            <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/genero/editar?CodigoGenero=@item.CodigoGenero&Descricao=@item.Descricao'"><i class="fa fa-edit"></i></button></td>
-           <!-- <td><button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='/genero/excluir?CodigoGenero=@item.CodigoGenero'"><i class="fa fa-trash"></i></button></td>
-            -->
-        </tr>                }
-    </tbody>
+<tr>
+    <td>@item.CodigoGenero</td>
+    <td>@item.Descricao</td>
+    <td></td>
+    <td></td>
+    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/genero/editar?CodigoGenero=@item.CodigoGenero&Descricao=@item.Descricao'"><i class="fa fa-edit"></i></button></td>
+    @*<td><button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='/genero/excluir?CodigoGenero=@item.CodigoGenero'"><i class="fa fa-trash"></i></button></td>*@
+    
+</tr>                }
+</tbody>
 </table>
     }
     else
     {
-        <div class="alert alert-primary" role="alert">
-            Sem Registros!
-        </div>
+<div class="alert alert-primary" role="alert">
+    Sem Registros!
+</div>
     }
 
 </div>

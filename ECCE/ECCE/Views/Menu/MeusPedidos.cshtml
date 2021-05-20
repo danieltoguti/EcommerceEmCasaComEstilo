@@ -1,0 +1,59 @@
+﻿@{
+                @model List<TodosPedidos>;
+                ViewData["Title"] = "Genero";
+ }
+
+<style>
+    .card {
+        flex-direction: column;
+        text-align: center;
+        border: none;
+        background: #dcdcdc;
+    }
+    #tabelasempedido {
+  
+    }
+    </style>
+<hr />
+<h4 class="font-weight-bold">Minhas Compras</h4>
+<hr />
+<div class="card">
+
+    @if (Model.Count > 0)
+    {
+<table class="table table-striped table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Número da Compra </th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ver Itens</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>@item.CodigoVenda</td>
+    <td>@item.Valor.ToString("C")</td>
+    <td>@item.Data</td>
+    <td>@item.Status</td>
+    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/pedido/VerIten?CodigoVenda=@item.CodigoVenda'"><i class="fa fa-search"></i></button></td>
+</tr>
+}
+    </tbody>
+</table> }
+            else
+            {
+
+<div>
+    <div class="icon"><span style="font-size: 38px">:(</span></div>
+    <h3>Você ainda não fez nenhuma compra. Essa é sua hora! </h3>
+</div>}
+
+</div>
+
+
+
+
