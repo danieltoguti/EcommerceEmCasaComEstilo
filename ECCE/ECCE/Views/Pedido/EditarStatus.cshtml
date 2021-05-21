@@ -3,16 +3,23 @@
                 @model tb_venda;
                 ViewData["Title"] = "Editar Status";
 
-                Layout = "_Layout_dashboard"; 
-    }
+                Layout = "_Layout_dashboard"; }
 
 <hr />
 <h4 class="font-weight-bold">Atualização de Status</h4>
 <hr />
 <form asp-action="Salvar" asp-controller="Pedido">
     <div class="form-group">
-        <label asp-for="Status"></label>
-        <input type="text" class="form-control" asp-for="Status">
+        @*<label asp-for="Status"></label>
+            <input type="text" class="form-control" asp-for="Status">
+        *@
+
+        <select type="text" class="form-control" asp-for="Status">
+            <option value="Novo Pedido!">Novo Pedido!</option>
+            <option value="Preparando Pedido">Preparando Pedido</option>
+            <option value="Pedido Enviado">Pedido Enviado</option>
+            <option value="Entregue com Sucesso!">Entregue com Sucesso!</option>
+        </select>
         <input type="hidden" asp-for="CodigoVenda">
     </div>
 

@@ -45,7 +45,7 @@ namespace ECCE.Data
                 cmd.Connection = cn;
 
                 Sql = "insert into tb_venda(CodigoLogin,CodigoEndereco,ValorFinal,DataRegistro,Status) values";
-                Sql += "(@CodigoLogin,@CodigoEndereco,@ValorFinal,now(),0)";
+                Sql += "(@CodigoLogin,@CodigoEndereco,@ValorFinal,now(), 'Novo Pedido!')";
                 cmd.Parameters.AddWithValue("@CodigoLogin", CodigoLogin);
                 cmd.Parameters.AddWithValue("@CodigoEndereco", CodigoEndereco);
                 cmd.Parameters.AddWithValue("@ValorFinal", obj.TotalPedido);
@@ -218,7 +218,7 @@ namespace ECCE.Data
                 cn.Open();
 
                 sSQL = "SELECT v.codigovenda, l.Nome, v.ValorFinal, v.Dataregistro, v.Status FROM tb_venda AS v " +
-                    "INNER JOIN tb_login AS l ON v.CodigoLogin = l.CodigoLogin;";
+                    "INNER JOIN tb_login AS l ON v.CodigoLogin = l.CodigoLogin ORDER BY v.CodigoVenda desc;";
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -259,7 +259,7 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "SELECT v.codigovenda, v.valorfinal, v.dataregistro, v.status FROM tb_venda AS v WHERE v.CodigoLogin=" + cod;
+                sSQL = "SELECT v.codigovenda, v.valorfinal, v.dataregistro, v.status FROM tb_venda AS v WHERE v.CodigoLogin=" + cod + " ORDER BY v.CodigoVenda desc";
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;

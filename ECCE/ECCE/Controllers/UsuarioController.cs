@@ -235,7 +235,7 @@ namespace ECCE.Controllers
 
         }
 
-            public IActionResult SalvarSemSenha(CadastroLogin obj)
+            public IActionResult SalvarSemSenhaCliente(CadastroLogin obj)
         {
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -246,7 +246,7 @@ namespace ECCE.Controllers
             if (smgvalida != "")
             {
                 ViewData["Valida"] = smgvalida;
-                return View("AtualizarSenha");
+                return View("AtualizarSenhaCliente");
             }
 
             UsuarioDB Usu = new UsuarioDB();
@@ -274,7 +274,7 @@ namespace ECCE.Controllers
                 {
                     ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao inserir Registro!</div>";
                 }
-                return View("AtualizaCadastro");
+                return View("AtualizaCadastroCliente");
             }
             else
             {
@@ -286,7 +286,62 @@ namespace ECCE.Controllers
                 {
                     ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Registro!</div>";
                 }
-                return View("AtualizaCadastro");
+                return View("AtualizaCadastroCliente");
+            }
+        }
+
+        public IActionResult SalvarSemSenhaColaborador (CadastroLogin obj)
+        {
+
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+
+            string smgvalida = Validar(obj.tb_login);
+            if (smgvalida != "")
+            {
+                ViewData["Valida"] = smgvalida;
+                return View("AtualizarSenhaColaborador");
+            }
+
+            UsuarioDB Usu = new UsuarioDB();
+
+            if (!String.IsNullOrWhiteSpace(obj.JsonLTEDR))
+            {
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                    Culture = new System.Globalization.CultureInfo("pt-BR")
+                };
+
+                obj.tb_endereco = JsonConvert.DeserializeObject<List<tb_endereco>>(obj.JsonLTEDR, settings);
+            }
+
+            if (obj.tb_login.CodigoLogin == 0)
+            {
+
+                if (Usu.InserirDados(obj))
+                {
+                    ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Cadastro efetuado com sucesso!  ";
+                }
+                else
+                {
+                    ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao inserir Registro!</div>";
+                }
+                return View("AtualizaCadastroColaborador");
+            }
+            else
+            {
+                if (Usu.UpDateDadosUsuarioSemSenha(obj))
+                {
+                    ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Registro atualizado com sucesso!</div>";
+                }
+                else
+                {
+                    ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Registro!</div>";
+                }
+                return View("AtualizaCadastroColaborador");
             }
         }
 
