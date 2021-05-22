@@ -30,6 +30,15 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
+
+            /*=============*/
+            
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+            
+            /*============*/
+
             return View(MLista);
         }
 
@@ -39,6 +48,10 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             return View();
         }
 
@@ -46,6 +59,10 @@ namespace ECCE.Controllers
         {
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
             var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
 
@@ -62,6 +79,10 @@ namespace ECCE.Controllers
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
             var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
 
@@ -96,6 +117,10 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
 
             UsuarioDB Usu = new UsuarioDB();
@@ -128,6 +153,10 @@ namespace ECCE.Controllers
         {
             ViewData["Valida"] = "";
 
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
@@ -137,6 +166,10 @@ namespace ECCE.Controllers
         public IActionResult AddEndereco()
         {
             ViewData["Valida"] = "";
+
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);

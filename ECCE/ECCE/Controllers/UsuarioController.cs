@@ -60,6 +60,10 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             return View();
         }
 

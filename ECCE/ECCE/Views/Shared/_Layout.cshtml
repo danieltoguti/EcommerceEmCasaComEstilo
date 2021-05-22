@@ -103,7 +103,18 @@
                                     <a class="icontext mr-2" asp-area="" asp-controller="Home" asp-action="Carrinho">
                                         <div class="icon"><i class="fa fa-lg fa-shopping-cart"></i></div>
                                         <div class="text">
-                                            <span>Meu carrinho</span>
+
+                                            @{
+                                                if (Convert.ToInt32(ViewData["TotalCarrinho"].ToString()) > 0)
+                                                {
+                                                    <span>Meu carrinho <span class="badge badge-secondary" id="dvTCar">@ViewData["TotalCarrinho"].ToString()</span></span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Meu carrinho <span class="badge badge-secondary" id="dvTCar" style="display:none;"></span></span>
+                                                }
+                                            }
+
                                         </div>
                                     </a>
 

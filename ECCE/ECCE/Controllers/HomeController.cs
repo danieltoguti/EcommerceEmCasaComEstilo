@@ -25,10 +25,13 @@ namespace ECCE.Controllers
 
         private readonly ILogger<HomeController> _logger;
 
+        private readonly CarrinhoController _Carrinho;
+
         public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _hCont = httpContextAccessor;
+            _Carrinho = new CarrinhoController(_hCont);
         }
 
 
@@ -40,6 +43,11 @@ namespace ECCE.Controllers
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
 
             return View(resp);
         }
@@ -65,6 +73,9 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             return View(resp);
         }
 
@@ -77,6 +88,9 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             return View(resp);
         }
 
@@ -88,6 +102,9 @@ namespace ECCE.Controllers
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
             return View(resp);
         }
@@ -102,7 +119,11 @@ namespace ECCE.Controllers
 
             ViewData["Carrinho"] = car.GetAll();
 
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c=>c.Quantidade) : 0;
+
             return View();
+
         }
 
 
@@ -118,7 +139,9 @@ namespace ECCE.Controllers
 
             ViewData["ListTamanhoProd"] = Produto.GetTamanhoProduto(id);
             ViewData["Carrinho"] = car.GetAll();
-            
+
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
             return View(resp);
         }
@@ -140,7 +163,10 @@ namespace ECCE.Controllers
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
             ViewData["Carrinho"] = car.GetAll();
-            
+
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             if (ViewData["NomeLogin"] == "")
             {
                 return RedirectToAction("index", "login",new { redirect = "finalizar" });
@@ -158,14 +184,22 @@ namespace ECCE.Controllers
                 ViewData["Enderecos"] = GetEnderecos();
                 return View();
             }
-
+           
         }
 
-
+        
 
         public IActionResult FinalizarPedido(FinalizarPedidoVM obj) {
 
             FinalizarPedidoDB fPed = new FinalizarPedidoDB(_hCont);
+
+
+            var RespEstoque = fPed.ValidaQuantidade();
+
+            if (RespEstoque != "") {
+                return Json(new { success = false, msg = RespEstoque, redirect = "/home/Index" });
+            }
+
 
             var Resp = fPed.FinalizarPedido(obj);
 

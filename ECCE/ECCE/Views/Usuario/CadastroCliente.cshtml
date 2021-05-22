@@ -247,15 +247,15 @@
                 url: url,
                 data: form.serialize(),
                 success: function (data) {
-                    if (data.success) {
-                        alertsucesso(data.msg);
+                    if (data.success) {                        
+                        alertSucesso(data.msg);
                     } else {
 
                         if (data.msg.indexof("erro") > -1) {
-                            alerterro(data.msg);
+                            alertErro(data.msg);
                         }
                         else {
-                            alertinformacao(data.msg);
+                            alertInformacao(data.msg);
                         }
                     }
                 }

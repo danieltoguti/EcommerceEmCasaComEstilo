@@ -95,7 +95,6 @@ namespace ECCE.Data
             }
         }
 
-
         public int GetCodigoEndereco(int CodigoLogin, string CEP)
         {
             try
@@ -169,6 +168,51 @@ namespace ECCE.Data
                 return 0;
             }
         }
+
+
+        public string ValidaQuantidade()
+
+        {
+            try
+            {
+                CarrinhoController car = new CarrinhoController(_hCont);
+                var Carrinho = car.GetAllDB();
+
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(scnx);
+                string Sql = "";
+                cn.Open();
+                cmd.Connection = cn;
+
+                string Result = "";
+
+                foreach (var item in Carrinho)
+                {
+                    
+                    cmd.Parameters.Clear();
+                    Sql = "SELECT Quantidade FROM tb_produto WHERE CodigoProduto="+ item.CodigoProduto;
+                    Sql += " AND Quantidade>=" + item.Quantidade;
+                                        
+                    cmd.CommandText = Sql;
+                    var Dr = cmd.ExecuteReader();
+
+                    if (!Dr.HasRows) {
+
+                        Result += "O Produto " + item.Nome + " sem em estoque" + Environment.NewLine;
+                    }
+                    Dr.Close();
+                }
+
+
+                return Result;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return msg;
+            }
+        }
+
 
         public int GetPedidoStatus(int CodigoVenda)
         {

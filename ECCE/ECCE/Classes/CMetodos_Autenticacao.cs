@@ -24,6 +24,7 @@ namespace ECCE.Classes
         public static async Task<string> LoginValidoAsync(string Email, string Senha, IHttpContextAccessor hcont)
         {
 
+
             using (MySqlConnection Cnn = new MySqlConnection(CConexao.Get_StringConexao()))
             {
                 try

@@ -36,12 +36,7 @@
                         </div>
                         <br>
                         <div class="input-group">
-                            @*<input id="txt_cep" type="text" class="form-control" name="CEP" placeholder="CEP">*@
                             <select id="txt_cep" class="form-control txt" asp-items="LTEnderecos"></select>
-
-                            @*<span class="input-group-append">
-                                    <button id="btn_Calcular" type="button" class="btn btn-primary">Calcular</button>
-                                </span>*@
                         </div>
                         <br>
                         <p>Valor do frete:  R$ <span id="RespFrete"></span></p>
@@ -136,7 +131,7 @@
         </aside>
     </div>
 
-    <button class="btn btn-primary text-right" type="submit" href="##">Efetuar Pagamento</button>
+    <button id="btFinalizar" class="btn btn-primary text-right" type="button" href="##" onclick="FinalizarPedido();">Efetuar Pagamento</button>
 
     <hr />
 
@@ -186,10 +181,14 @@
 
 
         $("#NumeroCartao").blur(function () {
+            if ($(this).val() == "") {
+                return;
+            }
             GetBandeiraCC($(this).val(), $("#dvBCC"), $("#BandeiraSel"));
             setTimeout(function () {
                 GetParcelamento($("#ValorFinal").html(), $("#BandeiraSel").val(), $("#Parcelamento"), $("#dvParceLoading"));
                 $("#dvCardNumberCC").html("");
+                $("#dvParcelamento").show();                
             }, 1000);
 
         });
@@ -202,9 +201,10 @@
                 $("#dvbanco").show();
             }
 
-            else if ($(this).val() == 1) {
+            /*else if ($(this).val() == 1) {
+
                 $("#dvParcelamento").show();
-            }
+            }*/
 
 
         });
@@ -301,7 +301,6 @@
                         tb += "<figcaption class='media-body'>";
                         tb += "<h6 class='title text-truncate'>" + item.nome + "</h6>";
                         tb += "<dl class='dlist-inline small'><dt>Tamanho: </dt><dd>" + item.tamanho + "</dd></dl>";
-                        //tb += "<dl class='dlist-inline small'><dt>Cor: </dt><dd>" + item.cor + "</dd></dl>";
                         tb += "</figcaption></figure ></td>";
                         tb += "<td>" + item.quantidade + " </td>";
                         tb += "<td><div class='price-wrap'><var class='price'>R$ " + formata(item.quantidade * item.preco) + "</var>";
@@ -336,8 +335,8 @@
 
 
     function SomaValorFreteProduto() {
-        var Frete = parseFloat($("#RespFrete").html().replace(',', '.'));
-        var TotalFinal = parseFloat($("#ValorTotalProduto").html().replace(',', '.'));
+        var Frete = parseFloat($("#RespFrete").html().replace('.', '').replace(',', '.'));
+        var TotalFinal = parseFloat($("#ValorTotalProduto").html().replace('.', '').replace(',', '.'));
         var Total = (Frete + TotalFinal).toLocaleString('pt-br', { minimumFractionDigits: 2 });
 
         $("#TotalPedido").val(Total);
@@ -373,6 +372,17 @@
         });
       }
 
+    function FinalizarPedido() {
+        
+        $("#btFinalizar").html("Processando Pagamento");
+        $("#btFinalizar").prop("disabled", true);
+
+        setTimeout(function () {
+            $('#formPagamento').submit();           
+        }, 4000);
+
+    }
+
 
     function SetSubmit() {
         $('#formPagamento').submit(function (e) {
@@ -392,6 +402,9 @@
                         }, 4000);
 
                     } else {
+
+                        $("#btFinalizar").html("Efetuar Pagamento");
+                        $("#btFinalizar").prop("disabled", false);
 
                         if (data.msg.indexOf("Erro") > -1) {
                             alertErro(data.msg);

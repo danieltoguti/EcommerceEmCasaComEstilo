@@ -75,6 +75,7 @@
     });
 
     function AddCar() {
+        $("#dvTCar").fadeOut(200);
         var _tamanho = $("#txt_tamanho option:selected").text();
         var CodigoProd = $("#txt_tamanho option:selected").val();
         var _quantidade = $("#txt_quantidade option:selected").val();
@@ -95,6 +96,22 @@
             processData: true,
             contentType: true,
             success: function (result) {
+
+                var tot = $("#dvTCar").html();
+                var totf = 0;
+
+                if (tot == "" || tot==undefined) {
+                    totf = parseInt(_quantidade);
+                }
+                else {
+                    totf = (parseInt(tot) + parseInt(_quantidade));
+                }
+
+
+                $("#dvTCar").html(totf);
+                $("#dvTCar").fadeIn(200);
+
+
                 GetCarrinho();
                 NotifySucesso("Adicionado com Sucesso!");
             }
