@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   PRIMARY KEY (`CodigoEndereco`),
   KEY `CodigoLogin` (`CodigoLogin`),
   CONSTRAINT `FK__tb_login` FOREIGN KEY (`CodigoLogin`) REFERENCES `tb_login` (`CodigoLogin`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_endereco: ~24 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_endereco: ~25 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_endereco` DISABLE KEYS */;
 INSERT INTO `tb_endereco` (`CodigoEndereco`, `CodigoLogin`, `Descricao`, `CEP`, `Endereco`, `Numero`, `Bairro`, `Cidade`, `UF`) VALUES
 	(47, 29, 'casa', '09725150', 'Rua Luzitânia', '12', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
@@ -59,7 +59,8 @@ INSERT INTO `tb_endereco` (`CodigoEndereco`, `CodigoLogin`, `Descricao`, `CEP`, 
 	(110, 38, 'Casa', '09725150', 'Rua Luzitânia', '23', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
 	(111, 37, 'Casa', '09725150', 'Rua Luzitânia', '54', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
 	(112, 37, 'aaaaaaa', '', '', '', '', '', ''),
-	(113, 34, 'casa', '03004-000', 'Rua do Gasômetro', '4', 'Brás', 'São Paulo', 'SP');
+	(113, 34, 'casa', '03004-000', 'Rua do Gasômetro', '4', 'Brás', 'São Paulo', 'SP'),
+	(114, 29, 'Casa da Praia', '40015-970', 'Praça da Inglaterra', '123', 'Comércio', 'Salvador', 'BA');
 /*!40000 ALTER TABLE `tb_endereco` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela ecce.tb_genero
@@ -141,7 +142,7 @@ INSERT INTO `tb_produto` (`CodigoProduto`, `CodigoInterno`, `Nome`, `Descricao`,
 	(56, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 09:01:25', 0.456, 0, 'Nao', 'G'),
 	(57, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 0, 'Sim', 'M'),
 	(59, 'ECCE-980989', 'Uaou', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 5, 'Sim', 'G'),
-	(60, 'ECCCE-1405211', 'Star Wars', 'Conjunto Calça e camisa manga longa', 48.45, '2021-05-14 09:29:07', 0.123, 75, 'Sim', 'P'),
+	(60, 'ECCCE-1405211', 'Star Wars', 'Conjunto Calça e camisa manga longa', 48.45, '2021-05-14 09:29:07', 0.123, 74, 'Sim', 'P'),
 	(61, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:12', 0.55, 11, 'Sim', 'M'),
 	(62, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:43', 0.55, 9, 'Sim', 'P'),
 	(63, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:43:20', 0.55, 15, 'Sim', 'G'),
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `tb_tamanho` (
   PRIMARY KEY (`CodigoTamanho`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_tamanho: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_tamanho: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_tamanho` DISABLE KEYS */;
 INSERT INTO `tb_tamanho` (`CodigoTamanho`, `Descricao`) VALUES
 	(20, 'P');
@@ -257,30 +258,14 @@ CREATE TABLE IF NOT EXISTS `tb_venda` (
   KEY `CodigoEndereco` (`CodigoEndereco`),
   CONSTRAINT `FK__tb_endereco` FOREIGN KEY (`CodigoEndereco`) REFERENCES `tb_endereco` (`CodigoEndereco`),
   CONSTRAINT `FK__tb_login_endereco` FOREIGN KEY (`CodigoLogin`) REFERENCES `tb_login` (`CodigoLogin`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_venda: ~19 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_venda: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_venda` DISABLE KEYS */;
 INSERT INTO `tb_venda` (`CodigoVenda`, `CodigoLogin`, `CodigoEndereco`, `ParcelaTotal`, `ValorTotal`, `ValorDesconto`, `ValorFinal`, `DataRegistro`, `Status`) VALUES
-	(22, 29, 47, NULL, NULL, NULL, 75.28, '2021-05-13 18:03:42', 'Entregue com Sucesso!'),
-	(23, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-14 09:32:51', 'Entregue com Sucesso!'),
-	(24, 29, 47, NULL, NULL, NULL, 243.21, '2021-05-14 15:56:23', 'Entregue com Sucesso!'),
-	(25, 29, 47, NULL, NULL, NULL, 291.19, '2021-05-14 19:47:41', 'Entregue com Sucesso!'),
-	(27, 29, 47, NULL, NULL, NULL, 51.29, '2021-05-14 19:52:05', 'Entregue com Sucesso!'),
-	(28, 29, 47, NULL, NULL, NULL, 99.27, '2021-05-14 19:54:01', 'Entregue com Sucesso!'),
-	(29, 29, 47, NULL, NULL, NULL, 99.27, '2021-05-14 20:07:59', 'Entregue com Sucesso!'),
-	(30, 29, 47, NULL, NULL, NULL, 99.27, '2021-05-14 20:12:50', 'Entregue com Sucesso!'),
-	(31, 29, 47, NULL, NULL, NULL, 51.29, '2021-05-14 20:15:18', 'Entregue com Sucesso!'),
-	(41, 50, 102, NULL, NULL, NULL, 75.75, '2021-05-16 23:46:09', 'Entregue com Sucesso!'),
-	(42, 29, 47, NULL, NULL, NULL, 207.28, '2021-05-18 21:23:25', 'Entregue com Sucesso!'),
-	(43, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-20 20:20:22', 'Entregue com Sucesso!'),
-	(44, 29, 47, NULL, NULL, NULL, 51.29, '2021-05-20 20:24:17', 'Entregue com Sucesso!'),
-	(45, 29, 47, NULL, NULL, NULL, 51.29, '2021-05-20 20:30:21', 'Pedido Enviado'),
-	(46, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-20 20:37:45', 'Preparando Pedido'),
 	(47, 29, 47, NULL, NULL, NULL, 34.761, '2021-05-20 20:39:34', 'Novo Pedido!'),
 	(48, 29, 47, NULL, NULL, NULL, 51.29, '2021-05-21 09:09:51', 'Novo Pedido!'),
-	(49, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-21 09:59:11', 'Novo Pedido!'),
-	(50, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-21 10:02:42', 'Novo Pedido!');
+	(49, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-21 09:59:11', 'Novo Pedido!');
 /*!40000 ALTER TABLE `tb_venda` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela ecce.tb_venda_itens
@@ -295,32 +280,14 @@ CREATE TABLE IF NOT EXISTS `tb_venda_itens` (
   KEY `CodigoVenda` (`CodigoVenda`),
   CONSTRAINT `FK_tb_venda_itens_tb_produto` FOREIGN KEY (`CodigoProduto`) REFERENCES `tb_produto` (`CodigoProduto`),
   CONSTRAINT `FK_tb_venda_itens_tb_venda` FOREIGN KEY (`CodigoVenda`) REFERENCES `tb_venda` (`CodigoVenda`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_venda_itens: ~21 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_venda_itens: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_venda_itens` DISABLE KEYS */;
 INSERT INTO `tb_venda_itens` (`CodigoVendaItens`, `CodigoVenda`, `CodigoProduto`, `Valor`, `Quantidade`) VALUES
-	(20, 22, 56, 23.99, 1),
-	(21, 22, 57, 23.99, 1),
-	(22, 23, 60, 48.45, 1),
-	(23, 24, 56, 23.99, 5),
-	(24, 24, 57, 23.99, 4),
-	(25, 25, 59, 23.99, 11),
-	(26, 27, 56, 23.99, 1),
-	(27, 28, 56, 23.99, 3),
-	(28, 29, 56, 23.99, 3),
-	(29, 30, 56, 23.99, 3),
-	(30, 31, 56, 23.99, 1),
-	(40, 41, 60, 48.45, 1),
-	(41, 42, 66, 89.99, 1),
-	(42, 43, 60, 48.45, 1),
-	(43, 44, 57, 23.99, 1),
-	(44, 45, 57, 23.99, 1),
-	(45, 46, 60, 48.45, 1),
 	(46, 47, 60, 48.45, 154),
 	(47, 48, 57, 23.99, 1),
-	(48, 49, 60, 48.45, 1),
-	(49, 50, 60, 48.45, 1);
+	(48, 49, 60, 48.45, 1);
 /*!40000 ALTER TABLE `tb_venda_itens` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
