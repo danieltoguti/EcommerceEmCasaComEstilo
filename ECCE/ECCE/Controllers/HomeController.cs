@@ -193,6 +193,8 @@ namespace ECCE.Controllers
 
             FinalizarPedidoDB fPed = new FinalizarPedidoDB(_hCont);
 
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
             var RespEstoque = fPed.ValidaQuantidade();
 
@@ -252,6 +254,10 @@ namespace ECCE.Controllers
         }
         public IActionResult PedidoConcluido()
         {
+
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
             CarrinhoController car = new CarrinhoController(_hCont);
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
