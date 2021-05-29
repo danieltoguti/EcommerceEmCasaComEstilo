@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   PRIMARY KEY (`CodigoEndereco`),
   KEY `CodigoLogin` (`CodigoLogin`),
   CONSTRAINT `FK__tb_login` FOREIGN KEY (`CodigoLogin`) REFERENCES `tb_login` (`CodigoLogin`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_endereco: ~25 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_endereco: ~23 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_endereco` DISABLE KEYS */;
 INSERT INTO `tb_endereco` (`CodigoEndereco`, `CodigoLogin`, `Descricao`, `CEP`, `Endereco`, `Numero`, `Bairro`, `Cidade`, `UF`) VALUES
 	(47, 29, 'casa', '09725150', 'Rua Luzitânia', '12', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
@@ -55,12 +55,12 @@ INSERT INTO `tb_endereco` (`CodigoEndereco`, `CodigoLogin`, `Descricao`, `CEP`, 
 	(74, 35, 'Casa', '09725150', 'Rua Luzitânia', '5', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
 	(83, 33, 'dddd', '09725150', 'Rua Luzitânia', '333', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
 	(91, 29, 'ap', '09725150', 'Rua Luzitânia', '1', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
-	(102, 50, 'casa', '06020194', 'Avenida Manoel Pedro Pimentel', '200', 'Continental', 'Osasco', 'SP'),
 	(110, 38, 'Casa', '09725150', 'Rua Luzitânia', '23', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
-	(111, 37, 'Casa', '09725150', 'Rua Luzitânia', '54', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
-	(112, 37, 'aaaaaaa', '', '', '', '', '', ''),
 	(113, 34, 'casa', '03004-000', 'Rua do Gasômetro', '4', 'Brás', 'São Paulo', 'SP'),
-	(114, 29, 'Casa da Praia', '40015-970', 'Praça da Inglaterra', '123', 'Comércio', 'Salvador', 'BA');
+	(114, 29, 'Casa da Praia', '40015-970', 'Praça da Inglaterra', '123', 'Comércio', 'Salvador', 'BA'),
+	(119, 50, 'casa', '06020194', 'Avenida Manoel Pedro Pimentel', '200', 'Continental', 'Osasco', 'SP'),
+	(120, 37, 'Casa', '09725150', 'Rua Luzitânia', '54', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
+	(121, 37, 'aaaaaaa', '', '', '', '', '', '');
 /*!40000 ALTER TABLE `tb_endereco` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela ecce.tb_genero
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `tb_login` (
 -- Copiando dados para a tabela ecce.tb_login: ~24 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_login` DISABLE KEYS */;
 INSERT INTO `tb_login` (`CodigoLogin`, `Nome`, `Email`, `Telefone`, `CPF_CNPJ`, `Senha`, `Tipo`, `DataCadastro`, `Ativo`) VALUES
-	(29, 'Daniel', 'danieltoguti@gmail.com', '111111', '11', '81dc9bdb52d04dc20036dbd8313ed055', 'A', '2021-05-13 18:00:20', 'Sim'),
+	(29, 'Daniel', 'danieltoguti@gmail.com', '111111', '445', '81dc9bdb52d04dc20036dbd8313ed055', 'A', '2021-05-13 18:00:20', 'Sim'),
 	(30, 'José da Silva', 'jose@gmail.com', '11999999999', '25262422588', '81dc9bdb52d04dc20036dbd8313ed055', 'A', '2021-05-14 10:49:14', 'Sim'),
 	(31, 'Leonardo Campos', 'leonardo@gmail.com', '21888888888', '45454545454', '81dc9bdb52d04dc20036dbd8313ed055', 'C', '2021-05-14 10:53:47', 'Sim'),
 	(32, 'Maria dos Santos', 'maria@gmail.com', '11444444444', '78451223568', '81dc9bdb52d04dc20036dbd8313ed055', 'A', '2021-05-14 11:09:35', 'Sim'),
@@ -116,7 +116,7 @@ INSERT INTO `tb_login` (`CodigoLogin`, `Nome`, `Email`, `Telefone`, `CPF_CNPJ`, 
 	(47, 'Davi Torres', 'davi@gmail.com', '8787878787', '7878787878787', '81dc9bdb52d04dc20036dbd8313ed055', 'C', '2021-05-14 20:38:56', 'Sim'),
 	(48, 'Vanessa Vasconcelos', 'van@gmail.com', '54545454', '7874545454', '81dc9bdb52d04dc20036dbd8313ed055', 'C', '2021-05-14 20:45:41', 'Sim'),
 	(49, 'Toguti', 'danieltoguti@gmail.com.br', '13996322759', '4444', '202cb962ac59075b964b07152d234b70', 'C', '2021-05-14 22:13:37', 'Sim'),
-	(50, 'Alvaro Pires', 'alvaro@gmail.com', '13981489226', '45454545454', '81dc9bdb52d04dc20036dbd8313ed055', 'A', '2021-05-14 22:33:03', 'Sim'),
+	(50, 'Alvaro Pires', 'alvaro@gmail.com', '13981489226', '45454545454', '81dc9bdb52d04dc20036dbd8313ed055', 'C', '2021-05-14 22:33:03', 'Sim'),
 	(51, 'Marinho', 'marinho@gmail.com', '54545454', '45454545', '202cb962ac59075b964b07152d234b70', 'C', '2021-05-16 11:13:37', 'Sim'),
 	(52, 'Bruna Pereira', 'bruna@gmail.com', '45454', '4545', '81dc9bdb52d04dc20036dbd8313ed055', 'C', '2021-05-16 14:31:01', 'Sim');
 /*!40000 ALTER TABLE `tb_login` ENABLE KEYS */;
@@ -142,13 +142,13 @@ INSERT INTO `tb_produto` (`CodigoProduto`, `CodigoInterno`, `Nome`, `Descricao`,
 	(56, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 09:01:25', 0.456, 0, 'Nao', 'G'),
 	(57, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 0, 'Sim', 'M'),
 	(59, 'ECCE-980989', 'Uaou', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 5, 'Sim', 'G'),
-	(60, 'ECCCE-1405211', 'Star Wars', 'Conjunto Calça e camisa manga longa', 48.45, '2021-05-14 09:29:07', 0.123, 74, 'Sim', 'P'),
-	(61, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:12', 0.55, 11, 'Sim', 'M'),
+	(60, 'ECCCE-1405211', 'Star Wars', 'Conjunto Calça e camisa manga longa', 48.45, '2021-05-14 09:29:07', 0.123, 10, 'Sim', 'P'),
+	(61, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:12', 0.55, 9, 'Sim', 'M'),
 	(62, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:43', 0.55, 9, 'Sim', 'P'),
 	(63, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:43:20', 0.55, 15, 'Sim', 'G'),
 	(64, 'EC-5177', 'Dino Elite Kids', 'Pijama Dino Elite Kids', 79.92, '2021-05-18 20:44:22', 0.55, 15, 'Sim', 'P'),
 	(65, 'EC-5331', 'Playstation', 'Pijama Playstation', 155.00, '2021-05-18 20:45:06', 0.55, 17, 'Sim', 'G'),
-	(66, 'EC-5130', 'Sonic', 'Pijama Sonic', 89.99, '2021-05-18 20:45:51', 0.8, 14, 'Sim', 'P'),
+	(66, 'EC-5130', 'Sonic', 'Pijama Sonic', 89.99, '2021-05-18 20:45:51', 0.8, 13, 'Sim', 'P'),
 	(67, 'EC-5899', 'SantosFC', 'Pijama SantosFC', 99.90, '2021-05-18 20:46:29', 0.66, 9, 'Sim', 'M'),
 	(68, 'EC-5899', 'SantosFC', 'Pijama SantosFC', 99.90, '2021-05-18 20:47:11', 0.8, 9, 'Sim', 'G'),
 	(69, 'EC-5787', 'Bolinhas felizes', 'Pijama de bolinhas felizes', 105.90, '2021-05-18 20:50:43', 0.55, 7, 'Sim', 'M'),
@@ -258,14 +258,19 @@ CREATE TABLE IF NOT EXISTS `tb_venda` (
   KEY `CodigoEndereco` (`CodigoEndereco`),
   CONSTRAINT `FK__tb_endereco` FOREIGN KEY (`CodigoEndereco`) REFERENCES `tb_endereco` (`CodigoEndereco`),
   CONSTRAINT `FK__tb_login_endereco` FOREIGN KEY (`CodigoLogin`) REFERENCES `tb_login` (`CodigoLogin`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_venda: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_venda: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_venda` DISABLE KEYS */;
 INSERT INTO `tb_venda` (`CodigoVenda`, `CodigoLogin`, `CodigoEndereco`, `ParcelaTotal`, `ValorTotal`, `ValorDesconto`, `ValorFinal`, `DataRegistro`, `Status`) VALUES
-	(47, 29, 47, NULL, NULL, NULL, 34.761, '2021-05-20 20:39:34', 'Novo Pedido!'),
+	(47, 29, 47, NULL, NULL, NULL, 34.76, '2021-05-20 20:39:34', 'Novo Pedido!'),
 	(48, 29, 47, NULL, NULL, NULL, 51.29, '2021-05-21 09:09:51', 'Novo Pedido!'),
-	(49, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-21 09:59:11', 'Novo Pedido!');
+	(49, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-21 09:59:11', 'Novo Pedido!'),
+	(53, 29, 48, NULL, NULL, NULL, 698.69, '2021-05-22 13:33:42', 'Novo Pedido!'),
+	(54, 29, 47, NULL, NULL, NULL, 117.29, '2021-05-22 13:38:00', 'Novo Pedido!'),
+	(55, 29, 47, NULL, NULL, NULL, 117.29, '2021-05-22 13:41:16', 'Novo Pedido!'),
+	(56, 29, 47, NULL, NULL, NULL, 75.75, '2021-05-28 15:10:24', 'Preparando Pedido'),
+	(57, 29, 47, NULL, NULL, NULL, 117.29, '2021-05-28 21:29:16', 'Novo Pedido!');
 /*!40000 ALTER TABLE `tb_venda` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela ecce.tb_venda_itens
@@ -280,14 +285,19 @@ CREATE TABLE IF NOT EXISTS `tb_venda_itens` (
   KEY `CodigoVenda` (`CodigoVenda`),
   CONSTRAINT `FK_tb_venda_itens_tb_produto` FOREIGN KEY (`CodigoProduto`) REFERENCES `tb_produto` (`CodigoProduto`),
   CONSTRAINT `FK_tb_venda_itens_tb_venda` FOREIGN KEY (`CodigoVenda`) REFERENCES `tb_venda` (`CodigoVenda`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_venda_itens: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_venda_itens: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_venda_itens` DISABLE KEYS */;
 INSERT INTO `tb_venda_itens` (`CodigoVendaItens`, `CodigoVenda`, `CodigoProduto`, `Valor`, `Quantidade`) VALUES
 	(46, 47, 60, 48.45, 154),
 	(47, 48, 57, 23.99, 1),
-	(48, 49, 60, 48.45, 1);
+	(48, 49, 60, 48.45, 1),
+	(51, 53, 60, 48.45, 12),
+	(52, 54, 66, 89.99, 1),
+	(53, 55, 61, 89.99, 1),
+	(54, 56, 60, 48.45, 1),
+	(55, 57, 61, 89.99, 1);
 /*!40000 ALTER TABLE `tb_venda_itens` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
