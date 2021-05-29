@@ -272,13 +272,26 @@ namespace ECCE.Controllers
         [Authorize(Roles = "A")]
         public IActionResult Dashboard()
         {
-            FinalizarPedidoDB Pedido = new FinalizarPedidoDB();
-            var MLista = Pedido.ListarPedidos();
+
+            RelatorioDB Col = new RelatorioDB();
+            RelatorioDB Prod = new RelatorioDB();
+            RelatorioDB Cli = new RelatorioDB();
+            RelatorioDB Vend = new RelatorioDB();
+
+            ViewData["VDColaboradores"] = Col.Colaboradores().TotalColaborador;
+            ViewData["VDClientes"] = Cli.Clientes().TotalCliente;
+            ViewData["VDProdutos"] = Prod.Produtos().TotalProduto;
+            ViewData["VDQuantidadeProdutos"] = Prod.QuantidadeProdutos().QuantidadeTotal;
+            ViewData["VDVendas"] = Vend.Vendas().TotalVenda;
+            ViewData["VDValor"] = Vend.VendaValor().VendaValor.ToString("N2");
+            ViewData["VDMaiorVenda"] = Vend.MaiorVendas().MaiorVenda.ToString("N2");
+            ViewData["VDMediaVenda"] = Vend.MediaVendas().MedidaVendas.ToString("N2");
+
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
-            return View(MLista);
+            return View();
         }
 
         public async Task<IActionResult> Logout()

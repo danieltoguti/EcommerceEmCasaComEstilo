@@ -1,50 +1,75 @@
-﻿@{
-                @model List<TodosPedidos>;
-                ViewData["Title"] = "Genero";
+﻿@{ Layout = "_Layout_dashboard"; }
 
-                Layout = "_Layout_dashboard"; }
+<h3>Painel de Controle ECCE</h3>
+<br />
 <hr />
-<h4 class="font-weight-bold">Lista de Vendas</h4>
+<br />
+<h5>Vendas da Última Semana</h5>
 <hr />
-<div>
-
-    @if (Model.Count > 0)
-    {
-<table class="table table-striped table-sm">
-    <thead class="thead-dark">
-        <tr>
-            <th>Venda</th>
-            <th>Cliente</th>
-            <th>Valor</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th>Editar Status</th>
-            <th>Ver Itens</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-<tr>
-    <td>@item.CodigoVenda</td>
-    <td>@item.Nome</td>
-    <td>@item.Valor.ToString("C")</td>
-    <td>@item.Data</td>
-    <td>@item.Status</td>
-    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/pedido/Editar?CodigoVenda=@item.CodigoVenda'"><i class="fa fa-edit "></i></button></td>
-    <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/pedido/VerItens?CodigoVenda=@item.CodigoVenda'"><i class="fa fa-search"></i></button></td>
-</tr>
-}
-    </tbody>
-</table> }
-            else
-            {
-<div class="alert alert-primary" role="alert">
-    Sem Registros!
-</div>}
+<div class="row text-center align-items-center">
+    <div class="text-center col text-white bg-primary">
+        <p></p>
+        <p style="font-size:50px;">@ViewData["VDVendas"]</p>
+        <p>Quantidade</p>
+        <p></p>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="text-center col text-white bg-info">
+        <p></p>
+        <p style="font-size:50px;">R$ @ViewData["VDValor"]</p>
+        <p>Valor</p>
+        <p></p>
+    </div>
+</div>
+<br />
+<hr />
+<br />
+<h5>Usuários e Produtos</h5>
+<hr />
+<div class="row text-center col-md-12">
+    <div class="text-center col text-white bg-success">
+        <p></p>
+        <p style="font-size:50px;">@ViewData["VDProdutos"]</p>
+        <p>Produtos em Exposição</p>
+        <p></p>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="text-center col text-white bg-dark">
+        <p></p>
+        <p style="font-size:50px;">@ViewData["VDColaboradores"]</p>
+        <p>Colaboradores</p>
+        <p></p>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="text-center col text-white bg-dark">
+        <p></p>
+        <p style="font-size:50px;">R$ @ViewData["VDMaiorVenda"]</p>
+        <p>Valor da Maior Venda</p>
+        <p></p>
+    </div>
 
 </div>
-
-
-
+<hr />
+<div class="row text-center col-md-12">
+    <div class="text-center col text-white bg-success">
+        <p></p>
+        <p style="font-size:50px;">@ViewData["VDQuantidadeProdutos"]</p>
+        <p>Quantidade Total de Produtos em Estoque</p>
+        <p></p>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="text-center col text-white bg-danger">
+        <p></p>
+        <p style="font-size:50px;">@ViewData["VDClientes"]</p>
+        <p>Clientes</p>
+        <p></p>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="text-center col text-white bg-danger">
+        <p></p>
+        <p style="font-size:50px;">R$ @ViewData["VDMediaVenda"]</p>
+        <p>Media das Vendas</p>
+        <p></p>
+    </div>
+</div>
 
