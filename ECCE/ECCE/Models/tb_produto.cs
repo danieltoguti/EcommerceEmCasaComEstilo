@@ -36,7 +36,7 @@ namespace ECCE.Models
         [Key]
         public int CodigoProduto { get; set; }
 
-        [Display(Name = "Cógigo", Prompt = "")]
+        [Display(Name = "Código", Prompt = "")]
         public string CodigoInterno { get; set; }
 
         [Display(Name = "Nome", Prompt = "")]

@@ -293,6 +293,75 @@ namespace ECCE.Data
             }
         }
 
+        public Vendas VendasTotal()
+        {
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "SELECT COUNT(*) AS VendasTotal FROM  tb_venda";
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var DrVenda = cmd.ExecuteReader();
+
+                DrVenda.Read();
+
+                var venda = new Vendas()
+                {
+                    VendasTotal = Convert.ToInt32(DrVenda["VendasTotal"])
+                };
+
+                var model = new Vendas();
+                model.VendasTotal = Convert.ToInt32(venda.VendasTotal);
+
+                return model;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+        }
+
+        public Vendas VendaValorTotal()
+        {
+
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "SELECT SUM(ValorFinal) AS ValorTotal FROM tb_venda";
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var DrVenda = cmd.ExecuteReader();
+
+                DrVenda.Read();
+
+                var venda = new Vendas()
+                {
+                    VendasValorTotal = Convert.ToDouble(DrVenda["ValorTotal"])
+                };
+
+                var model = new Vendas();
+                model.VendasValorTotal = Convert.ToDouble(venda.VendasValorTotal);
+
+                return model;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+        }
+
     }
 
 

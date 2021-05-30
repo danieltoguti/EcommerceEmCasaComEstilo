@@ -281,15 +281,19 @@ namespace ECCE.Controllers
             RelatorioDB VendValor = new RelatorioDB();
             RelatorioDB VendMaior = new RelatorioDB();
             RelatorioDB VendMedia = new RelatorioDB();
+            RelatorioDB VendTotal = new RelatorioDB();
+            RelatorioDB VendValorTotal = new RelatorioDB();
 
             ViewData["VDColaboradores"] = Col.Colaboradores().TotalColaborador;
             ViewData["VDClientes"] = Cli.Clientes().TotalCliente;
             ViewData["VDProdutos"] = Prod.Produtos().TotalProduto;
             ViewData["VDQuantidadeProdutos"] = ProdQuant.QuantidadeProdutos().QuantidadeTotal;
             ViewData["VDVendas"] = Vend.Vendas().TotalVenda;
-            ViewData["VDValor"] = VendValor.VendaValor().VendaValor.ToString("N2");
-            ViewData["VDMaiorVenda"] = VendMaior.MaiorVendas().MaiorVenda.ToString("N2");
-            ViewData["VDMediaVenda"] = VendMedia.MediaVendas().MedidaVendas.ToString("N2");
+            ViewData["VDValor"] = VendValor.VendaValor().VendaValor.ToString("C");
+            ViewData["VDMaiorVenda"] = VendMaior.MaiorVendas().MaiorVenda.ToString("C");
+            ViewData["VDMediaVenda"] = VendMedia.MediaVendas().MedidaVendas.ToString("C");
+            ViewData["VDVendTotal"] = VendTotal.VendasTotal().VendasTotal;
+            ViewData["VDVendValorTotal"] = VendValorTotal.VendaValorTotal().VendasValorTotal.ToString("C");
 
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);

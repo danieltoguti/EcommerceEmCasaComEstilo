@@ -1,75 +1,106 @@
 ﻿@{ Layout = "_Layout_dashboard"; }
 
-<h3>Painel de Controle ECCE</h3>
-<br />
+<style>
+    .dash-title {
+        background: linear-gradient(#237ebe, #ffffff);
+        padding: 10px 5px;
+        position: absolute;
+        top: -4em;
+        left: -34px;
+        width: 100vw;
+    }
+    h3{
+        margin-bottom: 1em
+    }
+    .square-data {
+        box-shadow: 2px 3px 8px black;
+        width: 22%;
+    }
+    .square-data p{
+        margin-left: 5px;
+
+    }
+    .square-data p:first-child{
+       color: #000;
+       font-size: 18px;
+       margin-top: 5px;
+    }
+    .info {
+        background: #c7c7c7;
+    }
+    .info p{
+        font-size:14px!important;
+        margin:0;
+        margin-left: 5px;
+        padding: 2px 0;
+    }
+    .sq-bellow{
+        width: 30%
+    }
+</style>
+
+
+<div class="dash-title"><h3>Painel de Controle ECCE</h3></div>
 <hr />
-<br />
-<h5>Vendas da Última Semana</h5>
+<h5>Pedido e faturamento</h5>
 <hr />
-<div class="row text-center align-items-center">
-    <div class="text-center col text-white bg-primary">
-        <p></p>
-        <p style="font-size:50px;">@ViewData["VDVendas"]</p>
-        <p>Quantidade</p>
-        <p></p>
+<div class="d-flex justify-content-around mb-5 mt-3">
+    <div class="square-data">
+        <p>Pedidos</p>
+        <p style="font-size:40px; color:#0026ff; text-align:center">@ViewData["VDVendas"]</p>
+        <div class="info"><p>Últimos 7 dias</p></div>
     </div>
-    <div class="col-md-1"></div>
-    <div class="text-center col text-white bg-info">
-        <p></p>
-        <p style="font-size:50px;">R$ @ViewData["VDValor"]</p>
-        <p>Valor</p>
-        <p></p>
+    <div class="square-data" ">
+        <p>Faturamento</p>
+        <p style="        font-size: 40px;
+        color: #ff6a00;
+        text-align: center">@ViewData["VDValor"]</p>
+        <div class="info"><p>Últimos 7 dias</p></div>
+
+    </div>
+    <div class="square-data">
+        <p>Ticket médio</p>
+        <p style="        font-size: 40px;
+        color: #b200ff;
+        text-align: center">@ViewData["VDMediaVenda"]</p>
+    </div>
+    <div class="square-data">
+        <p>Maior venda realizada</p>
+        <p style="        font-size: 40px;
+        color: #570f5a;
+        text-align: center">@ViewData["VDMaiorVenda"]</p>
     </div>
 </div>
-<br />
+
 <hr />
-<br />
 <h5>Usuários e Produtos</h5>
 <hr />
-<div class="row text-center col-md-12">
-    <div class="text-center col text-white bg-success">
-        <p></p>
-        <p style="font-size:50px;">@ViewData["VDProdutos"]</p>
-        <p>Produtos em Exposição</p>
-        <p></p>
+<div class="d-flex justify-content-between">
+    <div class="square-data sq-bellow">
+        <p>Produtos cadastrados</p>
+        <p style="        font-size: 40px;
+        color: #0f5a42;
+        text-align: center">@ViewData["VDProdutos"]</p>
     </div>
-    <div class="col-md-1"></div>
-    <div class="text-center col text-white bg-dark">
-        <p></p>
-        <p style="font-size:50px;">@ViewData["VDColaboradores"]</p>
-        <p>Colaboradores</p>
-        <p></p>
+    <div class="square-data sq-bellow">
+        <p>Produtos em estoque</p>
+        <p style="        font-size: 40px;
+        color: #825a01;
+        text-align: center">@ViewData["VDQuantidadeProdutos"]</p>
     </div>
-    <div class="col-md-1"></div>
-    <div class="text-center col text-white bg-dark">
-        <p></p>
-        <p style="font-size:50px;">R$ @ViewData["VDMaiorVenda"]</p>
-        <p>Valor da Maior Venda</p>
-        <p></p>
+    <div class="square-data sq-bellow">
+        <p>Clientes registrados</p>
+        <p style="        font-size: 40px;
+        color: #f94b83;
+        text-align: center">@ViewData["VDClientes"]</p>
     </div>
-
 </div>
 <hr />
-<div class="row text-center col-md-12">
-    <div class="text-center col text-white bg-success">
-        <p></p>
-        <p style="font-size:50px;">@ViewData["VDQuantidadeProdutos"]</p>
-        <p>Quantidade Total de Produtos em Estoque</p>
-        <p></p>
-    </div>
-    <div class="col-md-1"></div>
-    <div class="text-center col text-white bg-danger">
-        <p></p>
-        <p style="font-size:50px;">@ViewData["VDClientes"]</p>
-        <p>Clientes</p>
-        <p></p>
-    </div>
-    <div class="col-md-1"></div>
-    <div class="text-center col text-white bg-danger">
-        <p></p>
-        <p style="font-size:50px;">R$ @ViewData["VDMediaVenda"]</p>
-        <p>Media das Vendas</p>
-        <p></p>
-    </div>
+<div>
+    <p>Quantidade total de vendas = @ViewData["VDVendTotal"]</p>
+    <p>Valor total de vendas = @ViewData["VDVendValorTotal"]</p>
+    
+
 </div>
+
 

@@ -37,5 +37,7 @@ namespace ECCE.Models
         public double VendaValor { get; set; }
         public double MedidaVendas { get; set; }
         public double MaiorVenda { get; set; }
+        public int VendasTotal { get; set; }
+        public double VendasValorTotal { get; set; }
     }
 }
