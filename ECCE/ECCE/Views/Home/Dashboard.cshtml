@@ -37,6 +37,16 @@
     .sq-bellow{
         width: 30%
     }
+    .sq-double {
+        width: 47%;
+        background: #419eaf;
+        color: #fff
+    }
+    .sq-double p:first-child{
+        font-size: 22px;
+        text-align: center;
+        margin-top: 15px;
+    }
 </style>
 
 
@@ -50,7 +60,7 @@
         <p style="font-size:40px; color:#0026ff; text-align:center">@ViewData["VDVendas"]</p>
         <div class="info"><p>Últimos 7 dias</p></div>
     </div>
-    <div class="square-data" ">
+    <div class="square-data">
         <p>Faturamento</p>
         <p style="        font-size: 40px;
         color: #ff6a00;
@@ -71,14 +81,28 @@
         text-align: center">@ViewData["VDMaiorVenda"]</p>
     </div>
 </div>
-
-<hr />
-<h5>Usuários e Produtos</h5>
-<hr />
-<div class="d-flex justify-content-between">
-    <div class="square-data sq-bellow">
-        <p>Produtos cadastrados</p>
+<div class="d-flex justify-content-around mb-5 mt-3">
+    <div class="square-data sq-double">
+        <p style="color:#fff">Total de pedidos</p>
         <p style="        font-size: 40px;
+        color: #fff;
+        padding: 30px 0; text-align: center">@ViewData["VDVendTotal"]</p>
+    </div>
+    <div class="square-data sq-double" style="background:#6a6897">
+        
+        <p style="color:#fff">Fatutamento total</p>
+        <p style="font-size: 40px;color: #fff; padding:30px 0;text-align: center">@ViewData["VDVendValorTotal"]</p>
+    </div>
+
+</div>
+
+    <hr />
+    <h5>Usuários e Produtos</h5>
+    <hr />
+    <div class="d-flex justify-content-between">
+        <div class="square-data sq-bellow">
+            <p>Produtos cadastrados</p>
+            <p style="        font-size: 40px;
         color: #0f5a42;
         text-align: center">@ViewData["VDProdutos"]</p>
     </div>
@@ -94,13 +118,6 @@
         color: #f94b83;
         text-align: center">@ViewData["VDClientes"]</p>
     </div>
-</div>
-<hr />
-<div>
-    <p>Quantidade total de vendas = @ViewData["VDVendTotal"]</p>
-    <p>Valor total de vendas = @ViewData["VDVendValorTotal"]</p>
-    
-
 </div>
 
 
