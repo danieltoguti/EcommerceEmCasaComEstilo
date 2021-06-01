@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   CONSTRAINT `FK__tb_login` FOREIGN KEY (`CodigoLogin`) REFERENCES `tb_login` (`CodigoLogin`)
 ) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela ecce.tb_endereco: ~23 rows (aproximadamente)
+-- Copiando dados para a tabela ecce.tb_endereco: ~25 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_endereco` DISABLE KEYS */;
 INSERT INTO `tb_endereco` (`CodigoEndereco`, `CodigoLogin`, `Descricao`, `CEP`, `Endereco`, `Numero`, `Bairro`, `Cidade`, `UF`) VALUES
 	(47, 29, 'casa', '09725150', 'Rua Luzitânia', '12', 'Vila Lusitânia', 'São Bernardo do Campo', 'SP'),
@@ -133,31 +133,32 @@ CREATE TABLE IF NOT EXISTS `tb_produto` (
   `Quantidade` int unsigned DEFAULT '0',
   `Ativo` varchar(5) DEFAULT 'Sim',
   `Tamanho` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `OrdemTamanho` int DEFAULT '1',
   PRIMARY KEY (`CodigoProduto`)
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela ecce.tb_produto: ~19 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_produto` DISABLE KEYS */;
-INSERT INTO `tb_produto` (`CodigoProduto`, `CodigoInterno`, `Nome`, `Descricao`, `Valor`, `DataRegistro`, `Peso`, `Quantidade`, `Ativo`, `Tamanho`) VALUES
-	(56, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 09:01:25', 0.456, 0, 'Nao', 'G'),
-	(57, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 0, 'Sim', 'M'),
-	(59, 'ECCE-980989', 'Uaou', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 5, 'Sim', 'G'),
-	(60, 'ECCCE-1405211', 'Star Wars', 'Conjunto Calça e camisa manga longa', 48.45, '2021-05-14 09:29:07', 0.123, 10, 'Sim', 'P'),
-	(61, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:12', 0.55, 9, 'Sim', 'M'),
-	(62, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:43', 0.55, 9, 'Sim', 'P'),
-	(63, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:43:20', 0.55, 15, 'Sim', 'G'),
-	(64, 'EC-5177', 'Dino Elite Kids', 'Pijama Dino Elite Kids', 79.92, '2021-05-18 20:44:22', 0.55, 15, 'Sim', 'P'),
-	(65, 'EC-5331', 'Playstation', 'Pijama Playstation', 155.00, '2021-05-18 20:45:06', 0.55, 17, 'Sim', 'G'),
-	(66, 'EC-5130', 'Sonic', 'Pijama Sonic', 89.99, '2021-05-18 20:45:51', 0.8, 13, 'Sim', 'P'),
-	(67, 'EC-5899', 'SantosFC', 'Pijama SantosFC', 99.90, '2021-05-18 20:46:29', 0.66, 9, 'Sim', 'M'),
-	(68, 'EC-5899', 'SantosFC', 'Pijama SantosFC', 99.90, '2021-05-18 20:47:11', 0.8, 9, 'Sim', 'G'),
-	(69, 'EC-5787', 'Bolinhas felizes', 'Pijama de bolinhas felizes', 105.90, '2021-05-18 20:50:43', 0.55, 7, 'Sim', 'M'),
-	(70, 'EC-5787', 'Bolinhas felizes', 'Pijama de bolinhas felizes', 105.90, '2021-05-18 20:51:29', 0.66, 9, 'Sim', 'P'),
-	(71, 'EC-5551', 'Pandinha', 'Pijama Pandinha', 78.90, '2021-05-18 20:53:49', 0.55, 8, 'Sim', 'P'),
-	(72, 'EC-5786', 'Unicornio', 'Pijama Unicornio', 199.90, '2021-05-18 20:54:41', 1.5, 3, 'Sim', 'M'),
-	(73, 'EC-5786', 'Unicornio', 'Pijama Unicornio', 199.90, '2021-05-18 20:55:49', 1.5, 2, 'Sim', 'G'),
-	(74, 'EC-9991', 'Sully sulivan', 'Sully sulivan', 159.90, '2021-05-18 20:56:32', 1.5, 15, 'Sim', 'M'),
-	(75, 'EC-9991', 'Sully sulivan', 'Sully sulivan', 159.90, '2021-05-18 20:57:25', 1.5, 6, 'Sim', 'G');
+INSERT INTO `tb_produto` (`CodigoProduto`, `CodigoInterno`, `Nome`, `Descricao`, `Valor`, `DataRegistro`, `Peso`, `Quantidade`, `Ativo`, `Tamanho`, `OrdemTamanho`) VALUES
+	(56, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 09:01:25', 0.456, 0, 'Nao', 'G', 3),
+	(57, 'ECCCE-90567', 'BatGirl', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 0, 'Sim', 'M', 2),
+	(59, 'ECCE-980989', 'Uaou', 'Camiseta Gola V ', 23.99, '2021-05-13 18:02:21', 0.123, 5, 'Sim', 'G', 3),
+	(60, 'ECCCE-1405211', 'Star Wars', 'Conjunto Calça e camisa manga longa', 48.45, '2021-05-14 09:29:07', 0.123, 10, 'Sim', 'P', 1),
+	(61, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:12', 0.55, 9, 'Sim', 'M', 2),
+	(62, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:42:43', 0.55, 9, 'Sim', 'P', 1),
+	(63, 'EC-5891', 'Lost in Love', 'Pijama Lost in Love', 89.99, '2021-05-18 20:43:20', 0.55, 15, 'Sim', 'G', 3),
+	(64, 'EC-5177', 'Dino Elite Kids', 'Pijama Dino Elite Kids', 79.92, '2021-05-18 20:44:22', 0.55, 15, 'Sim', 'P', 1),
+	(65, 'EC-5331', 'Playstation', 'Pijama Playstation', 155.00, '2021-05-18 20:45:06', 0.55, 17, 'Sim', 'G', 3),
+	(66, 'EC-5130', 'Sonic', 'Pijama Sonic', 89.99, '2021-05-18 20:45:51', 0.8, 13, 'Sim', 'P', 1),
+	(67, 'EC-5899', 'SantosFC', 'Pijama SantosFC', 99.90, '2021-05-18 20:46:29', 0.66, 9, 'Sim', 'M', 2),
+	(68, 'EC-5899', 'SantosFC', 'Pijama SantosFC', 99.90, '2021-05-18 20:47:11', 0.8, 9, 'Sim', 'G', 3),
+	(69, 'EC-5787', 'Bolinhas felizes', 'Pijama de bolinhas felizes', 105.90, '2021-05-18 20:50:43', 0.55, 7, 'Sim', 'M', 2),
+	(70, 'EC-5787', 'Bolinhas felizes', 'Pijama de bolinhas felizes', 105.90, '2021-05-18 20:51:29', 0.66, 9, 'Sim', 'P', 1),
+	(71, 'EC-5551', 'Pandinha', 'Pijama Pandinha', 78.90, '2021-05-18 20:53:49', 0.55, 8, 'Sim', 'P', 1),
+	(72, 'EC-5786', 'Unicornio', 'Pijama Unicornio', 199.90, '2021-05-18 20:54:41', 1.5, 3, 'Sim', 'M', 2),
+	(73, 'EC-5786', 'Unicornio', 'Pijama Unicornio', 199.90, '2021-05-18 20:55:49', 1.5, 2, 'Sim', 'G', 3),
+	(74, 'EC-9991', 'Sully sulivan', 'Sully sulivan', 159.90, '2021-05-18 20:56:32', 1.5, 15, 'Sim', 'M', 2),
+	(75, 'EC-9991', 'Sully sulivan', 'Sully sulivan', 159.90, '2021-05-18 20:57:25', 1.5, 6, 'Sim', 'G', 3);
 /*!40000 ALTER TABLE `tb_produto` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela ecce.tb_produto_foto
