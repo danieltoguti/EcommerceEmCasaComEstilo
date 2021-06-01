@@ -29,16 +29,12 @@ namespace ECCE.Data
                     MissingMemberHandling = MissingMemberHandling.Ignore,
                     Culture = new System.Globalization.CultureInfo("pt-BR")
                 };
-
                 
                 obj.JsonLTFoto = obj.JsonLTFoto.Replace("Descricao", "Caminho");
                 obj.JsonLTGenero = obj.JsonLTGenero.Replace("Codigo", "CodigoGenero");
-                //obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
-
 
                 var prodFotos = JsonConvert.DeserializeObject<List<tb_produto_foto>>(obj.JsonLTFoto, settings);
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
-                //var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho , settings);
 
 
                 sSQL = "insert into tb_produto (CodigoInterno, Nome, Descricao, valor, dataregistro, peso, quantidade, ativo, tamanho)values(@codigointerno, @nome, @descricao, @valor, Now(), @peso, @quantidade, @ativo,@tamanho)";
@@ -104,23 +100,6 @@ namespace ECCE.Data
                         cmd.ExecuteNonQuery();
                     }
 
-                    ////Tamanhos                    
-                    //foreach (var item in proTamanhos)
-                    //{
-                    //    Tabela = "tb_produto_tamanho";
-                    //    Coluna = "CodigoTamanho";
-                    //    Codigo = item.CodigoTamanho;
-
-                    //    cmd.Parameters.Clear();
-                    //    cmd.Connection = cn;
-                    //    sSQL = "insert into  " + Tabela + " (" + Coluna + ",CodigoProduto)values(@Codigo,@CodigoProduto)";
-                    //    cmd.Parameters.AddWithValue("@CodigoProduto", CodigoProduto);
-                    //    cmd.Parameters.AddWithValue("@Codigo", Codigo);
-                    //    cmd.CommandText = sSQL;
-                    //    cmd.ExecuteNonQuery();
-                    //}
-
-
                 }
 
 
@@ -152,11 +131,9 @@ namespace ECCE.Data
 
                 obj.JsonLTFoto = obj.JsonLTFoto.Replace("Descricao", "Caminho");
                 obj.JsonLTGenero = obj.JsonLTGenero.Replace("Codigo", "CodigoGenero");
-                //obj.JsonLTTamanho = obj.JsonLTTamanho.Replace("Codigo", "CodigoTamanho");
 
                 var prodFotos = JsonConvert.DeserializeObject<List<tb_produto_foto>>(obj.JsonLTFoto, settings);
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
-                //var proTamanhos = JsonConvert.DeserializeObject<List<tb_produto_tamanho>>(obj.JsonLTTamanho, settings);
 
                 sSQL = " update tb_produto set CodigoInterno=@codigointerno, Nome=@nome, Descricao=@descricao, valor=@valor, peso=@peso, quantidade=@quantidade, ativo=@ativo," +
                        " tamanho=@tamanho where CodigoProduto=" + obj.tb_produto.CodigoProduto;
@@ -177,7 +154,6 @@ namespace ECCE.Data
                 {
                     sSQL = " delete from tb_produto_foto where CodigoProduto=" + obj.tb_produto.CodigoProduto +";";
                     sSQL += "delete from tb_produto_genero where CodigoProduto=" + obj.tb_produto.CodigoProduto + ";";
-                    sSQL += "delete from tb_produto_tamanho where CodigoProduto=" + obj.tb_produto.CodigoProduto + ";";
                     cmd.Parameters.Clear();
                     cmd.Connection = cn;
                     cmd.CommandText = sSQL;
@@ -214,22 +190,6 @@ namespace ECCE.Data
                         cmd.CommandText = sSQL;
                         cmd.ExecuteNonQuery();
                     }
-
-                    ////Tamanhos                    
-                    //foreach (var item in proTamanhos)
-                    //{
-                    //    Tabela = "tb_produto_tamanho";
-                    //    Coluna = "CodigoTamanho";
-                    //    Codigo = item.CodigoTamanho;
-
-                    //    cmd.Parameters.Clear();
-                    //    cmd.Connection = cn;
-                    //    sSQL = "insert into  " + Tabela + " (" + Coluna + ",CodigoProduto)values(@Codigo,@CodigoProduto)";
-                    //    cmd.Parameters.AddWithValue("@CodigoProduto", obj.tb_produto.CodigoProduto);
-                    //    cmd.Parameters.AddWithValue("@Codigo", Codigo);
-                    //    cmd.CommandText = sSQL;
-                    //    cmd.ExecuteNonQuery();
-                    //}
 
                     return true;
                 }

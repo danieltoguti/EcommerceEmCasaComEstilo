@@ -27,7 +27,6 @@ namespace ECCE.Controllers
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
-
             return View(MLista);
         }
 
@@ -45,11 +44,8 @@ namespace ECCE.Controllers
             return View(resp);
         }
         
-
-
         public string GetAll()
         {
-
             string Carrinho = "<table>";
             foreach (var item in Request.Cookies)
             {
@@ -102,9 +98,7 @@ namespace ECCE.Controllers
             ProdutoDB Prod = new ProdutoDB();
 
             var resp = Prod.GetProduto(CodigoProduto);
-
             resp.JsonLTGenero = resp.JsonLTGenero.Replace("CodigoGenero", "Codigo");
-            //resp.JsonLTTamanho = resp.JsonLTTamanho.Replace("CodigoTamanho", "Codigo");
 
             return View("CadastroProduto", resp);
         }
@@ -124,7 +118,6 @@ namespace ECCE.Controllers
                 if (Prod.InserirDados(obj))
                 {
                     return Json(new { success = true, msg = "Produto Cadastrado com Sucesso!" });
-
                 }
                 else
                 {
@@ -136,7 +129,6 @@ namespace ECCE.Controllers
                 if (Prod.UpdateDados(obj))
                 {
                     return Json(new { success = true, msg = "Produto Atualizado com Sucesso!" });
-
                 }
                 else
                 {
