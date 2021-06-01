@@ -65,5 +65,8 @@ namespace ECCE.Models
 
         [Display(Name = "Tamanho", Prompt = "")]
         public string Tamanho { get; set; }
+
+        [Display(Name = "Ordem de Exposição", Prompt = "")]
+        public int OrdemTamanho { get; set; }
     }
 }

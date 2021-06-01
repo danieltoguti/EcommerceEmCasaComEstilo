@@ -1,8 +1,6 @@
 ﻿
 @model ProdutoModel
 @{ ViewData["Title"] = "CadastroProduto";
-    //var LTCategorias = (List<SelectListItem>)(@ViewData["LTCategorias"]);
-    //var LTCor = (List<SelectListItem>)(@ViewData["LTCor"]);
     var LTGenero = (List<SelectListItem>)(@ViewData["LTGenero"]);
     var LTTam = (List<SelectListItem>)(@ViewData["LTTam"]);
 
@@ -69,6 +67,17 @@
         <div class="col-2 form-group">
             <label asp-for="tb_produto.Tamanho"></label>
             <input type="text" class="form-control" asp-for="tb_produto.Tamanho">
+        </div>
+        <div class="col-3 form-group">
+            <label asp-for="tb_produto.OrdemTamanho"></label>
+            <select type="text" class="form-control" asp-for="tb_produto.OrdemTamanho">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
         </div>
         <input type="hidden" asp-for="tb_produto.CodigoProduto">
 

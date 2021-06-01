@@ -37,7 +37,7 @@ namespace ECCE.Data
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
 
 
-                sSQL = "insert into tb_produto (CodigoInterno, Nome, Descricao, valor, dataregistro, peso, quantidade, ativo, tamanho)values(@codigointerno, @nome, @descricao, @valor, Now(), @peso, @quantidade, @ativo,@tamanho)";
+                sSQL = "insert into tb_produto (CodigoInterno, Nome, Descricao, valor, dataregistro, peso, quantidade, ativo, tamanho)values(@codigointerno, @nome, @descricao, @valor, Now(), @peso, @quantidade, @ativo, @tamanho, @ordemtamanho)";
                 cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
                 cmd.Parameters.AddWithValue("@nome", obj.tb_produto.Nome);
                 cmd.Parameters.AddWithValue("@descricao", obj.tb_produto.Descricao);
@@ -46,7 +46,7 @@ namespace ECCE.Data
                 cmd.Parameters.AddWithValue("@quantidade", obj.tb_produto.Quantidade);
                 cmd.Parameters.AddWithValue("@ativo", obj.tb_produto.Ativo);
                 cmd.Parameters.AddWithValue("@tamanho", obj.tb_produto.Tamanho);
-
+                cmd.Parameters.AddWithValue("@ordemtamanho", obj.tb_produto.OrdemTamanho);
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -136,7 +136,7 @@ namespace ECCE.Data
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
 
                 sSQL = " update tb_produto set CodigoInterno=@codigointerno, Nome=@nome, Descricao=@descricao, valor=@valor, peso=@peso, quantidade=@quantidade, ativo=@ativo," +
-                       " tamanho=@tamanho where CodigoProduto=" + obj.tb_produto.CodigoProduto;
+                       " tamanho=@tamanho, ordemtamanho=@ordemtamanho where CodigoProduto=" + obj.tb_produto.CodigoProduto;
 
                 cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
                 cmd.Parameters.AddWithValue("@nome", obj.tb_produto.Nome);
@@ -146,6 +146,7 @@ namespace ECCE.Data
                 cmd.Parameters.AddWithValue("@quantidade", obj.tb_produto.Quantidade);
                 cmd.Parameters.AddWithValue("@ativo", obj.tb_produto.Ativo);
                 cmd.Parameters.AddWithValue("@tamanho", obj.tb_produto.Tamanho);
+                cmd.Parameters.AddWithValue("@ordemtamanho", obj.tb_produto.OrdemTamanho);
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 int result = cmd.ExecuteNonQuery();
@@ -378,8 +379,9 @@ namespace ECCE.Data
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Quantidade = Convert.ToInt32(Dr["Quantidade"]),
                         Ativo = Dr["Ativo"].ToString(),
-                        Tamanho = Dr["Tamanho"].ToString()
-                        
+                        Tamanho = Dr["Tamanho"].ToString(),
+                        OrdemTamanho = Convert.ToInt32(Dr["OrdemTamanho"])
+
                     };
                    
                 }
@@ -747,7 +749,7 @@ namespace ECCE.Data
 
                 sSQL = " SELECT tb_produto.CodigoProduto, tb_produto.Tamanho FROM tb_produto";
                 sSQL += " WHERE tb_produto.CodigoInterno = (SELECT A.CodigoInterno FROM tb_produto AS A WHERE A.CodigoProduto = "+ CodigoProduto + ")";
-                sSQL += " And Ativo='Sim' GROUP BY tb_produto.CodigoProduto ,tb_produto.Tamanho ";
+                sSQL += " And Ativo='Sim' GROUP BY tb_produto.CodigoProduto ,tb_produto.Tamanho ORDER BY tb_produto.OrdemTamanho";
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
