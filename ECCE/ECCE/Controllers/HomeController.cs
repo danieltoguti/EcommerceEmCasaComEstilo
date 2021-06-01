@@ -152,8 +152,6 @@ namespace ECCE.Controllers
             return Json(new { result= resp });
         }
 
-
-
         public async Task<IActionResult> Finalizar()
         {            
 
@@ -184,10 +182,7 @@ namespace ECCE.Controllers
                 ViewData["Enderecos"] = GetEnderecos();
                 return View();
             }
-           
         }
-
-        
 
         public IActionResult FinalizarPedido(FinalizarPedidoVM obj) {
 

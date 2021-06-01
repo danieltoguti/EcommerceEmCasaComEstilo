@@ -368,7 +368,7 @@ namespace ECCE.Controllers
                 {
                     ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Registro!</div>";
                 }
-                return View("AtualizarSenha");
+                return View("AtualizarSenhaCliente");
 
         }
 
