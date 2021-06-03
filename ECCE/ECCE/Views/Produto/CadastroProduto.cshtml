@@ -32,31 +32,31 @@
         <div class="col form-row">
             <div class="col-md-2 form-group">
                 <label asp-for="tb_produto.CodigoInterno"></label>
-                <input type="text" class="form-control" asp-for="tb_produto.CodigoInterno">
+                <input type="text" class="form-control" required  asp-for="tb_produto.CodigoInterno">
             </div>
             <div class="col-md-3 form-group">
                 <label asp-for="tb_produto.Nome"></label>
-                <input type="text" class="form-control" asp-for="tb_produto.Nome">
+                <input type="text" class="form-control" required asp-for="tb_produto.Nome">
             </div>
             <div class="col form-group">
                 <label asp-for="tb_produto.Descricao"></label>
-                <input type="text" class="form-control" asp-for="tb_produto.Descricao">
+                <input type="text" class="form-control" required asp-for="tb_produto.Descricao">
             </div>
         </div>
     </div>
     <div class="col form-row">
         <div class="col-md-3 form-group">
             <label asp-for="tb_produto.Valor"></label>
-            <input type="text" class="form-control" asp-for="tb_produto.Valor">
+            <input type="text"  class="form-control" required asp-for="tb_produto.Valor">
         </div>
-        <div class="col-md-2 form-group">
+        @*<div class="col-md-2 form-group">
             <label asp-for="tb_produto.Peso"></label>
             <input type="text" class="form-control" asp-for="tb_produto.Peso">
-        </div>
-        <div class="col-2 form-group">
-            <label asp-for="tb_produto.Quantidade"></label>
-            <input type="text" class="form-control" asp-for="tb_produto.Quantidade">
-        </div>
+        </div>*@
+    <div class="col-2 form-group">
+        <label asp-for="tb_produto.Quantidade"></label>
+        <input type="number" min="0" class="form-control" required asp-for="tb_produto.Quantidade">
+    </div>
         <div class="col-3 form-group">
             <label asp-for="tb_produto.Ativo"></label>
             <select type="text" class="form-control" asp-for="tb_produto.Ativo">
@@ -66,17 +66,12 @@
         </div>
         <div class="col-2 form-group">
             <label asp-for="tb_produto.Tamanho"></label>
-            <input type="text" class="form-control" asp-for="tb_produto.Tamanho">
-        </div>
-        <div class="col-3 form-group">
-            <label asp-for="tb_produto.OrdemTamanho"></label>
-            <select type="text" class="form-control" asp-for="tb_produto.OrdemTamanho">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
+            <select type="text" class="form-control" asp-for="tb_produto.Tamanho">
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="G">G</option>
+                <option value="GG">GG</option>
+                <option value="EG">EG</option>
             </select>
         </div>
         <input type="hidden" asp-for="tb_produto.CodigoProduto">
@@ -156,8 +151,6 @@
     var MtzFoto;
     var MtzGenero;
     //var MtzTamanho;
-
-
 
     $(document).ready(function () {
 

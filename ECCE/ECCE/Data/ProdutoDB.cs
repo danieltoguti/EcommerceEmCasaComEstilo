@@ -37,7 +37,7 @@ namespace ECCE.Data
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
 
 
-                sSQL = "insert into tb_produto (CodigoInterno, Nome, Descricao, valor, dataregistro, peso, quantidade, ativo, tamanho, ordemtamanho)values(@codigointerno, @nome, @descricao, @valor, Now(), @peso, @quantidade, @ativo, @tamanho, @ordemtamanho)";
+                sSQL = "insert into tb_produto (CodigoInterno, Nome, Descricao, valor, dataregistro, peso, quantidade, ativo, tamanho)values(@codigointerno, @nome, @descricao, @valor, Now(), @peso, @quantidade, @ativo, @tamanho)";
                 cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
                 cmd.Parameters.AddWithValue("@nome", obj.tb_produto.Nome);
                 cmd.Parameters.AddWithValue("@descricao", obj.tb_produto.Descricao);
@@ -46,7 +46,6 @@ namespace ECCE.Data
                 cmd.Parameters.AddWithValue("@quantidade", obj.tb_produto.Quantidade);
                 cmd.Parameters.AddWithValue("@ativo", obj.tb_produto.Ativo);
                 cmd.Parameters.AddWithValue("@tamanho", obj.tb_produto.Tamanho);
-                cmd.Parameters.AddWithValue("@ordemtamanho", obj.tb_produto.OrdemTamanho);
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -68,7 +67,6 @@ namespace ECCE.Data
                     else {
                         return false;
                     }
-
                     //Fotos
                     foreach (var item in prodFotos) {
                         cmd.Parameters.Clear();
@@ -99,10 +97,7 @@ namespace ECCE.Data
                         cmd.CommandText = sSQL;
                         cmd.ExecuteNonQuery();
                     }
-
                 }
-
-
                 return true;
             }
             catch (Exception e)
@@ -114,7 +109,6 @@ namespace ECCE.Data
 
         public bool UpdateDados(ProdutoModel obj)
         {
-
             try
             {
                 string sSQL = "";
@@ -136,7 +130,7 @@ namespace ECCE.Data
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
 
                 sSQL = " update tb_produto set CodigoInterno=@codigointerno, Nome=@nome, Descricao=@descricao, valor=@valor, peso=@peso, quantidade=@quantidade, ativo=@ativo," +
-                       " tamanho=@tamanho, ordemtamanho=@ordemtamanho where CodigoProduto=" + obj.tb_produto.CodigoProduto;
+                       " tamanho=@tamanho, where CodigoProduto=" + obj.tb_produto.CodigoProduto;
 
                 cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
                 cmd.Parameters.AddWithValue("@nome", obj.tb_produto.Nome);
@@ -146,7 +140,6 @@ namespace ECCE.Data
                 cmd.Parameters.AddWithValue("@quantidade", obj.tb_produto.Quantidade);
                 cmd.Parameters.AddWithValue("@ativo", obj.tb_produto.Ativo);
                 cmd.Parameters.AddWithValue("@tamanho", obj.tb_produto.Tamanho);
-                cmd.Parameters.AddWithValue("@ordemtamanho", obj.tb_produto.OrdemTamanho);
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 int result = cmd.ExecuteNonQuery();
@@ -191,11 +184,8 @@ namespace ECCE.Data
                         cmd.CommandText = sSQL;
                         cmd.ExecuteNonQuery();
                     }
-
                     return true;
                 }
-
-
                 return false;
             }
             catch (Exception e)
@@ -231,7 +221,6 @@ namespace ECCE.Data
 
                     LT.Add(item);
                 }
-
                 return LT;
             }
             catch (Exception e)
@@ -264,10 +253,8 @@ namespace ECCE.Data
                         Value = Dr["CodigoTamanho"].ToString(),
                         Text = Dr["Descricao"].ToString(),
                     };
-
                     LT.Add(item);
                 }
-
                 return LT;
             }
             catch (Exception e)
@@ -276,10 +263,8 @@ namespace ECCE.Data
                 return null;
             }
         }
-
         public bool ValidarNome(tb_produto obj)
         {
-
             try
             {
                 string sSQL = "";
@@ -302,9 +287,34 @@ namespace ECCE.Data
             }
         }
 
+        public bool ValidarTamanho(ProdutoModel obj)
+        {
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "select * from tb_produto where Codigointerno=@codigointerno AND tamanho=@tamanho";
+
+                cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
+                cmd.Parameters.AddWithValue("@tamanho", obj.tb_produto.Tamanho);
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+                return Dr.HasRows;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return false;
+            }
+        }
+
         public List<tb_produto> GetAllProduto()
         {
-
             try
             {
                 string sSQL = "";
@@ -346,7 +356,6 @@ namespace ECCE.Data
                 return null;
             }
         }
-
         public ProdutoModel GetProduto(int CodigoProduto) {
             try
             {
@@ -380,17 +389,12 @@ namespace ECCE.Data
                         Quantidade = Convert.ToInt32(Dr["Quantidade"]),
                         Ativo = Dr["Ativo"].ToString(),
                         Tamanho = Dr["Tamanho"].ToString(),
-                        OrdemTamanho = Convert.ToInt32(Dr["OrdemTamanho"])
-
-                    };
-                   
+                    };                  
                 }
 
                 ProdM.tb_produto = tbPro;
                 ProdM.JsonLTFoto = JsonConvert.SerializeObject(GetProdutoFoto(CodigoProduto));
                 ProdM.JsonLTGenero = JsonConvert.SerializeObject(GetProdutoGenero(CodigoProduto));
-                //ProdM.JsonLTTamanho = JsonConvert.SerializeObject(GetProdutoTamanho(CodigoProduto));
-
 
                 return ProdM;
             }
@@ -399,12 +403,10 @@ namespace ECCE.Data
                 string msg = e.Message;
                 return null;
             }
-
         }
 
         public List<produtogeneroModel> GetProdutoGenero(int CodigoProduto)
         {
-
             try
             {
                 string sSQL = "";
@@ -432,7 +434,6 @@ namespace ECCE.Data
                     };
                     Lista.Add(item);
                 }
-
                 return Lista;
             }
             catch (Exception e)
@@ -444,7 +445,6 @@ namespace ECCE.Data
 
         public List<produtofotoModel> GetProdutoFoto(int CodigoProduto)
         {
-
             try
             {
                 string sSQL = "";
@@ -528,7 +528,6 @@ namespace ECCE.Data
                 string msg = e.Message;
                 return null;
             }
-
         }
 
         public List<ProdutoVWList> GetProdutoVWListInfantil()
@@ -543,7 +542,6 @@ namespace ECCE.Data
                 sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
                         "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto LEFT JOIN tb_produto_foto " +
                         "AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero =16 GROUP BY p.CodigoInterno";
-
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -579,7 +577,6 @@ namespace ECCE.Data
                 string msg = e.Message;
                 return null;
             }
-
         }
 
         public List<ProdutoVWList> GetProdutoVWListFeminino()
@@ -630,7 +627,6 @@ namespace ECCE.Data
                 string msg = e.Message;
                 return null;
             }
-
         }
 
         public List<ProdutoVWList> GetProdutoVWListMasculino()
@@ -645,7 +641,6 @@ namespace ECCE.Data
                 sSQL = "SELECT p.CodigoProduto, p.CodigoInterno, p.Nome, p.Descricao, p.Valor, p.DataRegistro, p.Peso, p.Ativo, f.Caminho," +
                         "g.CodigoGenero from tb_produto AS p JOIN tb_produto_genero AS g ON g.CodigoProduto = p.CodigoProduto " +
                         "LEFT JOIN tb_produto_foto AS f ON f.CodigoProduto = p.CodigoProduto WHERE g.CodigoGenero=14 GROUP BY p.CodigoInterno";
-
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -681,7 +676,6 @@ namespace ECCE.Data
                 string msg = e.Message;
                 return null;
             }
-
         }
 
         public ProdutoView GetProdutoView(int CodigoProduto)
@@ -699,11 +693,8 @@ namespace ECCE.Data
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 var Dr = cmd.ExecuteReader();
-
                 var ProdM = new ProdutoView();
-
                 tb_produto tbPro = null;
-
                 while (Dr.Read())
                 {
                     tbPro = new tb_produto
@@ -716,15 +707,12 @@ namespace ECCE.Data
                         DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
-
                     };
-
                 }
 
                 ProdM.tb_produto = tbPro;
                 ProdM.produtofotoModel = GetProdutoFoto(CodigoProduto);
                 ProdM.produtogeneroModel =GetProdutoGenero(CodigoProduto);
-
 
                 return ProdM;
             }
@@ -733,9 +721,7 @@ namespace ECCE.Data
                 string msg = e.Message;
                 return null;
             }
-
         }
-
 
         public List<SelectListItem> GetTamanhoProduto(int CodigoProduto)
         {
@@ -746,15 +732,14 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-
                 sSQL = " SELECT tb_produto.CodigoProduto, tb_produto.Tamanho FROM tb_produto";
                 sSQL += " WHERE tb_produto.CodigoInterno = (SELECT A.CodigoInterno FROM tb_produto AS A WHERE A.CodigoProduto = "+ CodigoProduto + ")";
-                sSQL += " And Ativo='Sim' GROUP BY tb_produto.CodigoProduto ,tb_produto.Tamanho ORDER BY tb_produto.OrdemTamanho";
+                sSQL += " And Ativo='Sim' GROUP BY tb_produto.CodigoProduto ,tb_produto.Tamanho ";
+                sSQL += "order by case Tamanho when 'P' then 1 when 'M' then 2 when 'G' then 3 when 'GG' then 4 when 'EG' then 5 ELSE 6 END";
 
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 var Dr = cmd.ExecuteReader();
-
                 List<SelectListItem> LT = new List<SelectListItem>();
 
                 while (Dr.Read())
@@ -767,7 +752,6 @@ namespace ECCE.Data
 
                     LT.Add(item);
                 }
-
                 return LT;
             }
             catch (Exception e)
@@ -776,7 +760,6 @@ namespace ECCE.Data
                 return null;
             }
         }
-
 
         public int GetQtdProduto(int CodigoProduto)
         {
@@ -800,8 +783,7 @@ namespace ECCE.Data
                 }
                 else {
                     return 0;
-                }
-                
+                }               
             }
             catch (Exception e)
             {
@@ -813,7 +795,6 @@ namespace ECCE.Data
 
         public List<ProdutoVWList> GetProdutoVWListProcura(string nome)
         {
-
             try
             {
                 string sSQL = "";
@@ -824,19 +805,15 @@ namespace ECCE.Data
                 sSQL = "select *," +
                     "(select Caminho from tb_produto_foto where tb_produto_foto.CodigoProduto=tb_produto.CodigoProduto limit 1) as Foto" +
                     " from tb_produto where tb_produto.nome=@nome";
+
                 cmd.Parameters.AddWithValue("@nome", nome);
-
-
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
                 var Dr = cmd.ExecuteReader();
-
                 var LT = new List<ProdutoVWList>();
-
                 while (Dr.Read())
                 {
                     var item = new ProdutoVWList();
-
                     item.tb_produto = new tb_produto
                     {
                         CodigoProduto = Convert.ToInt32(Dr["CodigoProduto"]),
@@ -848,12 +825,9 @@ namespace ECCE.Data
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
                     };
-
                     item.Foto = Dr["Foto"].ToString();
-
                     LT.Add(item);
                 }
-
                 return LT;
             }
             catch (Exception e)
@@ -861,10 +835,6 @@ namespace ECCE.Data
                 string msg = e.Message;
                 return null;
             }
-
         }
-
-
-
     }
 }

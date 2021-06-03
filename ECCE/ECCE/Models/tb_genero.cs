@@ -9,6 +9,7 @@ namespace ECCE.Models
     public class tb_genero
     {
         public int CodigoGenero { get; set; }
+        [Display(Name = "Descrição", Prompt = "")]
         public string Descricao { get; set; }
     }
 

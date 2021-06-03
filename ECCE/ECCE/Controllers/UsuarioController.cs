@@ -8,9 +8,10 @@ using ECCE.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using ECCE.Classes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECCE.Controllers
-{
+{ 
     public class UsuarioController : Controller
     {
         private readonly IHttpContextAccessor _hCont;
@@ -19,6 +20,7 @@ namespace ECCE.Controllers
         {
             _hCont = httpContextAccessor;
         }
+        [Authorize(Roles = "A")]
         public IActionResult Index()
         {
             UsuarioDB Usuario = new UsuarioDB();
@@ -29,7 +31,7 @@ namespace ECCE.Controllers
 
             return View(MLista);
         }
-
+        [Authorize(Roles = "A")]
         public IActionResult Colaborador()
         {
             UsuarioDB Usuario = new UsuarioDB();
@@ -40,7 +42,7 @@ namespace ECCE.Controllers
 
             return View(MLista);
         }
-
+        [Authorize(Roles = "A")]
         public IActionResult Cliente()
         {
             UsuarioDB Usuario = new UsuarioDB();
@@ -76,6 +78,7 @@ namespace ECCE.Controllers
 
             return View();
         }
+        [Authorize(Roles = "A")]
         public IActionResult AtualizaCadastroColcaborador()
         {
             ViewData["Valida"] = "";
@@ -95,7 +98,7 @@ namespace ECCE.Controllers
 
             return View();
         }
-
+        [Authorize(Roles = "A")]
         public IActionResult AtualizaSenhaColaborador()
         {
             ViewData["Valida"] = "";
@@ -115,7 +118,7 @@ namespace ECCE.Controllers
 
             return View();
         }
-
+        [Authorize(Roles = "A")]
         public IActionResult EditarSemSenhaColaborador(int CodigoLogin)
         {
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -127,8 +130,8 @@ namespace ECCE.Controllers
 
             ViewData["Valida"] = "";
             return View("AtualizaCadastroColaborador", model);
-        }        
-        
+        }
+        [Authorize(Roles = "A")]
         public IActionResult EditarSemSenhaCliente(int CodigoLogin)
         {
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -141,7 +144,7 @@ namespace ECCE.Controllers
             ViewData["Valida"] = "";
             return View("AtualizaCadastroCliente", model);
         }
-
+        [Authorize(Roles = "A")]
         public IActionResult EditarSenhaColaborador(int CodigoLogin)
         {
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -153,6 +156,7 @@ namespace ECCE.Controllers
             ViewData["Valida"] = "";
             return View("AtualizarSenhaColaborador", model);
         }
+        [Authorize(Roles = "A")]
         public IActionResult EditarSenhaCliente(int CodigoLogin)
         {
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -164,7 +168,7 @@ namespace ECCE.Controllers
             ViewData["Valida"] = "";
             return View("AtualizarSenhaCliente", model);
         }
-
+        [Authorize(Roles = "A")]
         public IActionResult EditarAdmin(int CodigoLogin)
         {
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -173,7 +177,7 @@ namespace ECCE.Controllers
             UsuarioDB Usuario = new UsuarioDB();
             var model = Usuario.GetUsuario(CodigoLogin);
             model.JsonLTEDR = JsonConvert.SerializeObject(model.tb_endereco);
-          
+
             ViewData["Valida"] = "";
             return View("CadastroCliente", model);
         }
@@ -217,7 +221,7 @@ namespace ECCE.Controllers
                 if (Usu.InserirDados(obj))
                 {
                     ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Cadastro efetuado com sucesso! Faça seu login! ";
-                    return  View("CadastroCliente");
+                    return View("CadastroCliente");
 
                 }
                 else
@@ -242,7 +246,7 @@ namespace ECCE.Controllers
 
         }
 
-            public IActionResult SalvarSemSenhaCliente(CadastroLogin obj)
+        public IActionResult SalvarSemSenhaCliente(CadastroLogin obj)
         {
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -296,8 +300,8 @@ namespace ECCE.Controllers
                 return View("AtualizaCadastroCliente");
             }
         }
-
-        public IActionResult SalvarSemSenhaColaborador (CadastroLogin obj)
+        [Authorize(Roles = "A")]
+        public IActionResult SalvarSemSenhaColaborador(CadastroLogin obj)
         {
 
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
@@ -360,15 +364,15 @@ namespace ECCE.Controllers
 
             UsuarioDB Usu = new UsuarioDB();
 
-                if (Usu.UpDateSenha(obj))
-                {
-                    ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Registro atualizado com sucesso!</div>";
-                }
-                else
-                {
-                    ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Registro!</div>";
-                }
-                return View("AtualizarSenhaCliente");
+            if (Usu.UpDateSenha(obj))
+            {
+                ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Registro atualizado com sucesso!</div>";
+            }
+            else
+            {
+                ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Registro!</div>";
+            }
+            return View("AtualizarSenhaCliente");
 
         }
 
@@ -377,16 +381,35 @@ namespace ECCE.Controllers
 
             UsuarioDB Usu = new UsuarioDB();
 
-            if (String.IsNullOrEmpty(obj.Nome))
+            if (obj.CPF_CNPJ.Length < 14 && obj.Telefone.Length < 14 && Usu.ValidarEmail(obj))
             {
-                return "<div class='alert alert-warning text-center' role='alert'>Digite o nome do funcionario!</div>";
+                return "<div class='alert alert-warning text-center' role='alert'>* CPF está incompleto! <br/>* Telefone está incompleto! <br/>* Email já cadastrado!</div>";
             }
-
-            if (obj.CodigoLogin == 0)
+            else if (obj.CPF_CNPJ.Length < 14 && Usu.ValidarEmail(obj))
+            {
+                return "<div class='alert alert-warning text-center' role='alert'>* CPF está incompleto! <br/>* Email já cadastrado!</div>";
+            }
+            else if (obj.CPF_CNPJ.Length < 14 && obj.Telefone.Length < 14)
+            {
+                return "<div class='alert alert-warning text-center' role='alert'>* CPF está incompleto! <br/>* Telefone está incompleto!</div>";
+            }
+            else if (obj.Telefone.Length < 14 && Usu.ValidarEmail(obj))
+            {
+                return "<div class='alert alert-warning text-center' role='alert'>* Telefone está incompleto! <br/>* Email já cadastrado!</div>";
+            }
+            else if(obj.CPF_CNPJ.Length < 14)
+            {
+                return "<div class='alert alert-warning text-center' role='alert'>* CPF está incompleto!</div>";
+            }
+            else if (obj.Telefone.Length < 14)
+            {
+                return "<div class='alert alert-warning text-center' role='alert'>* Telefone está incompleto!</div>";
+            }
+            else if (obj.CodigoLogin == 0)
             {
                 if (Usu.ValidarEmail(obj))
                 {
-                    return "<div class='alert alert-warning text-center' role='alert'>Email já cadastrado com um usuário!</div>";
+                    return "<div class='alert alert-warning text-center' role='alert'>* Email já cadastrado com um usuário!</div>";
                 }
             }
 

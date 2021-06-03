@@ -32,11 +32,8 @@ namespace ECCE.Models
         [Display(Name = "Telefone", Prompt = "")]
         public string Telefone { get; set; }
 
-        [Display(Name = "CPF/CNPJ", Prompt = "")]
+        [Display(Name = "CPF", Prompt = "")]
         public string CPF_CNPJ { get; set; }
-
-        [Display(Name = "CodigoFuncao", Prompt = "")]
-        public string CodigoFuncao { get; set; }
 
         [Display(Name = "Senha", Prompt = "")]
         public string Senha { get; set; }
@@ -44,7 +41,7 @@ namespace ECCE.Models
         [Display(Name = "Tipo", Prompt = "")]
         public string Tipo { get; set; } = "C";
 
-        [Display(Name = "Data Cadastro", Prompt = "")]
+        [Display(Name = "Data de Cadastro", Prompt = "")]
         public string DataCadastro { get; set; }
 
         [Display(Name = "Ativo", Prompt = "")]

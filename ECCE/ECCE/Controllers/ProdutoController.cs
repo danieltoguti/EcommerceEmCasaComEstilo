@@ -1,6 +1,7 @@
 ﻿using ECCE.Classes;
 using ECCE.Data;
 using ECCE.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -19,6 +20,7 @@ namespace ECCE.Controllers
         {
             _hCont = httpContextAccessor;
         }
+        [Authorize(Roles = "A")]
         public IActionResult Index()
         {
             ProdutoDB Produto = new ProdutoDB();
@@ -71,7 +73,7 @@ namespace ECCE.Controllers
             return Request.Cookies[key];
         }
 
-
+        [Authorize(Roles = "A")]
         public IActionResult CadastroProduto()
         {
             ProdutoDB Gen = new ProdutoDB();
@@ -86,7 +88,7 @@ namespace ECCE.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "A")]
         public IActionResult Editar(int CodigoProduto)
         {
             ProdutoDB Gen = new ProdutoDB();
@@ -102,7 +104,7 @@ namespace ECCE.Controllers
 
             return View("CadastroProduto", resp);
         }
-
+        [Authorize(Roles = "A")]
         public IActionResult Salvar(ProdutoModel obj)
         {
             string smgvalida = Validar(obj);
@@ -149,10 +151,15 @@ namespace ECCE.Controllers
                 return "Digite o nome do produto";
             }
 
-            //if (Produto.ValidarNome(obj.tb_produto))
-             //{
-             //    return "Produto já cadastrado(a)!";
-            // }
+            if(obj.tb_produto.Valor <= 0)
+            {
+                return "O Preço é inválido!";
+            }
+
+            if (Produto.ValidarTamanho(obj))
+            {
+                return "Tamanho já existente!";
+            }
 
             return "";
         }

@@ -52,18 +52,6 @@ namespace ECCE.Controllers
             return View(resp);
         }
 
-        public IActionResult Procura(string Nome)
-        {
-
-            ProdutoDB Prod = new ProdutoDB();
-            var resp = Prod.GetProdutoVWListProcura(Nome);
-
-            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-            return View(resp);
-        }
-
         public IActionResult Infantil()
         {
 
@@ -109,7 +97,6 @@ namespace ECCE.Controllers
             return View(resp);
         }
 
-
         public IActionResult Carrinho()
         {
             CarrinhoController car = new CarrinhoController(_hCont);
@@ -123,9 +110,7 @@ namespace ECCE.Controllers
             ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c=>c.Quantidade) : 0;
 
             return View();
-
         }
-
 
         public IActionResult ProdutoDetail(int id)
         {

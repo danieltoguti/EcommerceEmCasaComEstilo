@@ -40,13 +40,13 @@
 
                     @if (ViewData["Tipo"].ToString() == "A")
                     {
-        <div class="form-group col-md-3">
-            <label asp-for="tb_login.Tipo"></label>
-            <select type="text" class="form-control" asp-for="tb_login.Tipo">
-                <option value="A">Admininistrador</option>
-                <option value="C">Cliente</option>
-            </select>
-        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="tb_login.Tipo"></label>
+                            <select type="text" class="form-control" asp-for="tb_login.Tipo">
+                                <option value="A">Admininistrador</option>
+                                <option value="C">Cliente</option>
+                            </select>
+                        </div>
                         <div class="form-group col-md-3">
                             <label asp-for="tb_login.Ativo"></label>
                             <select type="text" class="form-control" asp-for="tb_login.Ativo">
@@ -54,7 +54,7 @@
                                 <option value="Não">Não</option>
                             </select>
                         </div>
-                     }
+                    }
                     <input type="hidden" asp-for="tb_login.CodigoLogin">
                     <input type="hidden" asp-for="JsonLTEDR">
 
@@ -69,7 +69,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="txt_ender_cep">Cep</label>
-                                <input type="text" onkeyup="mascara('#####-###',this,event,false)" MaxLength="10"  class="form-control" id="txt_ender_cep">
+                                <input type="text" onkeyup="mascara('#####-###',this,event,false)" MaxLength="10" class="form-control" id="txt_ender_cep">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="txt_ender_endereco">Logradouro</label>
@@ -107,7 +107,7 @@
                         <button type="submit" class="btn btn-primary btn-block" style="width:10%"> Registrar  </button>
                         @if (ViewData["Tipo"].ToString() == "A")
                         {
-            <br />
+                            <br />
                             <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='../Home/DashBoard'">Dashboard</button>}
                     </div>
                     <p class="text-muted">Ao clicar no botão 'Registrar', você confirma que aceita nossos <strong>Termos de uso</strong> e <strong>Política de Privacidade</strong>.</p>
@@ -116,6 +116,7 @@
                 </article>
             </div>
         </aside>
+        @Html.Raw(ViewData["Valida"])
     </div>
 </form>
 
@@ -237,21 +238,21 @@
         MtzEndereco.splice(x, 1);
         GetTabela();
     }
-    function setsubmit() {
+    function SetSubmit() {
         $('#FormCadastro').submit(function (e) {
-            e.preventdefault();
+            e.preventDefault();
             var form = $(this);
             var url = form.attr('action');
             $.ajax({
-                type: "post",
+                type: "POST",
                 url: url,
                 data: form.serialize(),
                 success: function (data) {
-                    if (data.success) {                        
+                    if (data.success) {
                         alertSucesso(data.msg);
                     } else {
 
-                        if (data.msg.indexof("erro") > -1) {
+                        if (data.msg.indexOf("Erro") > -1) {
                             alertErro(data.msg);
                         }
                         else {
@@ -263,6 +264,5 @@
 
         });
     }
-
 
 </script>
