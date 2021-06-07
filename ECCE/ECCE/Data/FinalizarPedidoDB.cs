@@ -213,7 +213,31 @@ namespace ECCE.Data
             }
         }
 
+        public bool ValidarNome(int cod, int codVenda)
+        {
 
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "select * from tb_venda where codigologin=@codigologin and codigoVenda=@codigoVenda";
+                cmd.Parameters.AddWithValue("@codigologin", cod);
+                cmd.Parameters.AddWithValue("@codigoVenda", codVenda);
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+                return Dr.HasRows;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return false;
+            }
+        }
         public int GetPedidoStatus(int CodigoVenda)
         {
             try
@@ -343,7 +367,7 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "SELECT v.codigovenda, p.CodigoInterno, p.nome, p.Tamanho, i.quantidade, i.valor, v.DataRegistro FROM tb_venda AS v " +
+                sSQL = "SELECT v.codigovenda, v.CodigoLogin, p.CodigoInterno, p.nome, p.Tamanho, i.quantidade, i.valor, v.DataRegistro FROM tb_venda AS v " +
                                    "INNER JOIN tb_venda_itens AS i ON v.CodigoVenda = i.CodigoVenda " +
                                    "INNER JOIN tb_produto AS p ON p.CodigoProduto = i.CodigoProduto " +
                                    "WHERE v.CodigoVenda=@CodigoVenda; ";
@@ -360,6 +384,7 @@ namespace ECCE.Data
                     var item = new ItensVenda
                     {
                         CodigoVenda = Convert.ToInt32(Dr["CodigoVenda"]),
+                        CodigoLogin = Convert.ToInt32(Dr["CodigoLogin"]),
                         CodigoInterno = Dr["CodigoInterno"].ToString(),
                         Nome = Dr["Nome"].ToString(),
                         Tamanho = Dr["Tamanho"].ToString(),

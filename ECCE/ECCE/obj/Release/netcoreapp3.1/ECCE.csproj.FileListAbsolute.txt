@@ -918,3 +918,4 @@ C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Release\n
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Release\netcoreapp3.1\ECCE.dll
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Release\netcoreapp3.1\ECCE.pdb
 C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Release\netcoreapp3.1\ECCE.genruntimeconfig.cache
+C:\Users\danie\Documents\GitHub\EcommerceEmCasaComEstilo\ECCE\ECCE\obj\Release\netcoreapp3.1\Razor\Views\Usuario\_ValidationScriptsPartial.cshtml.g.cs

@@ -21,6 +21,7 @@ namespace ECCE.Models
     {
         public int CodigoVenda { get; set; }
         public string Nome { get; set; }
+        public int CodigoLogin { get; set; }
         public double Valor { get; set; }
         public DateTime Data { get; set; }
         public string Status { get; set; }
@@ -29,6 +30,7 @@ namespace ECCE.Models
     public class ItensVenda
     {
         public int CodigoVenda { get; set; }
+        public int CodigoLogin { get; set; }
         public string CodigoInterno { get; set; }
         public string Nome { get; set; }
         public string Tamanho { get; set; }

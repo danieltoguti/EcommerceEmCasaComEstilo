@@ -314,6 +314,8 @@ namespace ECCE.Data
             }
         }
 
+
+
         public CadastroLogin GetUsuario(int CodigoLogin)
         {
 

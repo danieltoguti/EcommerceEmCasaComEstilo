@@ -23,23 +23,22 @@ namespace ECCE.Controllers
 
         public IActionResult MeusPedidos()
         {
-            FinalizarPedidoDB Pedido = new FinalizarPedidoDB();
-            var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
-            var MLista = Pedido.ListarPedidosCliente(cod);
-
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-
             /*=============*/
-            
             var _Carrinho = new CarrinhoController(_hCont);
             var RespCar = _Carrinho.GetAllDB();
+            var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
             ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
-            
             /*============*/
+            if (ViewData["NomeLogin"] != "")
+            {
+                FinalizarPedidoDB Pedido = new FinalizarPedidoDB();
+                var MLista = Pedido.ListarPedidosCliente(cod);
 
-            return View(MLista);
+                return View(MLista);
+            }
+            return RedirectToAction("index");
         }
 
         public IActionResult MeusDados()
@@ -100,15 +99,15 @@ namespace ECCE.Controllers
                 obj.tb_endereco = JsonConvert.DeserializeObject<List<tb_endereco>>(obj.JsonLTEDR, settings);
             }
 
-                if (Usu.UpDateDadosSemSenhaMenu(obj, cod))
-                {
-                    ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Dados atualizado com sucesso!</div>";
-                }
-                else
-                {
-                    ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar dados!</div>";
-                }
-                return View("AtualizaCadastro");
+            if (Usu.UpDateDadosSemSenhaMenu(obj, cod))
+            {
+                ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Dados atualizado com sucesso!</div>";
+            }
+            else
+            {
+                ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar dados!</div>";
+            }
+            return View("AtualizaCadastro");
         }
 
         public IActionResult SalvarEnd(CadastroLogin obj)

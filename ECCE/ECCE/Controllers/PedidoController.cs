@@ -67,19 +67,39 @@ namespace ECCE.Controllers
         {
             ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
             ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+            try
+            {
+                var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
+                string smgvalida = Validar(cod, CodigoVenda);
+                if (smgvalida != "")
+                {
+                    var _Carrinho = new CarrinhoController(_hCont);
+                    var RespCar = _Carrinho.GetAllDB();
+                    ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                    FinalizarPedidoDB Itens = new FinalizarPedidoDB();
+                    var model = Itens.GetItemVenda(CodigoVenda);
 
-            var _Carrinho = new CarrinhoController(_hCont);
-            var RespCar = _Carrinho.GetAllDB();
-            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
-
-            FinalizarPedidoDB Itens = new FinalizarPedidoDB();
-            var model = Itens.GetItemVenda(CodigoVenda);
-
-            ViewData["Valida"] = "";
-            return View("ItensPedidoCliente", model);
-
+                    ViewData["Valida"] = "";
+                    return View("ItensPedidoCliente", model);
+                }
+                return RedirectToAction("index", "home");
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
         }
 
+
+        public string Validar(int codigo, int codVenda)
+        {
+            FinalizarPedidoDB cod = new FinalizarPedidoDB();
+            if (cod.ValidarNome(codigo, codVenda))
+            {
+                return "<div class='alert alert-warning text-center' role='alert'>Sem permição</div>";
+            }
+            return "";
+        }
 
 
         public IActionResult ItensPedido()
@@ -112,14 +132,14 @@ namespace ECCE.Controllers
         {
             FinalizarPedidoDB Venda = new FinalizarPedidoDB();
 
-                if (Venda.UpDateStatus(obj))
-                {
-                    ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Status atualizado com sucesso!</div>";
-                }
-                else
-                {
-                    ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Status!</div>";
-                }
+            if (Venda.UpDateStatus(obj))
+            {
+                ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Status atualizado com sucesso!</div>";
+            }
+            else
+            {
+                ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar Status!</div>";
+            }
 
             return View("EditarStatus");
         }
