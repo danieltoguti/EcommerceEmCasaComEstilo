@@ -100,6 +100,93 @@ namespace ECCE.Controllers
             }
         }
 
+        public IActionResult Endereco()
+        {
+            try
+            {
+                ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+                var _Carrinho = new CarrinhoController(_hCont);
+                var RespCar = _Carrinho.GetAllDB();
+                ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                if (ViewData["NomeLogin"] != "")
+                {
+                    var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
+
+                    UsuarioDB Usuario = new UsuarioDB();
+                    var model = Usuario.GetEnderecos(cod);
+
+                    ViewData["Valida"] = "";
+                    return View(model);
+                }
+                return View();
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
+
+        public IActionResult EditarEnd(int CodigoEnd)
+        {
+
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
+            UsuarioDB End = new UsuarioDB();
+
+            var resp = End.GetEndereco(CodigoEnd);
+            return View("CadastroEndereco", resp);
+        }
+
+        public IActionResult SalvarEnde(tb_endereco obj)
+        {
+
+            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+            var _Carrinho = new CarrinhoController(_hCont);
+            var RespCar = _Carrinho.GetAllDB();
+            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
+            UsuarioDB Usu = new UsuarioDB();
+
+            if (Usu.UpdateEndereco(obj))
+            {
+                ViewData["Valida"] = "<div class='alert alert-success text-center' role='alert'>Endereço atualizado com sucesso!</div>";
+            }
+            else
+            {
+                ViewData["Valida"] = "<div class='alert alert-danger text-center' role='alert'>Erro ao atualizar endereço!</div>";
+            }
+            return View("CadastroEndereco");
+
+        }
+
+        public IActionResult CadastroEndereco()
+        {
+            try
+            {
+                ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+                var _Carrinho = new CarrinhoController(_hCont);
+                var RespCar = _Carrinho.GetAllDB();
+                ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
+                return View();
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
+
 
         public IActionResult MeusDados()
         {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qFZxJ+VxJFU1KDJgDuId4lfxp/MN/0/6xyN78OGm4YNrzdlgTg/kE40a+w+MxQQ3rcevx4PlmmpIQmtMc/adTw==",
+  "dgSpecHash": "t6If/ny9mE+EV9h0nJ5ROZcT9G+VaidnQ2yNY+YOebPx9GpbmlfN6/DwwIHZyyfwm1NpBL2VLpA5aEME/Cn4vQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\ECCE.csproj",
+  "projectFilePath": "C:\\Users\\danie\\Documents\\GitHub\\ECCEV1.6\\ECCE\\ECCE\\ECCE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\google.protobuf\\3.13.0\\google.protobuf.3.13.0.nupkg.sha512",

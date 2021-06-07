@@ -1,0 +1,132 @@
+﻿@model tb_endereco;
+@{ ViewData["Title"] = "Cadastro de Endereço";
+}
+
+<script type="text/javascript" src="~/js/viacep.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>
+@Html.Raw(ViewData["Valida"])
+<form id="FormCadastro" asp-action="SalvarEnde" asp-controller="Menu">
+    <div class="row">
+        <aside class="col-md-12">
+            <div class="card">
+                <article class="card-body">
+                    <header class="mb-4">
+                        <h4 class="card-title">Cadastro</h4>
+                    </header>
+                    <input type="hidden" asp-for="CodigoLogin">
+                    <input type="hidden" asp-for="CodigoEndereco">
+                    <div>
+                        <h6>Endereço</h6>
+                        <hr />
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label asp-for="Descricao"></label>
+                                <input type="text" class="form-control" required asp-for="Descricao">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="Cep"></label>
+                                <input type="text" asp-for="Cep" onkeyup="mascara('#####-###',this,event,false)" MaxLength="10" class="form-control" id="txt_ender_cep">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Endereco"></label>
+                                <input type="text" class="form-control" required asp-for="Endereco">
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label asp-for="Numero"></label>
+                                <input type="text" class="form-control" required asp-for="Numero">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label asp-for="Bairro"></label>
+                                <input type="text" class="form-control" required asp-for="Bairro">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Cidade"></label>
+                                <input type="text" class="form-control" required asp-for="Cidade">
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label asp-for="UF"></label>
+                                <input type="text" class="form-control" required asp-for="UF">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3 row">
+                              <button type="submit" class="btn btn-primary" style="margin-bottom: 30px;"> Registrar  </button>
+                        <div class="col-md-1"></div>
+                        <div><button type="button" class="btn btn-primary" style="margin-bottom:30px;" onclick="window.location.href='../menu/endereco'">Voltar</button></div>
+                    </div>
+                </article>
+            </div>
+        </aside>
+    </div>
+</form>
+
+<script>
+    function mascara(m, t, e, c) {
+        var cursor = t.selectionStart;
+        var texto = t.value;
+        texto = texto.replace(/\D/g, '');
+        var l = texto.length;
+        var lm = m.length;
+        if (window.event) {
+            id = e.keyCode;
+        } else if (e.which) {
+            id = e.which;
+        }
+        cursorfixo = false;
+        if (cursor < l) cursorfixo = true;
+        var livre = false;
+        if (id == 16 || id == 19 || (id >= 33 && id <= 40)) livre = true;
+        ii = 0;
+        mm = 0;
+        if (!livre) {
+            if (id != 8) {
+                t.value = "";
+                j = 0;
+                for (i = 0; i < lm; i++) {
+                    if (m.substr(i, 1) == "#") {
+                        t.value += texto.substr(j, 1);
+                        j++;
+                    } else if (m.substr(i, 1) != "#") {
+                        t.value += m.substr(i, 1);
+                    }
+                    if (id != 8 && !cursorfixo) cursor++;
+                    if ((j) == l + 1) break;
+
+                }
+            }
+            if (c) coresMask(t);
+        }
+        if (cursorfixo && !livre) cursor--;
+        t.setSelectionRange(cursor, cursor);
+    }
+
+    function SetSubmit() {
+        $('#FormCadastro').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        alertSucesso(data.msg);
+                    } else {
+
+                        if (data.msg.indexOf("Erro") > -1) {
+                            alertErro(data.msg);
+                        }
+                        else {
+                            alertInformacao(data.msg);
+                        }
+                    }
+                }
+            });
+
+        });
+    }
+</script>

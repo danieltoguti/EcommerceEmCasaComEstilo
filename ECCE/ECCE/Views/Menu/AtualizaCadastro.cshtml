@@ -42,10 +42,15 @@
             </div>
             <div class="card">
                 <article class="card-body">
-                    <header class="mb-4">
-                        <h4 class="card-title">Meus Endereços</h4>
-                        <button type="button" class="btn btn-success" style="margin-top:30px;" onclick="window.location.href='AddEndereco'">Novo Endereço</button>
-                    </header>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div><h4>Meus Endereços</h4></div>
+                        <div class="card-title col-md-1"></div>
+                        <div><button type="button" class="btn btn-success" style="margin-bottom:30px;" onclick="window.location.href='AddEndereco'">Novo Endereço</button></div>
+                        <div class="col-md-1"></div>
+                        <div><button type="button" class="btn btn-success" style="margin-bottom:30px;" onclick="window.location.href='../menu/endereco'">Editar Endereços</button></div>
+                    </div>
+                    <div></div>
                     <table id="tb_endereco" class="table bg-light">
                         <tbody>
                         </tbody>

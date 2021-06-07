@@ -104,6 +104,7 @@ namespace ECCE.Controllers
 
             return View("CadastroProduto", resp);
         }
+
         [Authorize(Roles = "A")]
         public IActionResult Salvar(ProdutoModel obj)
         {

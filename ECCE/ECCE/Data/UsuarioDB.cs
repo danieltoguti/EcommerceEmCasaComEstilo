@@ -388,6 +388,127 @@ namespace ECCE.Data
             }
         }
 
+        public List<tb_endereco> GetEnderecos(int CodigoLogin)
+        {
+
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+           
+                sSQL = "select * from tb_endereco where CodigoLogin=@CodigoLogin";
+                cmd.Parameters.AddWithValue("@CodigoLogin", CodigoLogin);
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var DrEndereco = cmd.ExecuteReader();
+
+                var Lista = new List<tb_endereco>();
+
+                while (DrEndereco.Read())
+                {
+                    var item = new tb_endereco
+                    {
+                        CodigoEndereco = Convert.ToInt32(DrEndereco["CodigoEndereco"]),
+                        CodigoLogin = Convert.ToInt32(DrEndereco["CodigoLogin"]),
+                        Descricao = DrEndereco["Descricao"].ToString(),
+                        Cep = DrEndereco["CEP"].ToString(),
+                        Endereco = DrEndereco["Endereco"].ToString(),
+                        Numero = DrEndereco["Numero"].ToString(),
+                        Bairro = DrEndereco["Bairro"].ToString(),
+                        Cidade = DrEndereco["Cidade"].ToString(),
+                        UF = DrEndereco["UF"].ToString(),
+                    };
+                    Lista.Add(item);
+                }
+                return Lista;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+        }
+
+        public tb_endereco GetEndereco(int CodigoEndereco)
+        {
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "select * from tb_endereco where CodigoEndereco=@CodigoEndereco";
+                cmd.Parameters.AddWithValue("@CodigoEndereco", CodigoEndereco);
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+
+
+                tb_endereco end = null;
+
+                while (Dr.Read())
+                {
+
+                    end = new tb_endereco
+                    {
+                        CodigoLogin = Convert.ToInt32(Dr["CodigoLogin"]),
+                        CodigoEndereco = Convert.ToInt32(Dr["CodigoEndereco"]),
+                        Descricao = Dr["Descricao"].ToString(),
+                        Cep = Dr["CEP"].ToString(),
+                        Endereco = Dr["Endereco"].ToString(),
+                        Numero = Dr["Numero"].ToString(),
+                        Bairro = Dr["Bairro"].ToString(),
+                        Cidade = Dr["Cidade"].ToString(),
+                        UF = Dr["UF"].ToString()
+                    };
+                }
+
+
+                return end;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return null;
+            }
+        }
+
+        public bool UpdateEndereco(tb_endereco obj)
+        {
+
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "UPDATE tb_endereco SET descricao=@descricao, Cep=@cep, Endereco=@endereco, Numero=@numero, Bairro=@bairro, Cidade=@cidade, UF=@UF WHERE codigoendereco=@codigoendereco; ";
+                cmd.Parameters.AddWithValue("@descricao", obj.Descricao);
+                cmd.Parameters.AddWithValue("@Cep",obj.Cep);
+                cmd.Parameters.AddWithValue("@Endereco", obj.Endereco);
+                cmd.Parameters.AddWithValue("@Numero", obj.Numero);
+                cmd.Parameters.AddWithValue("@Bairro", obj.Bairro);
+                cmd.Parameters.AddWithValue("@Cidade", obj.Cidade);
+                cmd.Parameters.AddWithValue("@UF", obj.UF);
+                cmd.Parameters.AddWithValue("@codigoendereco", obj.CodigoEndereco);
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return false;
+            }
+        }
+
         public List<tb_login> GetAllFuncionario()
         {
 
