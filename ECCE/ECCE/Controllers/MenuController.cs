@@ -23,23 +23,83 @@ namespace ECCE.Controllers
 
         public IActionResult MeusPedidos()
         {
-            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-            /*=============*/
-            var _Carrinho = new CarrinhoController(_hCont);
-            var RespCar = _Carrinho.GetAllDB();
-            var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
-            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
-            /*============*/
-            if (ViewData["NomeLogin"] != "")
+            try
             {
-                FinalizarPedidoDB Pedido = new FinalizarPedidoDB();
-                var MLista = Pedido.ListarPedidosCliente(cod);
+                ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+                /*=============*/
+                var _Carrinho = new CarrinhoController(_hCont);
+                var RespCar = _Carrinho.GetAllDB();
+                var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
+                ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                /*============*/
+                if (ViewData["NomeLogin"] != "")
+                {
+                    FinalizarPedidoDB Pedido = new FinalizarPedidoDB();
+                    var MLista = Pedido.ListarPedidosCliente(cod);
 
-                return View(MLista);
+                    return View(MLista);
+                }
+                return RedirectToAction("index");
             }
-            return RedirectToAction("index");
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
         }
+        public IActionResult AddEndereco()
+        {
+            try
+            {
+                ViewData["Valida"] = "";
+                    var _Carrinho = new CarrinhoController(_hCont);
+                    var RespCar = _Carrinho.GetAllDB();
+                    ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+
+                    ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                    ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+                if (ViewData["NomeLogin"] != "")
+                {
+                    return View();
+                }
+                return RedirectToAction("index", "home");
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
+
+        public IActionResult EditaSSenha()
+        {
+            try
+            {
+                ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+                var _Carrinho = new CarrinhoController(_hCont);
+                var RespCar = _Carrinho.GetAllDB();
+                ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                if (ViewData["NomeLogin"] != "")
+                {
+                    var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
+
+                    UsuarioDB Usuario = new UsuarioDB();
+                    var model = Usuario.GetUsuario(cod);
+                    model.JsonLTEDR = JsonConvert.SerializeObject(model.tb_endereco);
+
+                    ViewData["Valida"] = "";
+                    return View("AtualizaCadastro", model);
+                }
+                return RedirectToAction("index", "home");
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
+
 
         public IActionResult MeusDados()
         {
@@ -52,25 +112,6 @@ namespace ECCE.Controllers
             ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
             return View();
-        }
-
-        public IActionResult EditaSSenha()
-        {
-            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-            var _Carrinho = new CarrinhoController(_hCont);
-            var RespCar = _Carrinho.GetAllDB();
-            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
-
-            var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
-
-            UsuarioDB Usuario = new UsuarioDB();
-            var model = Usuario.GetUsuario(cod);
-            model.JsonLTEDR = JsonConvert.SerializeObject(model.tb_endereco);
-
-            ViewData["Valida"] = "";
-            return View("AtualizaCadastro", model);
         }
 
         public IActionResult SalvarSemSenha(CadastroLogin obj)
@@ -161,22 +202,5 @@ namespace ECCE.Controllers
 
             return View();
         }
-
-        public IActionResult AddEndereco()
-        {
-            ViewData["Valida"] = "";
-
-            var _Carrinho = new CarrinhoController(_hCont);
-            var RespCar = _Carrinho.GetAllDB();
-            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
-
-            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
-
-            return View();
-        }
-
-
-
     }
 }

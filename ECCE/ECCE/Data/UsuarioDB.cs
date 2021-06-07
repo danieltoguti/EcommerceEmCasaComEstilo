@@ -229,10 +229,10 @@ namespace ECCE.Data
                 }
 
                 //Deletando Registros antes do insert caso for update
-                cmd.Parameters.Clear();
-                sSQL = "delete from tb_endereco where CodigoLogin=" + CodigoLogin;
-                cmd.CommandText = sSQL;
-                cmd.ExecuteNonQuery();
+                //cmd.Parameters.Clear();
+                //sSQL = "delete from tb_endereco where CodigoLogin=" + CodigoLogin;
+                //cmd.CommandText = sSQL;
+                //cmd.ExecuteNonQuery();
 
 
                 foreach (var item in obj.tb_endereco)
