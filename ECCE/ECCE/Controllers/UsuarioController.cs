@@ -246,6 +246,7 @@ namespace ECCE.Controllers
 
         }
 
+        [Authorize(Roles = "A")]
         public IActionResult SalvarSemSenhaCliente(CadastroLogin obj)
         {
 
