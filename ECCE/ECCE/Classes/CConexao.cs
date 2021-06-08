@@ -12,7 +12,7 @@ namespace ECCE.Classes
             string Host = "localhost";
             string Banco = "ecce";
             string Usuario = "root";
-            string Senha = "igor";
+            string Senha = "1234";
             return "Data Source = " + Host + "; Initial Catalog = " + Banco + "; User Id = " + Usuario + "; Password = " + Senha + "; ";
         }
     }
