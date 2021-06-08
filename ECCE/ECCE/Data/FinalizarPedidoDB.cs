@@ -238,6 +238,33 @@ namespace ECCE.Data
                 return false;
             }
         }
+
+        public bool ValidarNomeEnd(int cod, int codEnd)
+        {
+
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "select * from tb_endereco where codigologin=@codigologin and codigoendereco=@codigoendereco";
+                cmd.Parameters.AddWithValue("@codigologin", cod);
+                cmd.Parameters.AddWithValue("@codigoendereco", codEnd);
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                var Dr = cmd.ExecuteReader();
+                return Dr.HasRows;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return false;
+            }
+        }
+
         public int GetPedidoStatus(int CodigoVenda)
         {
             try

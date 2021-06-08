@@ -52,12 +52,12 @@ namespace ECCE.Controllers
             try
             {
                 ViewData["Valida"] = "";
-                    var _Carrinho = new CarrinhoController(_hCont);
-                    var RespCar = _Carrinho.GetAllDB();
-                    ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                var _Carrinho = new CarrinhoController(_hCont);
+                var RespCar = _Carrinho.GetAllDB();
+                ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
 
-                    ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-                    ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+                ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
                 if (ViewData["NomeLogin"] != "")
                 {
@@ -120,7 +120,7 @@ namespace ECCE.Controllers
                     ViewData["Valida"] = "";
                     return View(model);
                 }
-                return View();
+                return RedirectToAction("index", "home");
             }
             catch
             {
@@ -130,18 +130,40 @@ namespace ECCE.Controllers
 
         public IActionResult EditarEnd(int CodigoEnd)
         {
+            try
+            {
+                ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
-            ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
-            ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
 
-            var _Carrinho = new CarrinhoController(_hCont);
-            var RespCar = _Carrinho.GetAllDB();
-            ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                var _Carrinho = new CarrinhoController(_hCont);
+                var RespCar = _Carrinho.GetAllDB();
+                ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
+                string smgvalida = Validar(cod, CodigoEnd);
+                if (smgvalida != "")
+                {
+                    UsuarioDB End = new UsuarioDB();
 
-            UsuarioDB End = new UsuarioDB();
+                    var resp = End.GetEndereco(CodigoEnd);
+                    return View("CadastroEndereco", resp);
+                }
+                return RedirectToAction("index", "home");
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
 
-            var resp = End.GetEndereco(CodigoEnd);
-            return View("CadastroEndereco", resp);
+        public string Validar(int codigo, int codEnd)
+        {
+            FinalizarPedidoDB cod = new FinalizarPedidoDB();
+            if (cod.ValidarNomeEnd(codigo, codEnd))
+            {
+                return "<div class='alert alert-warning text-center' role='alert'>Sem permição</div>";
+            }
+            return "";
         }
 
         public IActionResult SalvarEnde(tb_endereco obj)
@@ -187,6 +209,33 @@ namespace ECCE.Controllers
             }
         }
 
+        public IActionResult DesativarEndereco(int CodigoEnd)
+        {
+            try
+            {
+                ViewData["NomeLogin"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Nome);
+                ViewData["Tipo"] = CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.Tipo);
+
+
+                var _Carrinho = new CarrinhoController(_hCont);
+                var RespCar = _Carrinho.GetAllDB();
+                ViewData["TotalCarrinho"] = (RespCar != null) ? RespCar.Sum(c => c.Quantidade) : 0;
+                var cod = Convert.ToInt32(CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
+                string smgvalida = Validar(cod, CodigoEnd);
+                if (smgvalida != "")
+                {
+                    UsuarioDB End = new UsuarioDB();
+
+                    var resp = End.UpdateEnderecoDesativar(CodigoEnd);
+                    return RedirectToAction("endereco", "menu");
+                }
+                return RedirectToAction("index", "home");
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
 
         public IActionResult MeusDados()
         {

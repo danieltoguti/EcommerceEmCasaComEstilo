@@ -19,7 +19,8 @@
                 <th>Número</th>
                 <th>Bairro</th>
                 <th>UF</th>
-                <th></th>
+                <th>Editar</th>
+                <th>Excluir</th>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +34,7 @@
                     <td>@item.Bairro</td>
                     <td>@item.UF</td>
                     <td><button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/menu/EditarEnd?CodigoEnd=@item.CodigoEndereco'"><i class="fa fa-edit"></i></button></td>
-                    @*<td><button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='/menu/excluir?Codigo=@item.CodigoEndereco'"><i class="fa fa-trash"></i></button></td>*@
+                    <td><button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='/menu/DesativarEndereco?CodigoEnd=@item.CodigoEndereco'"><i class="fa fa-trash"></i></button></td>
 
 
                 </tr>

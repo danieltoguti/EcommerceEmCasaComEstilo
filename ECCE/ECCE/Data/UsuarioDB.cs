@@ -351,7 +351,7 @@ namespace ECCE.Data
                 Dr.Dispose();
 
                 //Carrega Endereços             
-                sSQL = "select * from tb_endereco where CodigoLogin=@CodigoLogin";
+                sSQL = "select * from tb_endereco where CodigoLogin=@CodigoLogin and Ativo=1";
                 cmd.CommandText = sSQL;
                 var DrEndereco = cmd.ExecuteReader();
 
@@ -398,7 +398,7 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
            
-                sSQL = "select * from tb_endereco where CodigoLogin=@CodigoLogin";
+                sSQL = "select * from tb_endereco where CodigoLogin=@CodigoLogin and ativo=1";
                 cmd.Parameters.AddWithValue("@CodigoLogin", CodigoLogin);
                 cmd.CommandText = sSQL;
                 cmd.Connection = cn;
@@ -440,7 +440,7 @@ namespace ECCE.Data
                 MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
                 cn.Open();
 
-                sSQL = "select * from tb_endereco where CodigoEndereco=@CodigoEndereco";
+                sSQL = "select * from tb_endereco where CodigoEndereco=@CodigoEndereco and ativo=1";
                 cmd.Parameters.AddWithValue("@CodigoEndereco", CodigoEndereco);
 
                 cmd.CommandText = sSQL;
@@ -547,6 +547,30 @@ namespace ECCE.Data
             {
                 string msg = e.Message;
                 return null;
+            }
+        }
+
+        public bool UpdateEnderecoDesativar(int CodEnd)
+        {
+            try
+            {
+                string sSQL = "";
+                MySqlCommand cmd = new MySqlCommand();
+                MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
+                cn.Open();
+
+                sSQL = "UPDATE tb_endereco SET ativo=0 WHERE codigoendereco=@codigoendereco; ";
+                cmd.Parameters.AddWithValue("@codigoendereco", CodEnd);
+
+                cmd.CommandText = sSQL;
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message;
+                return false;
             }
         }
 

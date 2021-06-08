@@ -208,7 +208,7 @@ namespace ECCE.Controllers
             MySqlConnection cn = new MySqlConnection(CConexao.Get_StringConexao());
             cn.Open();
 
-            sSQL = "SELECT * FROM tb_endereco where CodigoLogin=@CodigoLogin";
+            sSQL = "SELECT * FROM tb_endereco where CodigoLogin=@CodigoLogin and ativo=1";
             cmd.Parameters.AddWithValue("@CodigoLogin", CMetodos_Autenticacao.GET_DadosUser(_hCont, CMetodos_Autenticacao.eDadosUser.CodigoLogin));
             cmd.CommandText = sSQL;
             cmd.Connection = cn;
