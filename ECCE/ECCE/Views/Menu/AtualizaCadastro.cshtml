@@ -42,13 +42,13 @@
             </div>
             <div class="card">
                 <article class="card-body">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div><h4>Meus Endereços</h4></div>
-                        <div class="card-title col-md-1"></div>
-                        <div><button type="button" class="btn btn-success" style="margin-bottom:30px;" onclick="window.location.href='AddEndereco'">Novo Endereço</button></div>
-                        <div class="col-md-1"></div>
-                        <div><button type="button" class="btn btn-success" style="margin-bottom:30px;" onclick="window.location.href='../menu/endereco'">Editar Endereços</button></div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <h4>Meus Endereços</h4>
+                       
+                        <div>
+                         <button type="button" class="btn btn-success" onclick="window.location.href='AddEndereco'">Adicionar Endereço</button>
+                         <button type="button" class="btn btn-success" onclick="window.location.href='../menu/endereco'">Editar Endereço</button>
+                        </div>
                     </div>
                     <div></div>
                     <table id="tb_endereco" class="table bg-light">

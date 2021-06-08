@@ -7863,11 +7863,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danie\\Documents\\GitHub\\ECCEV1.6\\ECCE\\ECCE\\ECCE.csproj",
+      "projectUniqueName": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\ECCE.csproj",
       "projectName": "ECCE",
-      "projectPath": "C:\\Users\\danie\\Documents\\GitHub\\ECCEV1.6\\ECCE\\ECCE\\ECCE.csproj",
+      "projectPath": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\ECCE.csproj",
       "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danie\\Documents\\GitHub\\ECCEV1.6\\ECCE\\ECCE\\obj\\",
+      "outputPath": "C:\\Users\\danie\\Documents\\GitHub\\EcommerceEmCasaComEstilo\\ECCE\\ECCE\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
