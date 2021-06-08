@@ -130,7 +130,7 @@ namespace ECCE.Data
                 var proGeneros = JsonConvert.DeserializeObject<List<tb_produto_genero>>(obj.JsonLTGenero, settings);
 
                 sSQL = " update tb_produto set CodigoInterno=@codigointerno, Nome=@nome, Descricao=@descricao, valor=@valor, peso=@peso, quantidade=@quantidade, ativo=@ativo," +
-                       " tamanho=@tamanho, where CodigoProduto=" + obj.tb_produto.CodigoProduto;
+                       " tamanho=@tamanho where CodigoProduto=" + obj.tb_produto.CodigoProduto;
 
                 cmd.Parameters.AddWithValue("@codigointerno", obj.tb_produto.CodigoInterno);
                 cmd.Parameters.AddWithValue("@nome", obj.tb_produto.Nome);

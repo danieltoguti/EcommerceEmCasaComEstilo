@@ -45,7 +45,7 @@ namespace ECCE.Controllers
 
             return View(resp);
         }
-        
+
         public string GetAll()
         {
             string Carrinho = "<table>";
@@ -118,7 +118,11 @@ namespace ECCE.Controllers
 
             if (obj.tb_produto.CodigoProduto == 0)
             {
-                if (Prod.InserirDados(obj))
+                if (Prod.ValidarTamanho(obj))
+                {
+                    return Json(new { success = false, msg = "Erro ao Cadastrar!" });
+                }
+                else if (Prod.InserirDados(obj))
                 {
                     return Json(new { success = true, msg = "Produto Cadastrado com Sucesso!" });
                 }
@@ -132,6 +136,18 @@ namespace ECCE.Controllers
                 if (Prod.UpdateDados(obj))
                 {
                     return Json(new { success = true, msg = "Produto Atualizado com Sucesso!" });
+                }
+                else if (Prod.ValidarTamanho(obj))
+                {
+
+                    if (Prod.UpdateDados(obj))
+                    {
+                        return Json(new { success = true, msg = "Produto Atualizado com Sucesso!" });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, msg = "Erro ao Cadastrar!" });
+                    }
                 }
                 else
                 {
@@ -152,14 +168,9 @@ namespace ECCE.Controllers
                 return "Digite o nome do produto";
             }
 
-            if(obj.tb_produto.Valor <= 0)
+            if (obj.tb_produto.Valor <= 0)
             {
                 return "O Preço é inválido!";
-            }
-
-            if (Produto.ValidarTamanho(obj))
-            {
-                return "Tamanho já existente!";
             }
 
             return "";
