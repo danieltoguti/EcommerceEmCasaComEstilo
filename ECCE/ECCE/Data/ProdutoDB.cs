@@ -339,7 +339,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Quantidade = Convert.ToInt32(Dr["Quantidade"]),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
@@ -384,7 +384,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Quantidade = Convert.ToInt32(Dr["Quantidade"]),
                         Ativo = Dr["Ativo"].ToString(),
@@ -511,7 +511,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
                     };
@@ -560,7 +560,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
                     };
@@ -610,7 +610,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
                     };
@@ -659,7 +659,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
                     };
@@ -704,7 +704,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
                     };
@@ -821,7 +821,7 @@ namespace ECCE.Data
                         Nome = Dr["Nome"].ToString(),
                         Descricao = Dr["Descricao"].ToString(),
                         Valor = Convert.ToDecimal(Dr["Valor"]),
-                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]),
+                        DataRegistro = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Peso = Convert.ToDouble(Dr["Peso"]),
                         Ativo = Dr["Ativo"].ToString(),
                     };

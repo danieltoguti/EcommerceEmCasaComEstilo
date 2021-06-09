@@ -328,7 +328,7 @@ namespace ECCE.Data
                         CodigoVenda = Convert.ToInt32(Dr["CodigoVenda"]),
                         Nome = Dr["Nome"].ToString(),
                         Valor = Convert.ToDouble(Dr["ValorFinal"]),
-                        Data = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Data = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Status = Dr["Status"].ToString()
                     };
                     Lista.Add(item);
@@ -368,7 +368,7 @@ namespace ECCE.Data
                     {
                         CodigoVenda = Convert.ToInt32(Dr["CodigoVenda"]),
                         Valor = Convert.ToDouble(Dr["ValorFinal"]),
-                        Data = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Data = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                         Status = Dr["Status"].ToString(),
                     };
                     Lista.Add(item);
@@ -417,7 +417,7 @@ namespace ECCE.Data
                         Tamanho = Dr["Tamanho"].ToString(),
                         Quantidade = Convert.ToInt32(Dr["Quantidade"]),
                         Valor = Convert.ToDouble(Dr["Valor"]),
-                        Data = Convert.ToDateTime(Dr["DataRegistro"]),
+                        Data = Convert.ToDateTime(Dr["DataRegistro"]).AddHours(-3),
                     };
                     Lista.Add(item);
                 }
